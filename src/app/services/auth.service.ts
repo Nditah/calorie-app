@@ -2,11 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { EnvService } from './env.service';
 import { Router } from '@angular/router';
-import { User } from '../models/user';
 import { ToastController } from '@ionic/angular';
-import { ApiResponse, LoginResponse } from '../models';
+import { EnvService } from './env.service';
+import { LoginResponse, User } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -95,19 +94,20 @@ export class AuthService {
     return this.storage.getItem('user').then(data => data).catch(e => null);
   }
 
-  getToken() {
-    return this.storage.getItem('token').then(data => {
-        this.token = data;
+  async getToken() {
+    try {
+      const token = await this.storage.getItem('token');
+      this.token = token;
         if (this.token != null) {
           this.isLoggedIn = true;
         } else {
           this.isLoggedIn = false;
         }
-      },
-      error => {
-        this.token = null;
-        this.isLoggedIn = false;
-      }
-    );
+        return token;
+    } catch (e) {
+      this.token = null;
+      this.isLoggedIn = false;
+      return null;
+    }
   }
 }

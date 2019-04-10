@@ -20,6 +20,9 @@ const routes: Routes = [
   { path: 'log', loadChildren: './pages/log/log.module#LogPageModule', canActivate: [AuthGuard] },
   { path: 'setting', loadChildren: './pages/setting/setting.module#SettingPageModule', canActivate: [AuthGuard] },
   { path: 'user', loadChildren: './pages/user/user.module#UserPageModule', canActivate: [AuthGuard] },
+  { path: 'food-detail/:id', loadChildren: './pages/food-detail/food-detail.module#FoodDetailPageModule' },
+  { path: 'food-edit', loadChildren: './pages/food-edit/food-edit.module#FoodEditPageModule' },
+  { path: 'food-add', loadChildren: './pages/food-add/food-add.module#FoodAddPageModule' },
 ];
 
 @NgModule({

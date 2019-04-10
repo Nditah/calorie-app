@@ -7,8 +7,19 @@
     </ion-toolbar>
   </ion-header>
 
-<ion-content padding>
-    <div class="row">
-
-    </div>
-</ion-content>
+  <ion-content padding>
+    <ion-list>
+      <ion-item *ngFor="let food of foods" routerLink="/detail/{{food.id}}">
+        <ion-icon name="desktop" slot="start"></ion-icon>
+        {{ food.name }}
+        <div class="item-note" slot="end">
+          {{food.created_at | date}}
+        </div>
+      </ion-item>
+    </ion-list>
+    <!--
+      <div *ngIf="selectedItem" padding>
+        You navigated here from <b>{{selectedItem.title }}</b>
+      </div>
+    -->
+  </ion-content>

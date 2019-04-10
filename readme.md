@@ -25,11 +25,23 @@ ionic generate page pages/auth/register
 
 ionic generate page pages/dashboard
 
+
+ionic generate page pages/food
+
+ionic generate page pages/food-detail
+
+ionic generate page pages/food-edit
+
+ionic generate page pages/food-add
+
+
 ionic generate service services/auth
 
 ionic generate service services/alert
 
 ionic generate service services/env
+
+ionic generate service services/api
 
 ionic generate guard guard/auth
 
