@@ -69,9 +69,119 @@ export class ApiService {
   }
 
   deleteFood(id: string): Observable<{}> {
-    const url = `${this.env.API_URL}/${id}`;
+    const url = `${this.env.API_URL}/foods${id}`;
     return this.http.delete(url, httpOptions).pipe(
         catchError(this.handleError)
       );
+  }
+
+
+  // /////////////////////////////////
+  // ----------FEEDBACK-----------------//
+  // /////////////////////////////////
+
+  getFeedback(path): Observable<any> {
+    const url = `${this.env.API_URL}/feedbacks${path}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  postFeedback(data): Observable<any> {
+    const url = `${this.env.API_URL}/feedbacks`;
+    return this.http.post(url, data, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  updateFeedback(id: string, data): Observable<any> {
+    const url = `${this.env.API_URL}/feedbacks/${id}`;
+    return this.http.put(url, data, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  deleteFeedback(id: string): Observable<{}> {
+    const url = `${this.env.API_URL}/feedbacks/${id}`;
+    return this.http.delete(url, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
+  // /////////////////////////////////
+  // ----------EXERCISE-------------//
+  // /////////////////////////////////
+
+  getExercise(path): Observable<any> {
+    const url = `${this.env.API_URL}/exercises${path}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  postExercise(data): Observable<any> {
+    const url = `${this.env.API_URL}/exercises`;
+    return this.http.post(url, data, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  updateExercise(id: string, data): Observable<any> {
+    const url = `${this.env.API_URL}/exercises/${id}`;
+    return this.http.put(url, data, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  deleteExercise(id: string): Observable<{}> {
+    const url = `${this.env.API_URL}/exercises/${id}`;
+    return this.http.delete(url, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
+  // /////////////////////////////////
+  // ----------LOG-------------//
+  // /////////////////////////////////
+
+  getLog(path): Observable<any> {
+    const url = `${this.env.API_URL}/logs${path}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  postLog(data): Observable<any> {
+    const url = `${this.env.API_URL}/logs`;
+    return this.http.post(url, data, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  updateLog(id: string, data): Observable<any> {
+    const url = `${this.env.API_URL}/logs/${id}`;
+    return this.http.put(url, data, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  deleteLog(id: string): Observable<{}> {
+    const url = `${this.env.API_URL}/logs/${id}`;
+    return this.http.delete(url, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // /////////////////////////////////
+  // ----------SETTING-------------//
+  // /////////////////////////////////
+
+  getSetting(path): Observable<any> {
+    const url = `${this.env.API_URL}/settings${path}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
 }

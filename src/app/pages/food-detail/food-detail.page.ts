@@ -22,9 +22,7 @@ export class FoodDetailPage implements OnInit {
   }
 
   async getFood() {
-    const loading = await this.loadingCtrl.create({
-      content: 'Loading...',
-    });
+    const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
     await this.api.getFood( '?id=' + this.route.snapshot.paramMap.get('id'))
       .subscribe(res => {
@@ -37,9 +35,7 @@ export class FoodDetailPage implements OnInit {
       });
   }
   async delete(id) {
-    const loading = await this.loadingCtrl.create({
-      content: 'Deleting'
-    });
+    const loading = await this.loadingCtrl.create({message: 'Deleting'});
     await loading.present();
     await this.api.deleteFood(id)
       .subscribe(res => {

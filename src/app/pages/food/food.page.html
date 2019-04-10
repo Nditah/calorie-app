@@ -3,17 +3,17 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Food</ion-title>
+      <ion-title>{{ page }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content padding>
     <ion-list>
-      <ion-item *ngFor="let food of foods" routerLink="/detail/{{food.id}}">
+      <ion-item *ngFor="let record of records" routerLink="/food-detail/{{record.id}}">
         <ion-icon name="desktop" slot="start"></ion-icon>
-        {{ food.name }}
+        {{ record.name }}
         <div class="item-note" slot="end">
-          {{food.created_at | date}}
+          {{record.created_at | date}}
         </div>
       </ion-item>
     </ion-list>

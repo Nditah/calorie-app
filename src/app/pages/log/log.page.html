@@ -1,14 +1,25 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Log</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ page }}</ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content padding>
-    <div class="row">
-
+  <ion-list>
+    <ion-item *ngFor="let record of records" routerLink="/log-detail/{{record.id}}">
+      <ion-icon name="desktop" slot="start"></ion-icon>
+      {{ record.name }}
+      <div class="item-note" slot="end">
+        {{record.created_at | date}}
+      </div>
+    </ion-item>
+  </ion-list>
+  <!--
+    <div *ngIf="selectedItem" padding>
+      You navigated here from <b>{{selectedItem.title }}</b>
     </div>
+  -->
 </ion-content>

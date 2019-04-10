@@ -1,5 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Router } from '@angular/router';
@@ -21,7 +21,6 @@ export class AuthService {
     private storage: NativeStorage,
     private env: EnvService,
     private router: Router,
-    private toastController: ToastController
   ) { }
 
   cleanObject(obj) {
@@ -65,24 +64,16 @@ export class AuthService {
   }
 
   logout() {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + this.token,
-    });
-    return this.http.get(this.env.API_URL + 'auth/logout', { headers: headers })
-    .pipe( tap(data => {
-        this.storage.remove('token');
-        this.isLoggedIn = false;
-        delete this.token;
-        return data;
-      })
-    );
+    this.storage.remove('token');
+    this.isLoggedIn = false;
+    delete this.token;
+    return null;
   }
 
   user() {
     const headers = new HttpHeaders({
-      'Authorization': this.token['token_type'] + ' ' + this.token['access_token']
+      'Authorization': 'Bearer ' + this.token
     });
-
     return this.http.get<User>(this.env.API_URL + 'auth/user', { headers: headers })
     .pipe(tap(user => {
         return user;

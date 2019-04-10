@@ -45,7 +45,11 @@ ionic generate service services/api
 
 ionic generate guard guard/auth
 
+ionic g service services/interceptor
+
+
 ionic cordova plugin add cordova-plugin-nativestorage
+
 npm install @ionic-native/native-storage
 
 ### Installing
