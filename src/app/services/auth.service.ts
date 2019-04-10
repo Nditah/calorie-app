@@ -6,6 +6,7 @@ import { EnvService } from './env.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { ToastController } from '@ionic/angular';
+import { ApiResponse, LoginResponse } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import { ToastController } from '@ionic/angular';
 export class AuthService {
   isLoggedIn = false;
   token: any;
+  depth = 0;
 
   constructor(
     private http: HttpClient,
@@ -23,45 +25,58 @@ export class AuthService {
     private toastController: ToastController
   ) { }
 
-  login(email: String, password: String) {
-    return this.http.post(this.env.API_URL + 'auth/login',
-      {email: email, password: password}
-    ).pipe(
-      tap(token => {
-        this.storage.setItem('token', token)
-        .then(
-          () => {
+  cleanObject(obj) {
+    this.depth += 1;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const propName in obj) {
+        if (!obj[ propName ] || obj[ propName ].length === 0) {
+            delete obj[ propName ];
+        } else if (typeof obj === 'object') {
+            if (this.depth <= 3) {
+              this.cleanObject(obj[ propName ]);
+            }
+        }
+    }
+    return obj;
+  }
+
+  login(payload) {
+    return this.http.post(this.env.API_URL + '/users/login', this.cleanObject(payload))
+    .pipe(tap((data: LoginResponse) => {
+        const { user, token } = data.payload;
+        this.storage.setItem('user', user).then(() => {
+          console.log('User Stored');
+        },
+        error => console.error('Error storing item user', error)
+      );
+        this.storage.setItem('token', token).then(() => {
             console.log('Token Stored');
           },
-          error => console.error('Error storing item', error)
+          error => console.error('Error storing item token', error)
         );
         this.token = token;
         this.isLoggedIn = true;
-        return token;
+        return data;
       }),
     );
   }
 
-  register(fName: String, lName: String, email: String, password: String) {
-    return this.http.post(this.env.API_URL + 'auth/register',
-      {fName: fName, lName: lName, email: email, password: password}
-    )
+  register(payload: any) {
+    return this.http.post(this.env.API_URL + '/users', this.cleanObject(payload));
   }
 
   logout() {
     const headers = new HttpHeaders({
-      'Authorization': this.token['token_type'] + ' ' + this.token['access_token']
+      'Authorization': 'Bearer ' + this.token,
     });
-
     return this.http.get(this.env.API_URL + 'auth/logout', { headers: headers })
-    .pipe(
-      tap(data => {
+    .pipe( tap(data => {
         this.storage.remove('token');
         this.isLoggedIn = false;
         delete this.token;
         return data;
       })
-    )
+    );
   }
 
   user() {
@@ -70,18 +85,19 @@ export class AuthService {
     });
 
     return this.http.get<User>(this.env.API_URL + 'auth/user', { headers: headers })
-    .pipe(
-      tap(user => {
+    .pipe(tap(user => {
         return user;
       })
-    )
+    );
+  }
+
+  getUser() {
+    return this.storage.getItem('user').then(data => data).catch(e => null);
   }
 
   getToken() {
-    return this.storage.getItem('token').then(
-      data => {
+    return this.storage.getItem('token').then(data => {
         this.token = data;
-
         if (this.token != null) {
           this.isLoggedIn = true;
         } else {

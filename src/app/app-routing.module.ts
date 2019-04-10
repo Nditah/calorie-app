@@ -8,13 +8,18 @@ const routes: Routes = [
     redirectTo: 'landing',
     pathMatch: 'full'
   },
-  { path: 'landing', loadChildren: './pages/landing/landing.module#LandingPageModule' },  
+  { path: 'landing', loadChildren: './pages/landing/landing.module#LandingPageModule' },
   { path: 'login', loadChildren: './pages/auth/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/auth/register/register.module#RegisterPageModule' },
-  
+
   { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule', canActivate: [AuthGuard] },
   { path: 'home', loadChildren: './home/home.module#HomePageModule', canActivate: [AuthGuard] },
-  { path: 'list', loadChildren: './list/list.module#ListPageModule', canActivate: [AuthGuard] },
+  { path: 'exercise', loadChildren: './pages/exercise/exercise.module#ExercisePageModule', canActivate: [AuthGuard] },
+  { path: 'feedback', loadChildren: './pages/feedback/feedback.module#FeedbackPageModule', canActivate: [AuthGuard] },
+  { path: 'food', loadChildren: './pages/food/food.module#FoodPageModule', canActivate: [AuthGuard] },
+  { path: 'log', loadChildren: './pages/log/log.module#LogPageModule', canActivate: [AuthGuard] },
+  { path: 'setting', loadChildren: './pages/setting/setting.module#SettingPageModule', canActivate: [AuthGuard] },
+  { path: 'user', loadChildren: './pages/user/user.module#UserPageModule', canActivate: [AuthGuard] },
 ];
 
 @NgModule({

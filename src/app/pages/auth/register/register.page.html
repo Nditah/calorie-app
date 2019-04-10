@@ -5,45 +5,43 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content padding color="primary">
   <form #form="ngForm" (ngSubmit)="register(form)" method="post">
+      <ion-grid>
+          <ion-row color="primary" justify-content-center>
+            <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+              <div text-center>
+                <h3>Create your account!</h3>
+              </div>
+              <div padding>
     <ion-item>
-        <ion-label position="floating">First Name</ion-label>
-        <ion-input ngModel name="fName"></ion-input>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input ngModel type="text" name="username" autocapitalize="on" maxlength="20" required=true></ion-input>
     </ion-item>
-  
+
     <ion-item>
-      <ion-label position="floating">Last Name</ion-label>
-      <ion-input ngModel name="lName"></ion-input>
+      <ion-label position="floating">Phone</ion-label>
+      <ion-input ngModel type="tel" name="phone" maxlength="15" required=true></ion-input>
     </ion-item>
   
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" ngModel name="email"></ion-input>
+      <ion-input ngModel type="email" name="email" maxlength="100"></ion-input>
     </ion-item>
   
     <ion-item>
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" ngModel name="password"></ion-input>
+      <ion-input ngModel type="password" name="password" maxlength="20" required=true></ion-input>
     </ion-item>
   
-    <ion-button type="submit" expand="full" color="danger">Register</ion-button>
+  </div>
+  <div padding>
+    <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+  </div>
+</ion-col>
+</ion-row>
+</ion-grid>
   </form>
-
-  <!-- <p text-center>OR</p>
-
-  <ion-button expand="full">
-    <ion-icon name="logo-google"></ion-icon>
-  </ion-button>
-
-  <ion-button expand="full">
-    <ion-icon name="logo-facebook"></ion-icon>
-  </ion-button>
-
-  <ion-button expand="full">
-    <ion-icon name="logo-twitter"></ion-icon>
-  </ion-button> -->
 
   <p text-center>Already have a account?</p>
   <ion-button expand="full" color="primary" (click)="loginModal()">Login</ion-button>

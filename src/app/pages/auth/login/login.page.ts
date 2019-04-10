@@ -4,6 +4,7 @@ import { RegisterPage } from '../register/register.page';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { ApiResponse, LoginResponse } from 'src/app/models';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { AlertService } from 'src/app/services/alert.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  
+
   constructor(
     private modalController: ModalController,
     private authService: AuthService,
@@ -36,13 +37,31 @@ export class LoginPage implements OnInit {
     return await registerModal.present();
   }
 
+  validateEmail(email) {
+      const re = /^[a-z][a-zA-Z0-9_.]*(\.[a-zA-Z][a-zA-Z0-9_.]*)?@[a-z][a-zA-Z-0-9]*\.[a-z]+(\.[a-z]+)?$/;
+      return re.test(email);
+  }
+
+
   login(form: NgForm) {
-    this.authService.login(form.value.email, form.value.password).subscribe(
-      data => {
-        this.alertService.presentToast("Logged In");
+    const { username, password } = form.value;
+    const payload = { email: '', password, phone: '' };
+    if (this.validateEmail(username)) {
+      payload.email = username;
+    } else {
+      payload.phone = username;
+    }
+    this.authService.login(payload)
+    .subscribe((data: LoginResponse) => {
+      if (data.success) {
+        this.alertService.presentToast('Logged In');
+      } else {
+        this.alertService.presentToast(`Failed to login ${data.message}`);
+      }
       },
       error => {
-        console.log(error);
+        this.alertService.presentToast('Network failure or server unavailable');
+        console.log(error.message);
       },
       () => {
         this.dismissLogin();

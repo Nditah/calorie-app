@@ -8,7 +8,25 @@
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="user != undefined">
-      Welcome {{ user["first_name"]  }} {{ user["last_name"]  }}
-  </div>
-</ion-content>
+    <div class="row">
+      <div class="col-md-6">
+        <div style="display: block;">
+        <canvas baseChart width="300" height="400"
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div *ngIf="user != undefined">
+            Welcome {{ user["username"]  }} {{ user["gender"]  }}
+        </div>
+    </div>
+  </ion-content>

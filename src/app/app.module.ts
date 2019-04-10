@@ -8,8 +8,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    ChartsModule,
   ],
   providers: [
     StatusBar,

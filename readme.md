@@ -13,6 +13,29 @@ In this Project I’m using side menu template of Ionic 4. If you already have a
 
 [Node](https://nodejs.org/)
 
+Generate pages, services:
+
+ionic start appName sidemenu --type=angular
+
+ionic generate page pages/landing
+
+ionic generate page pages/auth/login
+
+ionic generate page pages/auth/register
+
+ionic generate page pages/dashboard
+
+ionic generate service services/auth
+
+ionic generate service services/alert
+
+ionic generate service services/env
+
+ionic generate guard guard/auth
+
+ionic cordova plugin add cordova-plugin-nativestorage
+npm install @ionic-native/native-storage
+
 ### Installing
 
 If you want to install the project local, you can using following command.
@@ -33,14 +56,21 @@ Install Node Modules
 npm install
 ```
 
-## Configure
+##  Run
 
-If you are going to be using a backend to store user details. Then go to src/app/services/env.service.ts file and give value to API_URL.
-
-For example:
 
 ```
-API_URL = 'https://calorie-api.herokuapp.com/api/';
+ionic serve -l
+
+ionic cordova platform add browser
+
+ionic cordova run browser
+```
+
+run after attaching device
+
+```
+ionic cordova run android 
 ```
 ## Deployment
 
@@ -51,6 +81,9 @@ API_URL = 'https://calorie-api.herokuapp.com/api/';
 ## Built With
 
 [Ionic Framework](https://ionicframework.com/)
+
+[Charts] (https://www.djamware.com/post/598953f880aca768e4d2b12b/creating-beautiful-charts-easily-using-ionic-3-and-angular-4)
+
 
 ## Follow me on LinkedIn
 

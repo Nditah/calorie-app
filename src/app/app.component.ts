@@ -11,22 +11,16 @@ import { AlertService } from './services/alert.service';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+
   public appPages = [
-    {
-      title: 'Dashboard',
-      url: '/dashboard',
-      icon: 'home'
-    },
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },
+    { title: 'Dashboard', url: '/dashboard', icon: 'pulse' },
+    { title: 'Home', url: '/home', icon: 'home' },
+    { title: 'Log', url: '/log', icon: 'list' },
+    { title: 'Food', url: '/food', icon: 'ice-cream' },
+    { title: 'Exercise', url: '/exercise', icon: 'bicycle' },
+    { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
+    { title: 'Profile', url: '/user', icon: 'person' },
+    { title: 'Setting', url: '/setting', icon: 'person' },
   ];
 
   constructor(
@@ -51,7 +45,7 @@ export class AppComponent {
   logout() {
     this.authService.logout().subscribe(
       data => {
-        this.alertService.presentToast(data['message']);        
+        this.alertService.presentToast(data['message']);
       },
       error => {
         console.log(error);
