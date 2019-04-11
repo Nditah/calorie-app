@@ -5,13 +5,13 @@ import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
 
 @Component({
-  selector: 'app-food-detail',
-  templateUrl: './food-detail.page.html',
-  styleUrls: ['./food-detail.page.scss'],
+  selector: 'app-feedback-detail',
+  templateUrl: './feedback-detail.page.html',
+  styleUrls: ['./feedback-detail.page.scss'],
 })
-export class FoodDetailPage implements OnInit {
+export class FeedbackDetailPage implements OnInit {
 
-  food: any = {};
+  record: any = {};
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -20,16 +20,16 @@ export class FoodDetailPage implements OnInit {
     public router: Router){ }
 
   ngOnInit() {
-    this.getFood();
+    this.getFeedback();
   }
 
-  async getFood() {
+  async getFeedback() {
     const id = this.route.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.api.getFood(`?id=${id}`).subscribe((res: ApiResponse) => {
+    await this.api.getFeedback(`?id=${id}`).subscribe((res: ApiResponse) => {
         if (res.success) {
-          this.food = res.payload[0];
+          this.record = res.payload[0];
         }
         loading.dismiss();
         this.alertService.presentToast(res.message);
@@ -42,7 +42,7 @@ export class FoodDetailPage implements OnInit {
   async delete(id) {
     const loading = await this.loadingCtrl.create({message: 'Deleting'});
     await loading.present();
-    await this.api.deleteFood(id).subscribe((res: ApiResponse) => {
+    await this.api.deleteFeedback(id).subscribe((res: ApiResponse) => {
       if (res.success) {
         this.alertService.presentToast('Operation successful');
       }

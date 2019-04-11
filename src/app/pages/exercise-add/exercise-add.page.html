@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ page }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <form [formGroup]="addForm">
+      <ion-item>
+        <ion-label position="floating">Exercise Name</ion-label>
+        <ion-input type="text" formControlName="name" id="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Category</ion-label>
+        <ion-input type="text" formControlName="category" id="category"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input type="text" formControlName="description" id="description"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Calorie</ion-label>
+        <ion-input type="number" formControlName="calorie" id="calorie"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Duration</ion-label>
+        <ion-input type="number" formControlName="duration" id="duration"></ion-input>
+      </ion-item>
+
+      <ion-button shape="round" color="primary" expand="block" [disabled]="!addForm.valid" (click)="submitRecord()">Submit</ion-button>
+    </form>
+  </ion-content>

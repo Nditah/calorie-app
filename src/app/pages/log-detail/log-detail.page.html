@@ -7,17 +7,17 @@
   <ion-content padding>
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{food.name}}</ion-card-title>
+        <ion-card-title>{{ record.name }}</ion-card-title>
       </ion-card-header>
   
       <ion-card-content>
         <ion-card-subtitle>Type:</ion-card-subtitle>
-        {{ food.type }} {{ food.category }}
+        {{ record.type }} {{ record.category }}
         <ion-buttons slot="primary">
-          <ion-button routerLink="/food-edit/{{food.id}}">
+          <ion-button routerLink="/log-edit/{{record.id}}">
             <ion-icon slot="icon-only" name="create"></ion-icon>
           </ion-button>
-          <ion-button (click)="delete(food.id)">
+          <ion-button (click)="delete(record.id)">
             <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
           </ion-button>
         </ion-buttons>

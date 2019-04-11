@@ -1,19 +1,24 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>{{ page }}</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            {{ page }}
+        </ion-title>
+        <ion-buttons slot="end">
+          <ion-button routerLink="/log-add"><ion-icon name="add-circle"></ion-icon></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+  </ion-header>
 
 <ion-content padding>
   <ion-list>
     <ion-item *ngFor="let record of records" routerLink="/log-detail/{{record.id}}">
       <ion-icon name="desktop" slot="start"></ion-icon>
-      {{ record.name }}
+      {{ record.remark }}
       <div class="item-note" slot="end">
-        {{record.created_at | date}}
+        {{record.day | date}}
       </div>
     </ion-item>
   </ion-list>

@@ -30,7 +30,7 @@ export class SettingPage implements OnInit {
       duration: 5000
     });
     await loading.present();
-    await this.api.getSetting('').subscribe((res: ApiResponse) => {
+    await this.api.getSetting('/public').subscribe((res: ApiResponse) => {
         console.log(res);
         this.records = res.payload;
         loading.dismiss();

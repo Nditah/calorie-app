@@ -31,8 +31,9 @@ export class FoodPage implements OnInit {
     });
     await loading.present();
     await this.api.getFood('').subscribe((res: ApiResponse) => {
-        console.log(res);
-        this.records = res.payload;
+        if (res.success) {
+          this.records = res.payload;
+        }
         loading.dismiss();
         this.alertService.presentToast(res.message);
       }, err => {

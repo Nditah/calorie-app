@@ -13,6 +13,7 @@ import { ApiResponse } from 'src/app/models';
 export class FoodAddPage implements OnInit {
 
   addForm: FormGroup;
+  vitamins: FormArray;
   minerals: FormArray;
 
   constructor(public api: ApiService,
@@ -22,17 +23,47 @@ export class FoodAddPage implements OnInit {
     public router: Router,
     private formBuilder: FormBuilder) {
       this.addForm = this.formBuilder.group({
-        'class_name' : [null, Validators.required],
-        'minerals' : this.formBuilder.array([])
+        'name' : [null, Validators.required],
+        // 'type': [null, Validators.required], // enum: ["DEFAULT", "CUSTOM"]
+        'category': [null, Validators.required], // enum: ["FOOD", "DRINK"]
+        'description': [null, Validators.required],
+        'quantity': [null, Validators.required],
+        'water': [null, Validators.required],
+        'calories': [null, Validators.required],
+        'carbs': [null, Validators.required],
+        'protein': [null, Validators.required],
+        'fat': [null, Validators.required],
+        'fiber': [null, Validators.required],
+        'vitamins' : this.formBuilder.array([]),
+        'minerals' : this.formBuilder.array([]),
       });
     }
 
   ngOnInit() {
   }
 
+  // * Vitamins
+  createVitamin(): FormGroup {
+    return this.formBuilder.group({
+      vitamin_name: [null, Validators.required],
+      vitamin_value: [null, Validators.required],
+    });
+  }
+
+  addBlankVitamin(): void {
+    this.minerals = this.addForm.get('vitamins') as FormArray;
+    this.minerals.push(this.createMineral());
+  }
+
+  deleteVitamin(control, index) {
+    control.removeAt(index);
+  }
+
+  // * Minerals
   createMineral(): FormGroup {
     return this.formBuilder.group({
-      mineral_name: ''
+      mineral_name: [null, Validators.required],
+      mineral_value: [null, Validators.required],
     });
   }
 
@@ -46,7 +77,9 @@ export class FoodAddPage implements OnInit {
   }
 
   async submitRecord() {
-    await this.api.postFood(this.addForm.value)
+    const payload = this.addForm.value;
+    payload.type = 'CUSTOM';
+    await this.api.postFood(payload)
     .subscribe((res: ApiResponse) => {
       if (res.success) {
         const id = res['id'];

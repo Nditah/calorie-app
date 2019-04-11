@@ -14,6 +14,7 @@ export class FoodEditPage implements OnInit {
 
   editForm: FormGroup;
   minerals: FormArray;
+  vitamins: FormArray;
   // 16 essential minerals
   mineralArr = ['calcium', 'phosphorus', 'potassium', 'sulfur', 'sodium', 'chloride', 'magnesium',
   'iron', 'zinc', 'copper', 'manganese', 'iodine', 'selenium', 'molybdenum', 'chromium', 'fluoride'];
@@ -27,7 +28,18 @@ export class FoodEditPage implements OnInit {
       this.getFoom(this.route.snapshot.paramMap.get('id'));
       this.editForm = this.formBuilder.group({
         'name' : [null, Validators.required],
-        'minerals' : this.formBuilder.array([])
+        // 'type': [null, Validators.required], // enum: ["DEFAULT", "CUSTOM"]
+        'category': [null, Validators.required], // enum: ["FOOD", "DRINK"]
+        'description': [null, Validators.required],
+        'quantity': [null, Validators.required],
+        'water': [null, Validators.required],
+        'calories': [null, Validators.required],
+        'carbs': [null, Validators.required],
+        'protein': [null, Validators.required],
+        'fat': [null, Validators.required],
+        'fiber': [null, Validators.required],
+        'vitamins' : this.formBuilder.array([]),
+        'minerals' : this.formBuilder.array([]),
       });
     }
 
@@ -37,18 +49,42 @@ export class FoodEditPage implements OnInit {
   async getFoom(id) {
     const loading = await this.loadingController.create({ message: 'Loading' });
     await loading.present();
-    await this.api.getFood('?id=' + id).subscribe((res: ApiResponse) => {
+    await this.api.getFood(`?id=${id}`).subscribe((res: ApiResponse) => {
     if (res.success) {
-      this.editForm.controls['name'].setValue(res.payload.name);
+      const record = res.payload[0];
+      this.editForm.controls['name'].setValue(record.name);
+      this.editForm.controls['category'].setValue(record.name);
+      this.editForm.controls['description'].setValue(record.name);
+      this.editForm.controls['quantity'].setValue(record.name);
+      this.editForm.controls['water'].setValue(record.name);
+      this.editForm.controls['calories'].setValue(record.name);
+      this.editForm.controls['carbs'].setValue(record.name);
+      this.editForm.controls['protein'].setValue(record.name);
+      this.editForm.controls['fat'].setValue(record.name);
+      this.editForm.controls['fiber'].setValue(record.name);
 
-      const controlArray = <FormArray>this.editForm.controls['minerals'];
-      res.payload.minerals.forEach(std => {
-        controlArray.push(this.formBuilder.group({
-           mineral_name: ''
+      const controlArray1 = <FormArray>this.editForm.controls['vitamins'];
+      record.vitamins.forEach(std => {
+        controlArray1.push(this.formBuilder.group({
+          vitamin_name: '',
+          vitamin_value: '',
         }));
       });
-      for (let i = 0; i < res.payload.minerals.length; i++) {
-        controlArray.controls[i].get('mineral_name').setValue(res.payload.minerals[i].mineral_name);
+      for (let i = 0; i < record.vitamins.length; i++) {
+        controlArray1.controls[i].get('vitamin_name').setValue(record.vitamins[i].vitamin_name);
+        controlArray1.controls[i].get('vitamin_value').setValue(record.vitamins[i].vitamin_value);
+      }
+
+      const controlArray = <FormArray>this.editForm.controls['minerals'];
+      record.minerals.forEach(std => {
+        controlArray.push(this.formBuilder.group({
+          mineral_name: '',
+          mineral_value: '',
+        }));
+      });
+      for (let i = 0; i < record.minerals.length; i++) {
+        controlArray.controls[i].get('mineral_name').setValue(record.minerals[i].mineral_name);
+        controlArray.controls[i].get('mineral_value').setValue(record.minerals[i].mineral_value);
       }
 
       console.log(this.editForm);
@@ -60,9 +96,11 @@ export class FoodEditPage implements OnInit {
     });
   }
 
-  async updateRecord() {
+  async submitRecord() {
     const id = this.route.snapshot.paramMap.get('id');
-    await this.api.updateFood(id, this.editForm.value).subscribe((res: ApiResponse) => {
+    const payload = this.editForm.value;
+    payload.type = 'CUSTOM';
+    await this.api.updateFood(id, payload).subscribe((res: ApiResponse) => {
       if (res.success) {
         this.router.navigate(['/food-detail', id]);
       } else {
@@ -72,9 +110,22 @@ export class FoodEditPage implements OnInit {
       });
   }
 
+  createVitamin(): FormGroup {
+    return this.formBuilder.group({
+      vitamin_name: '',
+      vitamin_value: '',
+    });
+  }
+
+  addBlankVitamin(): void {
+    this.vitamins = this.editForm.get('vitamins') as FormArray;
+    this.vitamins.push(this.createVitamin());
+  }
+
   createMineral(): FormGroup {
     return this.formBuilder.group({
-      mineral_name: ''
+      mineral_name: '',
+      mineral_value: '',
     });
   }
 
@@ -83,7 +134,7 @@ export class FoodEditPage implements OnInit {
     this.minerals.push(this.createMineral());
   }
 
-  deleteMineral(control, index) {
+  deleteInput(control, index) {
     control.removeAt(index);
   }
 

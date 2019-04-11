@@ -23,6 +23,13 @@ const routes: Routes = [
   { path: 'food-detail/:id', loadChildren: './pages/food-detail/food-detail.module#FoodDetailPageModule' },
   { path: 'food-edit/:id', loadChildren: './pages/food-edit/food-edit.module#FoodEditPageModule' },
   { path: 'food-add', loadChildren: './pages/food-add/food-add.module#FoodAddPageModule' },
+  { path: 'exercise-detail', loadChildren: './pages/exercise-detail/exercise-detail.module#ExerciseDetailPageModule' },
+  { path: 'exercise-edit', loadChildren: './pages/exercise-edit/exercise-edit.module#ExerciseEditPageModule' },
+  { path: 'exercise-add', loadChildren: './pages/exercise-add/exercise-add.module#ExerciseAddPageModule' },
+  { path: 'log-add', loadChildren: './pages/log-add/log-add.module#LogAddPageModule' },
+  { path: 'log-edit', loadChildren: './pages/log-edit/log-edit.module#LogEditPageModule' },
+  { path: 'log-detail', loadChildren: './pages/log-detail/log-detail.module#LogDetailPageModule' },
+  { path: 'feedback-detail', loadChildren: './pages/feedback-detail/feedback-detail.module#FeedbackDetailPageModule' },
 ];
 
 @NgModule({

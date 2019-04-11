@@ -11,26 +11,89 @@
   <form [formGroup]="addForm">
     <ion-item>
       <ion-label position="floating">Food Name</ion-label>
-      <ion-input type="text" formControlName="class_name"></ion-input>
+      <ion-input type="text" formControlName="name" id="name"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label position="floating">Category</ion-label>
+      <ion-input type="text" formControlName="category" id="category"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input type="text" formControlName="description" id="description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Food Quantity</ion-label>
+      <ion-input type="number" formControlName="quantity" id="quantity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Water Content</ion-label>
+      <ion-input type="number" formControlName="water" id="water"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Calories</ion-label>
+      <ion-input type="number" formControlName="calories" id="calories"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Carbs</ion-label>
+      <ion-input type="number" formControlName="carbs" id="carbs"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Protein</ion-label>
+      <ion-input type="number" formControlName="protein" id="protein"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Fat</ion-label>
+      <ion-input type="number" formControlName="fat" id="fat"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Fiber</ion-label>
+      <ion-input type="number" formControlName="fiber" id="fiber"></ion-input>
+    </ion-item>
+    
+    <ion-item-divider>
+      <ion-label>
+          Vitamins <ion-button shape="round" (click)="addBlankVitamin()"><ion-icon name="add-circle"></ion-icon></ion-button>
+      </ion-label>
+    </ion-item-divider>
+    <div formArrayName="vitamins">
+      <ion-item *ngFor="let vitamin of addForm.get('vitamins').controls; let i=index" [formGroupName]="i">
+        <ion-label position="floating">Vitamin Name</ion-label>
+        <ion-row>
+            <ion-col size="7">
+              <ion-input type="text" formControlName="vitamin_name" item-start></ion-input>
+            </ion-col>
+            <ion-col size="3">
+              <ion-input type="number" formControlName="vitamin_value" item-start></ion-input>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button shape="round" color="dark" (click)="deleteVitamin(addForm.get('vitamins').controls,i)"><ion-icon name="trash"></ion-icon></ion-button>
+            </ion-col>
+        </ion-row>
+      </ion-item>
+    </div>
+
     <ion-item-divider>
       <ion-label>
         Minerals <ion-button shape="round" (click)="addBlankMineral()"><ion-icon name="add-circle"></ion-icon></ion-button>
       </ion-label>
     </ion-item-divider>
     <div formArrayName="minerals">
-      <ion-item *ngFor="let mineral of addForm.get('minerals').controls; let i=index" [formGroupName]="i">
-        <ion-label position="floating">Mineral Name</ion-label>
-        <ion-row>
-          <ion-col size="10">
-            <ion-input type="text" formControlName="mineral_name" item-start></ion-input>
-          </ion-col>
-          <ion-col size="2">
-            <ion-button shape="round" color="dark" (click)="deleteMineral(addForm.get('minerals').controls,i)"><ion-icon name="trash"></ion-icon></ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-    </div>
+        <ion-item *ngFor="let mineral of addForm.get('minerals').controls; let i=index" [formGroupName]="i">
+          <ion-label position="floating">Mineral Name</ion-label>
+          <ion-row>
+            <ion-col size="7">
+              <ion-input type="text" formControlName="mineral_name" item-start></ion-input>
+            </ion-col>
+            <ion-col size="3">
+              <ion-input type="number" formControlName="mineral_value" item-start></ion-input>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button shape="round" color="dark" (click)="deleteMineral(addForm.get('minerals').controls,i)"><ion-icon name="trash"></ion-icon></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </div>
+
     <ion-button shape="round" color="primary" expand="block" [disabled]="!addForm.valid" (click)="submitRecord()">Submit</ion-button>
   </form>
 </ion-content>

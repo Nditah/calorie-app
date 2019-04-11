@@ -26,11 +26,11 @@
             <ion-input type="text" formControlName="mineral_name" item-start></ion-input>
           </ion-col>
           <ion-col size="2">
-            <ion-button shape="round" color="dark" (click)="deleteStudent(editForm.get('minerals').controls,i)"><ion-icon name="trash"></ion-icon></ion-button>
+            <ion-button shape="round" color="dark" (click)="deleteInput(editForm.get('minerals').controls,i)"><ion-icon name="trash"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-item>
     </div>
-    <ion-button shape="round" color="primary" expand="block" [disabled]="!editForm.valid" (click)="updateRecord()">Submit</ion-button>
+    <ion-button shape="round" color="primary" expand="block" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>
   </form>
 </ion-content>

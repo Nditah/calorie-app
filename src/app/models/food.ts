@@ -13,8 +13,8 @@ export interface Food {
     protein: number;
     fat: number;
     fiber: number;
-    vitamins: number;
-    minerals: number;
+    vitamins: Array<string>;
+    minerals: Array<string>;
     created_by: User;
     created_at: Date;
     updated_by: User;
