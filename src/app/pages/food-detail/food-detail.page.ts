@@ -28,6 +28,7 @@ export class FoodDetailPage implements OnInit {
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
     await this.api.getFood(`?id=${id}`).subscribe((res: ApiResponse) => {
+      console.log(res);
         if (res.success) {
           this.food = res.payload[0];
         }

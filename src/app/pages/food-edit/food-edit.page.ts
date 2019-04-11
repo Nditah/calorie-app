@@ -50,7 +50,8 @@ export class FoodEditPage implements OnInit {
     const loading = await this.loadingController.create({ message: 'Loading' });
     await loading.present();
     await this.api.getFood(`?id=${id}`).subscribe((res: ApiResponse) => {
-    if (res.success) {
+      console.log(res);
+      if (res.success) {
       const record = res.payload[0];
       this.editForm.controls['name'].setValue(record.name);
       this.editForm.controls['category'].setValue(record.name);
