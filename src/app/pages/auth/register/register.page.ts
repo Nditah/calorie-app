@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController, NavController } from '@ionic/angular';
-import { LoginPage } from '../login/login.page';
-import { AuthService } from 'src/app/services/auth.service';
 import { NgForm } from '@angular/forms';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { AlertService } from 'src/app/services/alert.service';
 import { ApiResponse, LoginResponse } from 'src/app/models';
+import { AuthService, AlertService } from 'src/app/services';
+import { LoginPage } from '../login/login.page';
 
 @Component({
   selector: 'app-register',

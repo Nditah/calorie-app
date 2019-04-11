@@ -6,9 +6,12 @@
       <ion-title>Profile</ion-title>
     </ion-toolbar>
   </ion-header>
-
-<ion-content padding>
-    <div class="row">
-
-    </div>
-</ion-content>
+  
+  <ion-content padding>
+      <div class="row">
+          <div *ngIf="user != undefined">
+              Welcome {{ user["username"]  }} {{ user["gender"]  }}
+          </div>
+      </div>
+  </ion-content>
+  

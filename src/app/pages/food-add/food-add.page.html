@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>food-add</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Food</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+  <form [formGroup]="addForm">
+    <ion-item>
+      <ion-label position="floating">Food Name</ion-label>
+      <ion-input type="text" formControlName="class_name"></ion-input>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>
+        Minerals <ion-button shape="round" (click)="addBlankMineral()"><ion-icon name="add-circle"></ion-icon></ion-button>
+      </ion-label>
+    </ion-item-divider>
+    <div formArrayName="minerals">
+      <ion-item *ngFor="let mineral of addForm.get('minerals').controls; let i=index" [formGroupName]="i">
+        <ion-label position="floating">Mineral Name</ion-label>
+        <ion-row>
+          <ion-col size="10">
+            <ion-input type="text" formControlName="mineral_name" item-start></ion-input>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button shape="round" color="dark" (click)="deleteMineral(addForm.get('minerals').controls,i)"><ion-icon name="trash"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </div>
+    <ion-button shape="round" color="primary" expand="block" [disabled]="!addForm.valid" (click)="submitRecord()">Submit</ion-button>
+  </form>
 </ion-content>

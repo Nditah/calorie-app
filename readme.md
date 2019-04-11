@@ -74,10 +74,12 @@ npm install
 
 ##  Run
 
+3. Run `ionic cordova resources` to generate all platforms icons and splash.
+
+4. Run `ionic serve -l`, it will automatically generate a local www build and open this in your browser.
+
 
 ```
-ionic serve -l
-
 ionic cordova platform add browser
 
 ionic cordova run browser
@@ -98,7 +100,14 @@ ionic cordova run android
 
 [Ionic Framework](https://ionicframework.com/)
 
-[Charts] (https://www.djamware.com/post/598953f880aca768e4d2b12b/creating-beautiful-charts-easily-using-ionic-3-and-angular-4)
+[Charts](https://www.djamware.com/post/598953f880aca768e4d2b12b/creating-beautiful-charts-easily-using-ionic-3-and-angular-4)
+
+
+## Info Ref
+
+[Form Array](https://www.djamware.com/post/5b5cffaf80aca707dd4f65aa/building-crud-mobile-app-using-ionic-4-angular-6-and-cordova)
+
+[Minerals](https://www.webmd.com/food-recipes/guide/vitamins-and-minerals-good-food-sources#1)
 
 
 ## Follow me on LinkedIn

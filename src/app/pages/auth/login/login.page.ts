@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { RegisterPage } from '../register/register.page';
 import { NgForm } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { AlertService } from 'src/app/services/alert.service';
+import { AuthService, AlertService } from 'src/app/services';
 import { ApiResponse, LoginResponse } from 'src/app/models';
 
 @Component({
