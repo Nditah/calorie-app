@@ -16,7 +16,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiService {
-
+  depth = 0;
   constructor(private http: HttpClient,
     private storage: NativeStorage,
     private env: EnvService,
@@ -43,6 +43,21 @@ export class ApiService {
     return body || { };
   }
 
+  cleanObject(obj) {
+    this.depth += 1;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const propName in obj) {
+        if (!obj[ propName ] || obj[ propName ].length === 0) {
+            delete obj[ propName ];
+        } else if (typeof obj === 'object') {
+            if (this.depth <= 3) {
+              this.cleanObject(obj[ propName ]);
+            }
+        }
+    }
+    return obj;
+  }
+
   // /////////////////////////////////
   // ----------FOOD-----------------//
   // /////////////////////////////////
@@ -56,14 +71,16 @@ export class ApiService {
 
   postFood(data): Observable<any> {
     const url = `${this.env.API_URL}/foods`;
-    return this.http.post(url, data, httpOptions).pipe(
+    const payload = this.cleanObject(data);
+    return this.http.post(url, payload, httpOptions).pipe(
         catchError(this.handleError)
       );
   }
 
   updateFood(id: string, data): Observable<any> {
     const url = `${this.env.API_URL}/foods/${id}`;
-    return this.http.put(url, data, httpOptions).pipe(
+    const payload = this.cleanObject(data);
+    return this.http.put(url, payload, httpOptions).pipe(
         catchError(this.handleError)
       );
   }
@@ -89,14 +106,16 @@ export class ApiService {
 
   postFeedback(data): Observable<any> {
     const url = `${this.env.API_URL}/feedbacks`;
-    return this.http.post(url, data, httpOptions).pipe(
+    const payload = this.cleanObject(data);
+    return this.http.post(url, payload, httpOptions).pipe(
         catchError(this.handleError)
       );
   }
 
   updateFeedback(id: string, data): Observable<any> {
     const url = `${this.env.API_URL}/feedbacks/${id}`;
-    return this.http.put(url, data, httpOptions).pipe(
+    const payload = this.cleanObject(data);
+    return this.http.put(url, payload, httpOptions).pipe(
         catchError(this.handleError)
       );
   }
@@ -122,14 +141,16 @@ export class ApiService {
 
   postExercise(data): Observable<any> {
     const url = `${this.env.API_URL}/exercises`;
-    return this.http.post(url, data, httpOptions).pipe(
+    const payload = this.cleanObject(data);
+    return this.http.post(url, payload, httpOptions).pipe(
         catchError(this.handleError)
       );
   }
 
   updateExercise(id: string, data): Observable<any> {
     const url = `${this.env.API_URL}/exercises/${id}`;
-    return this.http.put(url, data, httpOptions).pipe(
+    const payload = this.cleanObject(data);
+    return this.http.put(url, payload, httpOptions).pipe(
         catchError(this.handleError)
       );
   }
@@ -155,14 +176,16 @@ export class ApiService {
 
   postLog(data): Observable<any> {
     const url = `${this.env.API_URL}/logs`;
-    return this.http.post(url, data, httpOptions).pipe(
+    const payload = this.cleanObject(data);
+    return this.http.post(url, payload, httpOptions).pipe(
         catchError(this.handleError)
       );
   }
 
   updateLog(id: string, data): Observable<any> {
     const url = `${this.env.API_URL}/logs/${id}`;
-    return this.http.put(url, data, httpOptions).pipe(
+    const payload = this.cleanObject(data);
+    return this.http.put(url, payload, httpOptions).pipe(
         catchError(this.handleError)
       );
   }

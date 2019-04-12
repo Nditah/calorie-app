@@ -74,7 +74,7 @@ export class LogEditPage implements OnInit {
         console.log(err);
       });
   }
-  
+
   async getExercises() {
     await this.api.getExercise('').subscribe((res: ApiResponse) => {
         if (res.success && res.payload.length > 0) {

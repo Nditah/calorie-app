@@ -28,7 +28,8 @@ export class ExerciseDetailPage implements OnInit {
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
     await this.api.getExercise(`?id=${id}`).subscribe((res: ApiResponse) => {
-        if (res.success) {
+      console.log(res);  
+      if (res.success) {
           this.record = res.payload[0];
         }
         loading.dismiss();

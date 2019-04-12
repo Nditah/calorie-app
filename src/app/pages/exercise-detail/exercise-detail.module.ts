@@ -8,10 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ExerciseDetailPage } from './exercise-detail.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ExerciseDetailPage
-  }
+  { path: '', component: ExerciseDetailPage }
 ];
 
 @NgModule({

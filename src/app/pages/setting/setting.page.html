@@ -1,20 +1,42 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>{{ page }}</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title> {{ page }} </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <form [formGroup]="editForm">
+        <ion-item>
+          <ion-label position="floating">Theme</ion-label>
+          <ion-select formControlName="theme" id="theme" multiple="false">
+              <ion-select-option value="DARK">DARK</ion-select-option>
+              <ion-select-option value="LIGHT">LIGHT</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Weight</ion-label>
+          <ion-select formControlName="weight" id="weight" multiple="false">
+              <ion-select-option value="KG">KG</ion-select-option>
+              <ion-select-option value="LB">LB</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Height</ion-label>
+          <ion-select formControlName="height" id="height" multiple="false">
+              <ion-select-option value="CM">CM</ion-select-option>
+              <ion-select-option value="INCHES">INCHES</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Calories</ion-label>
+          <ion-select formControlName="calories" id="calories" multiple="false">
+              <ion-select-option value="JOULES">JOULES</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-<ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let record of records" routerLink="/setting-detail/{{record.id}}">
-      <ion-icon name="desktop" slot="start"></ion-icon>
-      {{ record.name }}
-      <div class="item-note" slot="end">
-        {{record.created_at | date}}
-      </div>
-    </ion-item>
-  </ion-list>
-</ion-content>
+      <ion-button shape="round" color="primary" expand="block" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>
+    </form>
+  </ion-content>
