@@ -47,10 +47,9 @@ ionic generate guard guard/auth
 
 ionic g service services/interceptor
 
-
-ionic cordova plugin add cordova-plugin-nativestorage
-
-npm install @ionic-native/native-storage
+ionic cordova plugin add cordova-plugin-nativestorage --save
+npm install @ionic-native/core@beta --save
+npm install @ionic-native/native-storage@beta --save
 
 ### Installing
 
@@ -80,6 +79,7 @@ npm install
 
 
 ```
+
 ionic cordova platform add browser
 
 ionic cordova run browser

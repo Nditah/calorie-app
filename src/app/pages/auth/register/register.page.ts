@@ -52,7 +52,7 @@ export class RegisterPage implements OnInit {
       lifestyle: form.value.lifestyle,
     };
     this.authService.register(payload).subscribe((data: ApiResponse) => {
-      console.log(data);
+      console.log('Registration response ', data);
       if (data.success) {
         const { email, phone, password } = payload;
         this.authService.login({ email, phone, password })
@@ -63,6 +63,7 @@ export class RegisterPage implements OnInit {
             }
           },
           error => {
+            this.alertService.presentToast('Network failure or server unavailable');
             console.log(error);
           },
           () => {

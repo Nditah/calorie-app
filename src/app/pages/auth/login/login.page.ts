@@ -50,8 +50,8 @@ export class LoginPage implements OnInit {
     } else {
       payload.phone = username;
     }
-    this.authService.login(payload)
-    .subscribe((data: LoginResponse) => {
+    this.authService.login(payload).subscribe((data: any) => {
+      console.log('Login response ', data);
       if (data.success) {
         this.alertService.presentToast('Logged In');
       } else {
@@ -60,7 +60,7 @@ export class LoginPage implements OnInit {
       },
       error => {
         this.alertService.presentToast('Network failure or server unavailable');
-        console.log(error.message);
+        console.log('Login error', error);
       },
       () => {
         this.dismissLogin();

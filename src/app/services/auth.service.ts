@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { EnvService } from './env.service';
 import { LoginResponse, User } from '../models';
 
@@ -13,14 +11,13 @@ import { LoginResponse, User } from '../models';
 
 export class AuthService {
   isLoggedIn = false;
-  token: any;
+  token = null;
   depth = 0;
 
   constructor(
     private http: HttpClient,
     private storage: NativeStorage,
     private env: EnvService,
-    private router: Router,
   ) { }
 
   cleanObject(obj) {
@@ -38,10 +35,14 @@ export class AuthService {
     return obj;
   }
 
-  login(payload) {
-    return this.http.post(this.env.API_URL + '/users/login', this.cleanObject(payload))
-    .pipe(tap((data: LoginResponse) => {
-        const { user, token } = data.payload;
+  login(data) {
+    const payload = this.cleanObject(data);
+    console.log('auth.service: payload =>', payload);
+    return this.http.post(this.env.API_URL + '/users/login', payload)
+    .pipe(tap((response: LoginResponse) => {
+        console.log('auth.service: response =>', response);
+        const { user, token } = response.payload;
+      /*
         this.storage.setItem('user', user).then(() => {
           console.log('User Stored');
         },
@@ -52,27 +53,28 @@ export class AuthService {
           },
           error => console.error('Error storing item token', error)
         );
+        */
         this.token = token;
         this.isLoggedIn = true;
-        return data;
+        return response;
       }),
     );
   }
 
-  register(payload: any) {
-    return this.http.post(this.env.API_URL + '/users', this.cleanObject(payload));
+  register(data: any) {
+    const payload = this.cleanObject(data);
+    return this.http.post(this.env.API_URL + '/users', payload);
   }
 
-  logout() {
-    this.storage.remove('token');
+  logout(): Promise<any> {
     this.isLoggedIn = false;
     delete this.token;
-    return null;
+    return this.storage.remove('token');
   }
 
   user() {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + this.token
+      'Authorization': 'Bearer ' + this.token,
     });
     return this.http.get<User>(this.env.API_URL + 'auth/user', { headers: headers })
     .pipe(tap(user => {
@@ -85,19 +87,20 @@ export class AuthService {
     return this.storage.getItem('user').then(data => data).catch(e => null);
   }
 
-  async getToken() {
+  public async getToken(): Promise<any> {
     try {
       const token = await this.storage.getItem('token');
-      this.token = token;
-        if (this.token != null) {
-          this.isLoggedIn = true;
-        } else {
-          this.isLoggedIn = false;
-        }
-        return token;
+      if (token != null) {
+        this.token = token;
+        this.isLoggedIn = true;
+      } else {
+        this.token = null;
+        this.isLoggedIn = false;
+      }
+      return token;
     } catch (e) {
-      this.token = null;
-      this.isLoggedIn = false;
+      console.log(e);
+      alert(JSON.stringify(e));
       return null;
     }
   }
