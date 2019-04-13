@@ -50,6 +50,11 @@ ionic g service services/interceptor
 ionic cordova plugin add cordova-plugin-nativestorage --save
 npm install @ionic-native/core@beta --save
 npm install @ionic-native/native-storage@beta --save
+npm install @ionic-native/network@beta  --save
+npm install @ionic/storage --save
+
+ionic cordova plugin add cordova-sqlite-storage
+ionic cordova plugin add cordova-plugin-network-information
 
 ### Installing
 

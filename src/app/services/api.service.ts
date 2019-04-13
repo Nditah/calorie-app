@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of, from, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { EnvService } from './env.service';
 
+import { OfflineManagerService } from './offline-manager.service';
+import { NetworkService, ConnectionStatus } from './network.service';
 
+const API_STORAGE_KEY = 'specialkey';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
@@ -16,9 +20,14 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiService {
+
   depth = 0;
+
   constructor(private http: HttpClient,
-    private storage: NativeStorage,
+    private networkService: NetworkService,
+    private storage: Storage,
+    private offlineManager: OfflineManagerService,
+    private nativeStorage: NativeStorage,
     private env: EnvService,
     private router: Router,
     private toastController: ToastController) { }

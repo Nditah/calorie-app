@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage';
 
 import { Observable, from } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
@@ -12,12 +13,13 @@ import { AlertService } from 'src/app/services/alert.service';
 export class InterceptorService  implements HttpInterceptor {
 
   constructor(
-    private storage: NativeStorage,
+    private nativeStorage: NativeStorage,
+    private storage: Storage,
     private alertService: AlertService) { }
 
   // Intercepts all HTTP requests!
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      const promise = this.storage.getItem('token');
+      const promise = this.storage.get('token');
       const observableFromPromise =  from(promise);
 
       return observableFromPromise.pipe(mergeMap((token: any) => {
@@ -25,8 +27,7 @@ export class InterceptorService  implements HttpInterceptor {
               return next.handle(clonedReq).pipe(
                   catchError(error => {
                       this.alertService.presentToast(error.message);
-                      throw new(error);
-                  })
+                      throw new Error(error);                  })
               );
           }));
   }

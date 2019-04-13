@@ -60,7 +60,8 @@ export class LoginPage implements OnInit {
       },
       error => {
         this.alertService.presentToast('Network failure or server unavailable');
-        console.log('Login error', error);
+        console.log('Login error');
+        console.log(error.message);
       },
       () => {
         this.dismissLogin();
