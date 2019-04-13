@@ -20,22 +20,20 @@ export class LandingPage implements OnInit {
     private navCtrl: NavController,
     private storage: NativeStorage,
     private platform: Platform,
-  ) { 
+  ) {
     this.menu.enable(false);
   }
 
-  
-
   ionViewWillEnter() {
     this.authService.getToken().then(() => {
-      if(this.authService.isLoggedIn) {
+      if (this.authService.isLoggedIn) {
         this.navCtrl.navigateRoot('/dashboard');
       }
     });
   }
 
   ngOnInit() {
-    
+
   }
 
   async register() {

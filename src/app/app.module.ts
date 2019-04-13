@@ -6,8 +6,11 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { ChartsModule } from 'ng2-charts';
+
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { IonicStorageModule } from '@ionic/storage';
+import { Network } from '@ionic-native/network/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +22,7 @@ import { InterceptorService } from './services/interceptor.service';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     ChartsModule,
@@ -27,8 +31,9 @@ import { InterceptorService } from './services/interceptor.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    NativeStorage,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    NativeStorage,
+    Network,
   ],
   bootstrap: [AppComponent]
 })

@@ -37,22 +37,18 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      //this.splashScreen.hide();
+      this.splashScreen.hide();
       this.authService.getToken();
     });
   }
 
   logout() {
-    this.authService.logout().subscribe(
-      data => {
+    this.authService.logout().then(data => {
         this.alertService.presentToast(data['message']);
-      },
-      error => {
+      }).catch(error => {
         console.log(error);
-      },
-      () => {
-        this.navCtrl.navigateRoot('/landing');
-      }
-    );
+      });
+      return this.navCtrl.navigateRoot('/landing');
   }
+
 }
