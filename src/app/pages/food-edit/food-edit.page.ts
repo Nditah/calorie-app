@@ -49,7 +49,7 @@ export class FoodEditPage implements OnInit {
   async getFoom(id) {
     const loading = await this.loadingController.create({ message: 'Loading' });
     await loading.present();
-    await this.api.getFood(`?id=${id}`).subscribe((res: ApiResponse) => {
+    await this.api.getFood(`?_id=${id}`).subscribe((res: ApiResponse) => {
       console.log(res);
       if (res.success) {
       const record = res.payload[0];
@@ -65,7 +65,7 @@ export class FoodEditPage implements OnInit {
       this.editForm.controls['fiber'].setValue(record.name);
 
       const controlArray1 = <FormArray>this.editForm.controls['vitamins'];
-      record.vitamins.forEach(std => {
+      record.vitamins.forEach(item => {
         controlArray1.push(this.formBuilder.group({
           vitamin_name: '',
           vitamin_value: '',
@@ -77,7 +77,7 @@ export class FoodEditPage implements OnInit {
       }
 
       const controlArray = <FormArray>this.editForm.controls['minerals'];
-      record.minerals.forEach(std => {
+      record.minerals.forEach(item => {
         controlArray.push(this.formBuilder.group({
           mineral_name: '',
           mineral_value: '',

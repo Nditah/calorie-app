@@ -27,7 +27,7 @@ export class FeedbackDetailPage implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.api.getFeedback(`?id=${id}`).subscribe((res: ApiResponse) => {
+    await this.api.getFeedback(`?_id=${id}`).subscribe((res: ApiResponse) => {
         if (res.success) {
           this.record = res.payload[0];
         }

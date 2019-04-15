@@ -27,7 +27,7 @@ export class ExerciseDetailPage implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.api.getExercise(`?id=${id}`).subscribe((res: ApiResponse) => {
+    await this.api.getExercise(`?_id=${id}`).subscribe((res: ApiResponse) => {
       console.log(res);  
       if (res.success) {
           this.record = res.payload[0];

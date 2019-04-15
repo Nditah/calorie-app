@@ -42,7 +42,7 @@ export class LogEditPage implements OnInit {
   async getFoom(id) {
     const loading = await this.loadingController.create({ message: 'Loading' });
     await loading.present();
-    await this.api.getLog(`?id=${id}`).subscribe((res: ApiResponse) => {
+    await this.api.getLog(`?_id=${id}`).subscribe((res: ApiResponse) => {
     if (res.success) {
       const record = res.payload[0];
       this.editForm.controls['day'].setValue(record.day);

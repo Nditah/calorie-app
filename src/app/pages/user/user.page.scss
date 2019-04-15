@@ -1,0 +1,64 @@
+    .profile-image-wrapper {
+      text-align: center;
+      .profile-image {
+        display: inline-block;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url(../../../assets/img/profile-bg.jpg);
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        font-size: 12px;
+        border: 5px solid var(--ion-color-success-dark);
+        ion-icon {
+          font-size: 44px;
+          margin-bottom: -10px;
+          margin-top: 22px;
+        }
+      }
+    }
+    .amount{
+      color: var(--ion-color-success);
+      background: white;
+    }
+    .userDetails{
+      color: white;
+      text-align: center;
+      font-family: "sans-serif";
+      font-weight: bold;
+      font-size: 1.6rem !important;
+      margin-bottom: 6%;
+    }
+    .fullname{
+      opacity: 0.8;
+      color: white;
+      text-align: center;
+      font-family: "sans-serif";
+      font-size: 1.7rem !important;
+      margin-bottom: -6px !important;
+    }
+    .upperDiv{
+      background: var(--ion-color-success-theme);
+    }
+    .item-block{
+      border: none;
+    }
+    .label_here{
+     color: black !important;
+      font-size: 16px !important;
+    }
+    ion-input{
+      font-size: 16px !important;
+    }
+    .list-md {
+      margin: 15px 0 16px;
+    }
+    .my-list {
+        padding: 20px !important;
+        border-bottom: 0.55px solid #fff !important;
+    }
+    .my-item {
+        border-top: 0.55px solid #fff !important;
+    }
+  

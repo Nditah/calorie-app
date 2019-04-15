@@ -95,7 +95,7 @@ export class ApiService {
   }
 
   deleteFood(id: string): Observable<{}> {
-    const url = `${this.env.API_URL}/foods${id}`;
+    const url = `${this.env.API_URL}/foods/${id}`;
     return this.http.delete(url, httpOptions).pipe(
         catchError(this.handleError)
       );

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
@@ -11,8 +11,9 @@ import { ApiResponse } from 'src/app/models';
 })
 export class HomePage implements OnInit {
 
-  page = 'Home';
   records: any;
+  segment: string;
+  page: number;
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -20,6 +21,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getHomes();
+    this.onTabSelected('hottest');
   }
 
   async getHomes() {
@@ -41,4 +43,9 @@ export class HomePage implements OnInit {
         this.alertService.presentToast(err.message);
       });
   }
+
+    onTabSelected(segmentValue: string) {
+      this.segment = segmentValue;
+      this.page = 1;
+    }
 }
