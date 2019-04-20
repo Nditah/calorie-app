@@ -1,17 +1,104 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="success">
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Profile</ion-title>
+      <ion-title>{{ 'Profile' }}</ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="editProfile()" class="editSaveToggleBtn">{{caption_name}}</ion-button>
+        </ion-buttons>
     </ion-toolbar>
   </ion-header>
   
-  <ion-content padding>
-      <div class="row">
-          <div *ngIf="user != undefined">
-              Welcome {{ user["username"]  }} {{ user["gender"]  }}
-          </div>
-      </div>
-  </ion-content>
+  <ion-content>
+    <div class="fixed-content">
   
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="saveProfile()">
+        <div class="upperDiv">
+          <div class="profile-image-wrapper">
+            <div class="profile-image">
+                <img *ngIf="user.gender==='FEMALE'" src="../../../assets/img/female-avatar.png">
+                <img *ngIf="user.gender==='MALE'" src="../../../assets/img/male-avatar.png">
+            </div>
+          </div>
+  
+          <h3 class="fullname">{{ user.username }}</h3>
+          <h3 class="userDetails">{{ user.lifestyle }}</h3>
+  
+        </div>
+        <ion-list class="my-list">
+          <ion-item class="my-item">
+            <ion-label class="label_here">User Name :</ion-label>
+            <ion-input class="inputFields" type="text" formControlName="username" (keyup)="changedSmtng()"
+                       disabled="{{isDisabled}}"
+                       [(ngModel)]="user.username"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label class="label_here">Email :</ion-label>
+            <ion-input class="inputFields" type="email" formControlName="email" (keyup)="changedSmtng()"
+                       disabled="{{isDisabled}}"
+                       [(ngModel)]="user.email"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label class="label_here">Password :</ion-label>
+            <ion-input class="inputFields" type="password" formControlName="password" (keyup)="changedSmtng()"
+                       disabled="{{isDisabled}}"
+                       [(ngModel)]="user.password"></ion-input>
+          </ion-item>
+  
+          <ion-item style="border-bottom: 0.55px solid #fff !important;">
+            <ion-label class="label_here">Birth Date :</ion-label>
+            <ion-input class="inputFields" type="date" formControlName="birth_date" (keyup)="changedSmtng()"
+                       disabled="{{isDisabled}}"
+                       [(ngModel)]="user.birth_date"></ion-input>
+          </ion-item>
+   
+          <ion-item style="border-bottom: 0.55px solid #fff !important;">
+              <ion-label class="label_here">Phone :</ion-label>
+              <ion-input class="inputFields" type="tel" formControlName="phone" (keyup)="changedSmtng()"
+                         disabled="{{isDisabled}}"
+                         [(ngModel)]="user.phone"></ion-input>
+          </ion-item>
+
+          <ion-item style="border-bottom: 0.55px solid #fff !important;">
+            <ion-label class="label_here">Height :</ion-label>
+            <ion-input class="inputFields" type="number" formControlName="height" (keyup)="changedSmtng()"
+                        disabled="{{isDisabled}}"
+                        [(ngModel)]="user.height"></ion-input>
+          </ion-item>
+
+          <ion-item style="border-bottom: 0.55px solid #fff !important;">
+            <ion-label class="label_here">Current Mass :</ion-label>
+            <ion-input class="inputFields" type="number" formControlName="current_mass" (keyup)="changedSmtng()"
+                        disabled="{{isDisabled}}"
+                        [(ngModel)]="user.current_mass"></ion-input>
+          </ion-item>
+
+          <ion-item style="border-bottom: 0.55px solid #fff !important;">
+            <ion-label class="label_here">Desired Mass :</ion-label>
+            <ion-input class="inputFields" type="number" formControlName="desired_mass" (keyup)="changedSmtng()"
+                        disabled="{{isDisabled}}"
+                        [(ngModel)]="user.desired_mass"></ion-input>
+          </ion-item>
+
+          <ion-item style="border-bottom: 0.55px solid #fff !important;">
+            <ion-label class="label_here">Lifestyle :</ion-label>
+            <ion-input class="inputFields" type="text" formControlName="lifestyle" (keyup)="changedSmtng()"
+                        disabled="{{isDisabled}}"
+                        [(ngModel)]="user.lifestyle"></ion-input>
+          </ion-item>
+
+          <ion-item style="border-bottom: 0.55px solid #fff !important;">
+            <ion-label class="label_here">Country :</ion-label>
+            <ion-input class="inputFields" type="text" formControlName="country_iso2" (keyup)="changedSmtng()"
+                        disabled="{{isDisabled}}"
+                        [(ngModel)]="user.country_iso2"></ion-input>
+          </ion-item>
+
+        </ion-list>
+      </form>
+    </div>
+  </ion-content>
+    

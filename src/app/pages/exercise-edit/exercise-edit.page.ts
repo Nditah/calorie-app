@@ -38,7 +38,7 @@ export class ExerciseEditPage implements OnInit {
   async getFoom(id) {
     const loading = await this.loadingController.create({ message: 'Loading' });
     await loading.present();
-    await this.api.getExercise(`?id=${id}`).subscribe((res: ApiResponse) => {
+    await this.api.getExercise(`?_id=${id}`).subscribe((res: ApiResponse) => {
     if (res.success) {
       const record = res.payload[0];
       this.editForm.controls['name'].setValue(record.name);

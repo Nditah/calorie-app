@@ -79,8 +79,7 @@ export class FoodAddPage implements OnInit {
   async submitRecord() {
     const payload = this.addForm.value;
     payload.type = 'CUSTOM';
-    await this.api.postFood(payload)
-    .subscribe((res: ApiResponse) => {
+    await this.api.postFood(payload).subscribe((res: ApiResponse) => {
       if (res.success) {
         const id = res['id'];
         this.router.navigate(['/food-detail/' + id]);
@@ -88,6 +87,7 @@ export class FoodAddPage implements OnInit {
         this.alertService.presentToast(res.message);
       }}, (err) => {
         console.log(err);
+        this.alertService.presentToast(err.message);
       });
   }
 

@@ -8,6 +8,7 @@ export class User {
     gender: string; // ["MALE", "FEMALE"]
     phone: string;
     country_iso2: string;
+    birth_date: Date;
     email: string;
     is_email_verified: boolean;
     is_phone_verified: boolean;

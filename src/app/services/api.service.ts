@@ -95,7 +95,7 @@ export class ApiService {
   }
 
   deleteFood(id: string): Observable<{}> {
-    const url = `${this.env.API_URL}/foods${id}`;
+    const url = `${this.env.API_URL}/foods/${id}`;
     return this.http.delete(url, httpOptions).pipe(
         catchError(this.handleError)
       );
@@ -215,5 +215,16 @@ export class ApiService {
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
+  }
+
+  // /////////////////////////////////
+  // ----------IMAGE-------------//
+  // /////////////////////////////////
+
+  postImage(data): Observable<any> {
+    const url = `${this.env.API_URL}/images`;
+    return this.http.post(url, data, httpOptions).pipe(
+        catchError(this.handleError)
+      );
   }
 }

@@ -11,7 +11,7 @@ import { ApiResponse } from 'src/app/models';
 })
 export class FoodDetailPage implements OnInit {
 
-  food: any = {};
+  record: any = {};
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -27,10 +27,11 @@ export class FoodDetailPage implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.api.getFood(`?id=${id}`).subscribe((res: ApiResponse) => {
-      console.log(res);
-        if (res.success) {
-          this.food = res.payload[0];
+    await this.api.getFood(`?_id=${id}`).subscribe((res: ApiResponse) => {
+      console.log(id);
+        if (res.success && res.payload.length > 0) {
+          console.log(res.payload);
+          this.record = res.payload[0];
         }
         loading.dismiss();
         this.alertService.presentToast(res.message);

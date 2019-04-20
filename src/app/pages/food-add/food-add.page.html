@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="success">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -15,7 +15,10 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Category</ion-label>
-      <ion-input type="text" formControlName="category" id="category"></ion-input>
+      <ion-select formControlName="category" id="category">
+        <ion-select-option value="FOOD">FOOD</ion-select-option>
+        <ion-select-option value="DRINK">DRINK</ion-select-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Description</ion-label>

@@ -25,6 +25,7 @@ ionic generate page pages/auth/register
 
 ionic generate page pages/dashboard
 
+ionic generate page pages/image
 
 ionic generate page pages/food
 
@@ -53,8 +54,20 @@ npm install @ionic-native/native-storage@beta --save
 npm install @ionic-native/network@beta  --save
 npm install @ionic/storage --save
 
+# Ionic Native Packages
+npm i @ionic-native/camera@beta
+npm i @ionic-native/file@beta
+npm i @ionic-native/ionic-webview@beta
+npm i @ionic-native/file-path@beta
+
+# Cordova Packages
 ionic cordova plugin add cordova-sqlite-storage
 ionic cordova plugin add cordova-plugin-network-information
+ionic cordova plugin add cordova-plugin-camera
+ionic cordova plugin add cordova-plugin-file
+ionic cordova plugin add cordova-plugin-ionic-webview
+ionic cordova plugin add cordova-sqlite-storage
+ionic cordova plugin add cordova-plugin-filepath
 
 ### Installing
 
