@@ -1,7 +1,7 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="success">
       <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
+          <ion-back-button defaultHref="/exercise"></ion-back-button>
       </ion-buttons>
       <ion-title> {{ page }} </ion-title>
     </ion-toolbar>
@@ -24,10 +24,6 @@
         <ion-item>
           <ion-label position="floating">Calorie</ion-label>
           <ion-input type="number" formControlName="calorie" id="calorie"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Duration</ion-label>
-          <ion-input type="number" formControlName="duration" id="duration"></ion-input>
         </ion-item>
 
       <ion-button shape="round" color="primary" expand="block" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>

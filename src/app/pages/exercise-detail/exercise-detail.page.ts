@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse } from 'src/app/models';
+import { ApiResponse, Exercise } from 'src/app/models';
+import { Exercises } from 'src/app/providers';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -11,24 +12,33 @@ import { ApiResponse } from 'src/app/models';
 })
 export class ExerciseDetailPage implements OnInit {
 
-  record: any = {};
+  record: Exercise;
 
   constructor(public api: ApiService,
-    private alertService: AlertService,
+    public exercises: Exercises,
+    private alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
-    public route: ActivatedRoute,
-    public router: Router){ }
+    public activatedRoute: ActivatedRoute,
+    public router: Router) {
+      const id = this.activatedRoute.snapshot.paramMap.get('id');
+      const record = this.exercises.query({ id })[0];
+      this.record = record || exercises.defaultRecord;
+      console.log(record);
+
+    }
 
   ngOnInit() {
-    this.getExercise();
+    // this.getExercise();
   }
 
+    /*
   async getExercise() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
     await this.api.getExercise(`?_id=${id}`).subscribe((res: ApiResponse) => {
-      console.log(res);  
+      console.log(res);
       if (res.success) {
           this.record = res.payload[0];
         }
@@ -54,4 +64,42 @@ export class ExerciseDetailPage implements OnInit {
         loading.dismiss();
       });
   }
+  */
+
+ async deleteRecord(record) {
+
+  const alert = await this.alertCtrl.create({
+    message: `Do you want to delete this ${record.name} record?`,
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          // slidingItem.close();
+        }
+      },
+      {
+        text: 'Yes',
+        handler: async () => {
+          const loading = await this.loadingCtrl.create({
+            message: 'Please wait...'
+          });
+          await loading.present();
+          setTimeout( async () => {
+            await loading.dismiss();
+            await this.exercises.delete(record);
+            const toast = await this.toastCtrl.create({
+              message: 'You have deleted ' + record['name'] + ' successfully .',
+              duration: 2000,
+              position: 'top'
+            });
+            await toast.present();
+          }, 1000);
+        }
+      }
+    ]
+  });
+  alert.present();
+}
+
 }

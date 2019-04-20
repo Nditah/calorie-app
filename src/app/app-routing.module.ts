@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'log-detail/:id', loadChildren: './pages/log-detail/log-detail.module#LogDetailPageModule' },
   { path: 'setting/:id', loadChildren: './pages/setting/setting.module#SettingPageModule', canActivate: [AuthGuard] },
   { path: 'user', loadChildren: './pages/user/user.module#UserPageModule', canActivate: [AuthGuard] },
+  { path: 'image', loadChildren: './pages/image/image.module#ImagePageModule' },
   ];
 
 @NgModule({

@@ -1,26 +1,35 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="success">
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/exercise"></ion-back-button>
+        </ion-buttons>
       <ion-title>Food Details</ion-title>
     </ion-toolbar>
   </ion-header>
   
-  <ion-content padding>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{ record.name }}</ion-card-title>
-      </ion-card-header>
-  
-      <ion-card-content>
-        <ion-card-subtitle>Type:</ion-card-subtitle>
-        {{ record.type }} {{ record.category }}
-        <ion-buttons slot="primary">
-          <ion-button routerLink="/exercise-edit/{{record.id}}">
-            <ion-icon slot="icon-only" name="create"></ion-icon>
+  <ion-content *ngIf="record">
+      <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + record.image + ')'">
+        </div>
+    <ion-list>
+        <ion-list-header>
+            <ion-label><h2>{{ record.name }} {{ record.calorie_rate }} KcPH </h2></ion-label>
+            <ion-badge>{{ record.type | lowercase }} {{ record.category | lowercase }}</ion-badge>
+          </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+              Description: <br/>
+              {{ record.name }} consumes {{ record.calorie_rate }} 
+              Kilo calorie per hour of activity for a body mass of 70Kg on average.<br/>
+              {{ record.description }}
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-button color="danger" *ngIf="record.type === 'CUSTOM'"  routerLink="/exercise-edit/{{record.id}}">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
           </ion-button>
-          <ion-button (click)="delete(record.id)">
-            <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
+          <ion-button color="danger" *ngIf="record.type === 'CUSTOM'" (click)="deleteRecord(record)">
+          <ion-icon name="trash"></ion-icon>
           </ion-button>
-        </ion-buttons>
-      </ion-card-content>
-    </ion-card>
-  </ion-content>
+        </ion-item>
+      </ion-list>
+    </ion-content>

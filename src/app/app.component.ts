@@ -8,7 +8,8 @@ import { AlertService } from './services/alert.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
 
@@ -21,6 +22,7 @@ export class AppComponent {
     { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
     { title: 'Profile', url: '/user', icon: 'person' },
     { title: 'Setting', url: '/setting', icon: 'person' },
+    { title: 'Images', url: '/image', icon: 'person' },
   ];
 
   constructor(
@@ -41,6 +43,7 @@ export class AppComponent {
       this.authService.getToken();
     });
   }
+
 
   logout() {
     this.authService.logout().then(data => {

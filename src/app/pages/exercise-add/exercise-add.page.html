@@ -1,14 +1,33 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
+    <ion-toolbar color="success">
+      <ion-title>Add Record</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="cancel()">
+          <span color="primary" showWhen="ios">Cancel</span>
+          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+        </ion-button>
+        <ion-button (click)="submitRecord()" [disabled]="!isReadyToSave" strong>
+          <span color="primary" showWhen="ios">Done</span>
+          <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+        </ion-button>
       </ion-buttons>
-      <ion-title>{{ page }}</ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content padding>
-    <form [formGroup]="addForm">
+    <form *ngIf="addForm" [formGroup]="addForm">
+
+        <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+        <div class="profile-image-wrapper" (click)="getPicture()">
+          <div class="profile-image-placeholder" *ngIf="!this.form.controls.image.value">
+            <ion-icon name="ios-camera-outline" md="ios-camera-outline"></ion-icon>
+            <div>Choose image</div>
+          </div>
+          <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.image.value"></div>
+        </div>
+
+    <ion-list>
+
       <ion-item>
         <ion-label position="floating">Exercise Name</ion-label>
         <ion-input type="text" formControlName="name" id="name"></ion-input>
@@ -22,14 +41,12 @@
         <ion-input type="text" formControlName="description" id="description"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Calorie</ion-label>
-        <ion-input type="number" formControlName="calorie" id="calorie"></ion-input>
+        <ion-label position="floating">Calorie Rate</ion-label>
+        <ion-input type="number" formControlName="calorie_rate" id="calorie_rate"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label position="floating">Duration</ion-label>
-        <ion-input type="number" formControlName="duration" id="duration"></ion-input>
-      </ion-item>
+    </ion-list>
 
-      <ion-button shape="round" color="primary" expand="block" [disabled]="!addForm.valid" (click)="submitRecord()">Submit</ion-button>
+      <ion-button shape="round" color="primary" [disabled]="!addForm.valid" (click)="submitRecord()">Submit</ion-button>
+
     </form>
   </ion-content>

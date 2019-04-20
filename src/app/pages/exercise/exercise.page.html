@@ -1,25 +1,26 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="success">
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>
-            {{ page }}
-        </ion-title>
+          <ion-title>{{ page }}</ion-title>
         <ion-buttons slot="end">
           <ion-button routerLink="/exercise-add"><ion-icon name="add-circle"></ion-icon></ion-button>
         </ion-buttons>
       </ion-toolbar>
   </ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let record of records" routerLink="/exercise-detail/{{record.id}}">
-      <ion-icon name="desktop" slot="start"></ion-icon>
-      {{ record.name }}
-      <div class="item-note" slot="end">
-        {{record.created_at | date}}
-      </div>
+<ion-content>
+  <ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchExercise($event)" placeholder="Search Exercises"></ion-searchbar>
+  <ion-list class="" *ngFor="let record of currentRecords">
+    <ion-item>
+      <ion-avatar routerLink="/exercise-detail/{{record.id}}"  routerDirection="forward" slot="start">
+        <img [src]="record.image" />
+      </ion-avatar>
+      <ion-icon *ngIf="!record.image" name="desktop" slot="start"></ion-icon>
+      <h2 routerLink="/exercise-detail/{{record.id}}"  routerDirection="forward" > 
+        {{ record.name }} </h2>
+      <ion-badge slot="end"> KcPH {{ record.calorie_rate }}</ion-badge>
     </ion-item>
   </ion-list>
 </ion-content>
