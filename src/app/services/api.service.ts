@@ -216,4 +216,15 @@ export class ApiService {
       map(this.extractData),
       catchError(this.handleError));
   }
+
+  // /////////////////////////////////
+  // ----------IMAGE-------------//
+  // /////////////////////////////////
+
+  postImage(data): Observable<any> {
+    const url = `${this.env.API_URL}/images`;
+    return this.http.post(url, data, httpOptions).pipe(
+        catchError(this.handleError)
+      );
+  }
 }

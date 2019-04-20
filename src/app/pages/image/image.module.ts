@@ -8,10 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ImagePage } from './image.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ImagePage
-  }
+  { path: '', component: ImagePage }
 ];
 
 @NgModule({

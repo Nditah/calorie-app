@@ -32,8 +32,8 @@ export class ExerciseAddPage implements OnInit {
         // 'type': [null, Validators.required], // enum: ["DEFAULT", "CUSTOM"]
         category: [null, Validators.required], // enum: ["SPORT", "WORKOUT"]
         description: [null, Validators.required],
-        calorie: [null, Validators.required],
-        duration: [null, Validators.required],
+        calorie_rate: [null, Validators.required],
+        image: [null],
       });
 
       // Watch the form for changes, and
@@ -98,7 +98,7 @@ export class ExerciseAddPage implements OnInit {
     reader.readAsDataURL(event.target.files[0]);
   }
 
-  getProfileImageStyle() {
+  getImageStyle() {
     return 'url(' + this.addForm.controls['image'].value + ')';
   }
 

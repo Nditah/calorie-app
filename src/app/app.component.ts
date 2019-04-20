@@ -22,7 +22,7 @@ export class AppComponent {
     { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
     { title: 'Profile', url: '/user', icon: 'person' },
     { title: 'Setting', url: '/setting', icon: 'person' },
-    { title: 'Images', url: '/image', icon: 'person' },
+    { title: 'Images', url: '/image', icon: 'image' },
   ];
 
   constructor(

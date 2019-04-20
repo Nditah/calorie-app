@@ -19,11 +19,11 @@
 
         <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
         <div class="profile-image-wrapper" (click)="getPicture()">
-          <div class="profile-image-placeholder" *ngIf="!this.form.controls.image.value">
-            <ion-icon name="ios-camera-outline" md="ios-camera-outline"></ion-icon>
+          <div class="profile-image-placeholder" *ngIf="!this.addForm.controls.image.value">
+            <ion-icon name="camera" ios="ios-camera-outline" md="md-camera"></ion-icon>
             <div>Choose image</div>
           </div>
-          <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.image.value"></div>
+          <div class="profile-image" [style.backgroundImage]="getImageStyle()" *ngIf="this.addForm.controls.image.value"></div>
         </div>
 
     <ion-list>
@@ -34,7 +34,10 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">Category</ion-label>
-        <ion-input type="text" formControlName="category" id="category"></ion-input>
+        <ion-select formControlName="category" id="category">
+          <ion-select-option value="SPORT">Sport</ion-select-option>
+          <ion-select-option value="WORKOUT">Workout</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Description</ion-label>

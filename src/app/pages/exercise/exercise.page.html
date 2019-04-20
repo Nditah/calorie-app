@@ -12,15 +12,13 @@
 
 <ion-content>
   <ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchExercise($event)" placeholder="Search Exercises"></ion-searchbar>
-  <ion-list class="" *ngFor="let record of currentRecords">
-    <ion-item>
-      <ion-avatar routerLink="/exercise-detail/{{record.id}}"  routerDirection="forward" slot="start">
+  <ion-list *ngFor="let record of currentRecords">
+    <ion-item routerLink="/exercise-detail/{{record.id}}"  routerDirection="forward">
+      <ion-avatar item-start slot="start">
         <img [src]="record.image" />
       </ion-avatar>
-      <ion-icon *ngIf="!record.image" name="desktop" slot="start"></ion-icon>
-      <h2 routerLink="/exercise-detail/{{record.id}}"  routerDirection="forward" > 
-        {{ record.name }} </h2>
-      <ion-badge slot="end"> KcPH {{ record.calorie_rate }}</ion-badge>
+      <h2> {{ record.name }} </h2>
+      <ion-badge item-start slot="end"> KcPH {{ record.calorie_rate }}</ion-badge>
     </ion-item>
   </ion-list>
 </ion-content>
