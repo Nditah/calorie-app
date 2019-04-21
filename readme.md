@@ -25,7 +25,7 @@ ionic generate page pages/auth/register
 
 ionic generate page pages/dashboard
 
-ionic generate page pages/image
+ionic generate page pages/minivite
 
 ionic generate page pages/food
 

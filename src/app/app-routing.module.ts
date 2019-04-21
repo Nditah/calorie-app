@@ -26,7 +26,8 @@ const routes: Routes = [
   { path: 'log-detail/:id', loadChildren: './pages/log-detail/log-detail.module#LogDetailPageModule' },
   { path: 'setting/:id', loadChildren: './pages/setting/setting.module#SettingPageModule', canActivate: [AuthGuard] },
   { path: 'user', loadChildren: './pages/user/user.module#UserPageModule', canActivate: [AuthGuard] },
-  { path: 'image', loadChildren: './pages/image/image.module#ImagePageModule' },
+  { path: 'minivite', loadChildren: './pages/minivite/minivite.module#MinivitePageModule' },
+  { path: 'minivite-detail/:id', loadChildren: './pages/minivite-detail/minivite-detail.module#MiniviteDetailPageModule' },
   ];
 
 @NgModule({
