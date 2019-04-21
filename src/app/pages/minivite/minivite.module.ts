@@ -8,10 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { MinivitePage } from './minivite.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: MinivitePage
-  }
+  { path: '', component: MinivitePage }
 ];
 
 @NgModule({

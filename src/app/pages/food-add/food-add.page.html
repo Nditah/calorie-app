@@ -4,6 +4,16 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Add Food</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <span color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </ion-button>
+      <ion-button (click)="submitRecord()" [disabled]="!isReadyToSave" strong>
+        <span color="primary" showWhen="ios">Done</span>
+        <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

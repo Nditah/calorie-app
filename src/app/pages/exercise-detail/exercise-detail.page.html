@@ -11,9 +11,9 @@
       <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + record.image + ')'">
         </div>
     <ion-list>
-        <ion-list-header>
+        <ion-list-header padding>
             <ion-label><h2>{{ record.name }} {{ record.calorie_rate }} KcPH </h2></ion-label>
-            <ion-badge>{{ record.type | lowercase }} {{ record.category | lowercase }}</ion-badge>
+            <ion-badge >{{ record.type | lowercase }} {{ record.category | lowercase }}</ion-badge>
           </ion-list-header>
         <ion-item>
           <ion-label text-wrap>

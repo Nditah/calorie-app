@@ -6,7 +6,7 @@ export interface Food {
     category: string; // enum: ["FOOD", "DRINK"]
     name: string;
     description: string;
-    quantity: number;
+    ph: number;
     water: number;
     calories: number;
     carbs: number;

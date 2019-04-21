@@ -10,6 +10,7 @@ import { EnvService } from './env.service';
 
 import { OfflineManagerService } from './offline-manager.service';
 import { NetworkService, ConnectionStatus } from './network.service';
+import { Log } from '../models';
 
 const API_STORAGE_KEY = 'specialkey';
 const httpOptions = {
@@ -65,6 +66,14 @@ export class ApiService {
         }
     }
     return obj;
+  }
+
+  updateUser(id: string, data): Observable<any> {
+    const url = `${this.env.API_URL}/users/${id}`;
+    const payload = this.cleanObject(data);
+    return this.http.put(url, payload, httpOptions).pipe(
+        catchError(this.handleError)
+      );
   }
 
   // /////////////////////////////////
@@ -183,7 +192,7 @@ export class ApiService {
       catchError(this.handleError));
   }
 
-  postLog(data): Observable<any> {
+  postLog(data: Log): Observable<any> {
     const url = `${this.env.API_URL}/logs`;
     const payload = this.cleanObject(data);
     return this.http.post(url, payload, httpOptions).pipe(
@@ -227,4 +236,16 @@ export class ApiService {
         catchError(this.handleError)
       );
   }
+
+  // /////////////////////////////////
+  // ----------MINIVITES-------------//
+  // /////////////////////////////////
+
+  getMinivite(path): Observable<any> {
+    const url = `${this.env.API_URL}/minivites${path}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
 }

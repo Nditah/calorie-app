@@ -20,12 +20,14 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { IonicSelectableModule } from 'ionic-selectable';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InterceptorService } from './services/interceptor.service';
 import { ApiService } from './services';
 
-import { Settings, Exercises, User, Api } from './providers';
+import { Settings, Exercises, Minivites, User, Api } from './providers';
 
 
 // AoT requires an exported function for factories
@@ -58,6 +60,7 @@ export function provideSettings(storage: Storage) {
     AppRoutingModule,
     HttpClientModule,
     ChartsModule,
+    IonicSelectableModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -69,6 +72,7 @@ export function provideSettings(storage: Storage) {
   providers: [
     ApiService,
     Exercises,
+    Minivites,
     StatusBar,
     SplashScreen,
     Camera,

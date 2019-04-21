@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
+import { IonicSelectableComponent } from 'ionic-selectable';
 import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse, SelectOptionInterface } from 'src/app/models';
+import { ApiResponse, SelectOption } from 'src/app/models';
 
 @Component({
   selector: 'app-log-add',
@@ -14,35 +15,59 @@ export class LogAddPage implements OnInit {
 
   page = 'Add Log';
   addForm: FormGroup;
-  foods: SelectOptionInterface;
-  exercises: SelectOptionInterface;
+  foods: SelectOption;
+  exercises: SelectOption;
   selectedFood: '';
   selectedExercise: '';
-  
+  yesterday = '2019-05-12';
+  today = '2019-05-11';
+
   constructor(public api: ApiService,
     private alertService: AlertService,
     public loadingController: LoadingController,
     private route: ActivatedRoute,
     public router: Router,
     private formBuilder: FormBuilder) {
-      this.addForm = this.formBuilder.group({
-        day: [null, Validators.required],
-        food: [null, Validators.required],
-        food_quantity: [null, Validators.required],
-        exercise: [null, Validators.required],
-        exercise_duration: [null, Validators.required],
-        remark: [null, Validators.required],
-      });
+
+    this.getExercises().then(() => {
+      this.getFoods().then(() => this.createForm());
+    });
     }
 
   ngOnInit() {
-    this.getExercises();
-    this.getFoods();
+    // this.createForm();
+  }
+
+  foodChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }) {
+    console.log('food:', event.value);
+  }
+
+
+  exerciseChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }) {
+    console.log('exercise:', event.value);
+  }
+
+  createForm(): void {
+    this.addForm = this.formBuilder.group({
+      day: [null, Validators.required],
+      food: [null, Validators.required],
+      food_quantity: [null, Validators.required],
+      exercise: [null, Validators.required],
+      exercise_duration: [null, Validators.required],
+      remark: [null, Validators.required],
+    });
   }
 
   async submitRecord() {
     const payload = this.addForm.value;
-    payload.type = 'CUSTOM';
+    payload.food = payload.food.id;
+    payload.exercise = payload.exercise.id;
     await this.api.postLog(payload).subscribe((res: ApiResponse) => {
       if (res.success) {
         const id = res['id'];
@@ -57,7 +82,7 @@ export class LogAddPage implements OnInit {
   async getExercises() {
     await this.api.getExercise('').subscribe((res: ApiResponse) => {
         if (res.success && res.payload.length > 0) {
-          this.exercises = res.payload.map(item => ({ id: item.id, text: item.name }));
+          this.exercises = res.payload.map(item => ({ id: item.id, name: item.name }));
           console.log(this.exercises);
           return;
         }
@@ -67,7 +92,7 @@ export class LogAddPage implements OnInit {
   async getFoods() {
     await this.api.getFood('').subscribe((res: ApiResponse) => {
         if (res.success && res.payload.length > 0) {
-          this.foods = res.payload.map(item => ({ id: item.id, text: item.name }));
+          this.foods = res.payload.map(item => ({ id: item.id, name: item.name }));
           console.log(this.foods);
           return;
         }

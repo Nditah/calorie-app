@@ -1,26 +1,36 @@
 <ion-header>
     <ion-toolbar color="success">
-      <ion-title>Food Details</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/log"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Activity Details</ion-title>
     </ion-toolbar>
   </ion-header>
   
-  <ion-content padding>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{ record.name }}</ion-card-title>
-      </ion-card-header>
-  
-      <ion-card-content>
-        <ion-card-subtitle>Type:</ion-card-subtitle>
-        {{ record.type }} {{ record.category }}
-        <ion-buttons slot="primary">
-          <ion-button routerLink="/log-edit/{{record.id}}">
-            <ion-icon slot="icon-only" name="create"></ion-icon>
-          </ion-button>
-          <ion-button (click)="delete(record.id)">
-            <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-card-content>
-    </ion-card>
+  <ion-content *ngIf="record">
+
+      <div class="item-profile" text-center #profilePic *ngIf="record.food"
+      [style.background-image]="'url(' + record.food.image + ')'">
+      </div>
+
+  <ion-list>
+      <ion-list-header padding>
+        <ion-label><h2>{{ record.day | date }} </h2></ion-label>
+        <ion-badge >{{ record.current_mass | number }} Kg</ion-badge>
+      </ion-list-header>
+      <ion-item *ngIf="record.food">
+        <ion-label text-wrap>Food: {{ record.food.name }} {{ record.food_quantity }} gram | Litre</ion-label>
+      </ion-item>
+      <ion-item *ngIf="record.exercise">
+        <ion-label text-wrap>Exercise: {{ record.exercise.name }} {{ record.exercise_duration }} minutes</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label text-wrap>Remark: {{ record.remark }} </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-button color="danger" (click)="deleteRecord(record)">
+        <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
   </ion-content>
