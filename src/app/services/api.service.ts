@@ -68,6 +68,10 @@ export class ApiService {
     return obj;
   }
 
+  getImageUrl(str: string) {
+    return `${this.env.API_URL}/assets/images/${str}`;
+  }
+
   updateUser(id: string, data): Observable<any> {
     const url = `${this.env.API_URL}/users/${id}`;
     const payload = this.cleanObject(data);

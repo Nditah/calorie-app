@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-
 import { Minivite } from '../../models';
 
 @Injectable()
 export class Minivites {
 
-  exercises: Minivite[] = [];
+  minivites: Minivite[] = [];
 
   defaultRecord: Minivite = {
     id: '1',
@@ -16,11 +15,11 @@ export class Minivites {
     description: 'Vitamin C is helpful for...',
     requirement: 2300,
     unit: 'miligram',
-    image: 'assets/img/exercises/bear.jpg',
+    image: 'assets/img/minivites/bear.jpg',
   };
 
   constructor() {
-    const exercises = [
+    const minivites = [
       {
           id: '2',
           type: 'VITAMIN',
@@ -30,7 +29,7 @@ export class Minivites {
           description: 'Vitamin C is helpful for...',
           requirement: 2300,
           unit: 'miligram',
-          image: 'assets/img/exercises/lion.jpg',
+          image: 'assets/img/minivites/lion.jpg',
         },
       {
           id: '3',
@@ -41,7 +40,7 @@ export class Minivites {
           description: 'Zinc is helful for',
           requirement: 2300,
           unit: 'microgram',
-          image: 'assets/img/exercises/kitten.jpg',
+          image: 'assets/img/minivites/kitten.jpg',
         },
       {
           id: '4',
@@ -52,26 +51,26 @@ export class Minivites {
           description: 'Iron is helful for making haemoglobin in blood cells.',
           requirement: 2300,
           unit: 'ui',
-          image: 'assets/img/exercises/eagle.jpg',
+          image: 'assets/img/minivites/eagle.jpg',
         },
   ];
 
-    for (const exercise of exercises) {
-      this.exercises.push(new Minivite(exercise));
+    for (const minivite of minivites) {
+      this.minivites.push(new Minivite(minivite));
     }
   }
 
   query(params?: any) {
     if (!params) {
-      return this.exercises;
+      return this.minivites;
     }
-    return this.exercises.filter((exercise) => {
+    return this.minivites.filter((minivite) => {
       for (const key in params) {
-        const field = exercise[key];
+        const field = minivite[key];
         if (typeof field == 'string' && field.toLowerCase().indexOf(params[key].toLowerCase()) >= 0) {
-          return exercise;
+          return minivite;
         } else if (field == params[key]) {
-          return exercise;
+          return minivite;
         }
       }
       return null;

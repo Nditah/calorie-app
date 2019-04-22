@@ -1,22 +1,36 @@
 ﻿import { User } from './user';
 
-export interface Food {
+export class Food {
     id: string;
     type: string; // enum: ["DEFAULT", "CUSTOM"]
     category: string; // enum: ["FOOD", "DRINK"]
     name: string;
     description: string;
-    ph: number;
-    water: number;
-    calories: number;
-    carbs: number;
-    protein: number;
-    fat: number;
-    fiber: number;
-    vitamins: Array<string>;
-    minerals: Array<string>;
-    created_by: User;
-    created_at: Date;
-    updated_by: User;
-    updated_at: Date;
+    ph?: number;
+    water?: number;
+    calories?: number;
+    carbs?: number;
+    protein?: number;
+    fat?: number;
+    fiber?: number;
+    vitamins?: Array<any>;
+    minerals?: Array<any>;
+    image?: string;
+    created_by?: User;
+    created_at?: Date;
+    updated_by?: User;
+    updated_at?: Date;
+
+    constructor(fields: any) {
+        // Quick and dirty extend/assign fields to this model
+        for (const f in fields) {
+            // @ts-ignore
+            this[f] = fields[f];
+        }
+    }
+
+}
+
+export interface Food {
+    [prop: string]: any;
 }

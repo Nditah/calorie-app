@@ -14,7 +14,6 @@ import { Minivites } from 'src/app/providers';
 export class MinivitePage implements OnInit {
 
   currentRecords: Array<Minivite>;
-  public press = 0;
 
   constructor(private router: Router,
     public api: ApiService,
@@ -25,10 +24,9 @@ export class MinivitePage implements OnInit {
     public loadingCtrl: LoadingController) {
 
     this.currentRecords = this.minivites.query();
-
   }
 
-  searchMinivite(ev) {
+  searchRecord(ev) {
     const val = ev.target.value;
     if (!val || !val.trim()) {
       this.currentRecords = this.minivites.query();

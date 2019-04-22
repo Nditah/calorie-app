@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse } from 'src/app/models';
+import { ApiResponse, Food } from 'src/app/models';
+import { Foods } from 'src/app/providers';
 
 
 @Component({
@@ -11,15 +13,32 @@ import { ApiResponse } from 'src/app/models';
 })
 export class FoodPage implements OnInit {
 
-  page = 'Food';
-  records: any;
+  currentRecords: Array<Food>;
 
-  constructor(public api: ApiService,
+  constructor(private router: Router,
+    public api: ApiService,
     private alertService: AlertService,
-    public loadingCtrl: LoadingController) { }
+    public foods: Foods,
+    public toastCtrl: ToastController,
+    public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController) {
+
+    this.currentRecords = this.foods.query();
+  }
 
   ngOnInit() {
     this.getFoods();
+  }
+
+  searchRecord(ev) {
+    const val = ev.target.value;
+    if (!val || !val.trim()) {
+      this.currentRecords = this.foods.query();
+      return;
+    }
+    this.currentRecords = this.foods.query({
+      name: val
+    });
   }
 
   async getFoods() {
@@ -32,7 +51,12 @@ export class FoodPage implements OnInit {
     await loading.present();
     await this.api.getFood('').subscribe((res: ApiResponse) => {
         if (res.success) {
-          this.records = res.payload;
+          const result = res.payload.map((record, index) => {
+            const obj = Object.assign({}, record);
+            obj.image = this.api.getImageUrl(record.image);
+            return obj;
+          });
+          this.currentRecords = result;
         }
         loading.dismiss();
         this.alertService.presentToast(res.message);

@@ -15,7 +15,6 @@ import { ExerciseAddPage } from '../exercise-add/exercise-add.page';
 })
 export class ExercisePage implements OnInit {
 
-  page = 'Exercise';
   currentRecords: Array<Exercise>;
   public press = 0;
 
@@ -30,13 +29,12 @@ export class ExercisePage implements OnInit {
     private vibration: Vibration) {
 
     this.currentRecords = this.exercises.query();
-
   }
 
   /**
    * Perform a service for the proper exercises.
    */
-  searchExercise(ev) {
+  searchRecord(ev) {
     const val = ev.target.value;
     if (!val || !val.trim()) {
       this.currentRecords = this.exercises.query();
@@ -92,8 +90,14 @@ export class ExercisePage implements OnInit {
     });
     await loading.present();
     await this.api.getExercise('').subscribe((res: ApiResponse) => {
-        console.log(res);
-        this.currentRecords = res.payload;
+      if (res.success) {
+        const result = res.payload.map((record, index) => {
+          const obj = Object.assign({}, record);
+          obj.image = this.api.getImageUrl(record.image);
+          return obj;
+        });
+        this.currentRecords = result;
+        }
         loading.dismiss();
         this.alertService.presentToast(res.message);
       }, err => {
