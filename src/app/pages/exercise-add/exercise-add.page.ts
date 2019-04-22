@@ -19,7 +19,7 @@ export class ExerciseAddPage implements OnInit {
   @ViewChild('fileInput') fileInput;
   isReadyToSave: boolean;
   item: any;
-  
+
   constructor(private camera: Camera,
     public api: ApiService,
     private alertService: AlertService,

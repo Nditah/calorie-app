@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, ToastController, LoadingController} from '@ionic/angular';
 import { FormBuilder, FormGroup} from '@angular/forms';
+import { Location } from '@angular/common';
 import { AuthService, ApiService } from 'src/app/services';
 import { User, ApiResponse } from 'src/app/models';
 
@@ -11,9 +12,7 @@ import { User, ApiResponse } from 'src/app/models';
 })
 export class UserPage implements OnInit {
 
-  // item: any;
   editForm: FormGroup;
-  // profileDetails: any[];
   public isDisabled = true;
   private caption_name = 'EDIT';
 
@@ -23,6 +22,7 @@ export class UserPage implements OnInit {
       private authService: AuthService,
       private apiService: ApiService,
       private formBuilder: FormBuilder,
+      private location: Location,
       public toastCtrl: ToastController,
       public loadingCtrl: LoadingController) {
 
@@ -63,7 +63,6 @@ export class UserPage implements OnInit {
     this.editForm.get('desired_mass').setValue(this.user.desired_mass || '');
     this.editForm.get('height').setValue(this.user.height || '');
     this.editForm.get('lifestyle').setValue(this.user.lifestyle || '');
-
   }
 
   getDateString(str) {
@@ -139,5 +138,7 @@ export class UserPage implements OnInit {
       this.caption_name = 'EDIT';
     }
   }
-
+  cancel() {
+    this.location.back();
+  }
 }

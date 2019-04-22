@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/services';
@@ -19,7 +20,7 @@ export class FoodAddPage implements OnInit {
   constructor(public api: ApiService,
     private alertService: AlertService,
     public loadingController: LoadingController,
-    private route: ActivatedRoute,
+    private location: Location,
     public router: Router,
     private formBuilder: FormBuilder) {
       this.addForm = this.formBuilder.group({
@@ -90,5 +91,7 @@ export class FoodAddPage implements OnInit {
         this.alertService.presentToast(err.message);
       });
   }
-
+  cancel() {
+    this.location.back();
+  }
 }

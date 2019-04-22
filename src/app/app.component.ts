@@ -17,12 +17,12 @@ export class AppComponent {
     { title: 'Dashboard', url: '/dashboard', icon: 'pulse' },
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'Log', url: '/log', icon: 'list' },
+    { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
     { title: 'Food', url: '/food', icon: 'ice-cream' },
     { title: 'Exercise', url: '/exercise', icon: 'bicycle' },
-    { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
-    { title: 'Profile', url: '/user', icon: 'person' },
-    { title: 'Setting', url: '/setting', icon: 'person' },
     { title: 'Nutrition', url: '/minivite', icon: 'image' },
+    { title: 'Profile', url: '/user', icon: 'person' },
+    { title: 'Setting', url: '/setting', icon: 'gear' },
   ];
 
   constructor(

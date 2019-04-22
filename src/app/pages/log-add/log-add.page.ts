@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { IonicSelectableComponent } from 'ionic-selectable';
@@ -25,7 +26,7 @@ export class LogAddPage implements OnInit {
   constructor(public api: ApiService,
     private alertService: AlertService,
     public loadingController: LoadingController,
-    private route: ActivatedRoute,
+    private location: Location,
     public router: Router,
     private formBuilder: FormBuilder) {
 
@@ -98,5 +99,7 @@ export class LogAddPage implements OnInit {
         }
       });
   }
-
+  cancel() {
+    this.location.back();
+  }
 }
