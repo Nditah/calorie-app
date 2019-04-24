@@ -25,7 +25,7 @@ ionic generate page pages/auth/register
 
 ionic generate page pages/dashboard
 
-ionic generate page pages/image
+ionic generate page pages/minivite
 
 ionic generate page pages/food
 
@@ -97,7 +97,8 @@ npm install
 
 
 ```
-
+ionic cordova platform add android
+ionic cordova platform add ios
 ionic cordova platform add browser
 
 ionic cordova run browser

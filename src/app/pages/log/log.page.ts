@@ -11,7 +11,6 @@ import { ApiResponse } from 'src/app/models';
 })
 export class LogPage implements OnInit {
 
-  page = 'Log';
   records: any;
 
   constructor(public api: ApiService,

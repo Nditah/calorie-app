@@ -3,39 +3,64 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title> {{ page }} </ion-title>
+      <ion-title> Activity Log </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="cancel()">
+          <span color="primary" showWhen="ios">Cancel</span>
+          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+        </ion-button>
+        <ion-button (click)="submitRecord()" [disabled]="!isReadyToSave" strong>
+          <span color="primary" showWhen="ios">Done</span>
+          <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
   
   <ion-content padding>
     <form [formGroup]="addForm">
       <ion-item>
-          <ion-label position="floating">Log Day</ion-label>
-          <ion-input type="date" formControlName="day" id="day"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Food</ion-label>
-          <ion-select [(ngModel)]="selectedFood" formControlName="food" placeholder="No Food selected" multiple="false">
-              <ion-select-option *ngFor="let food of foods" value="{{food.id}}">{{food.name}}</ion-select-option>
+          <ion-label>Log Day</ion-label>
+          <ion-select formControlName="day" id="day" placeholder="Select day">
+            <ion-select-option [value]="today" selected>Today {{ today | date }}</ion-select-option>
+            <ion-select-option [value]="yesterday">Yesterday {{ yesterday | date }}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Food Quantity</ion-label>
-          <ion-input type="text" formControlName="food_quantity" id="food_quantity"></ion-input>
+          <ion-label>Food</ion-label>
+          <ionic-selectable formControlName="food" placeholder="Select food or drink"
+            [items]="foods"
+            itemValueField="id"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="foodChange($event)">
+          </ionic-selectable>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Exercise</ion-label>
-          <ion-select [(ngModel)]="selectedExercise" formControlName="exercise" placeholder="No Exercise selected" multiple="false">
-              <ion-select-option *ngFor="let exercise of exercises" value="{{exercise.id}}">{{exercise.name}}</ion-select-option>
-          </ion-select>
+          <ion-label>Food Quantity</ion-label>
+          <ion-input type="number" formControlName="food_quantity" id="food_quantity" placeholder="Grams | Litres"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Exercise Duration</ion-label>
-          <ion-input type="number" formControlName="exercise_duration" id="exercise_duration"></ion-input>
+          <ion-label>Exercise</ion-label>
+          <ionic-selectable formControlName="exercise" placeholder="Select exercise"
+            [items]="exercises"
+            itemValueField="id"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="exerciseChange($event)">
+          </ionic-selectable>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Remark</ion-label>
-          <ion-input type="number" formControlName="remark" id="remark"></ion-input>
+          <ion-label>Exercise Duration</ion-label>
+          <ion-input type="number" formControlName="exercise_duration" id="exercise_duration" placeholder="Minutes"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Current Mass(Kg)</ion-label>
+          <ion-input type="number" formControlName="current_mass" id="current_mass" placeholder="Body weight in Kg"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Remark</ion-label>
+          <ion-input type="text" formControlName="remark" id="remark" placeholder="Side note"></ion-input>
         </ion-item>
 
       <ion-button shape="round" color="primary" expand="block" [disabled]="!addForm.valid" (click)="submitRecord()">Submit</ion-button>

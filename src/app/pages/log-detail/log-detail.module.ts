@@ -8,10 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { LogDetailPage } from './log-detail.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: LogDetailPage
-  }
+  { path: '', component: LogDetailPage }
 ];
 
 @NgModule({

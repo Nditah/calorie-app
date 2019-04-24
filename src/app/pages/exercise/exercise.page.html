@@ -1,24 +1,24 @@
 <ion-header>
-    <ion-toolbar color="success">
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-          <ion-title>{{ page }}</ion-title>
-        <ion-buttons slot="end">
-          <ion-button routerLink="/exercise-add"><ion-icon name="add-circle"></ion-icon></ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="success">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+        <ion-title>Exercise</ion-title>
+      <ion-buttons slot="end">
+        <ion-button routerLink="/exercise-add"><ion-icon name="add-circle"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 
 <ion-content>
-  <ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchExercise($event)" placeholder="Search Exercises"></ion-searchbar>
+  <ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Exercises"></ion-searchbar>
   <ion-list *ngFor="let record of currentRecords">
     <ion-item routerLink="/exercise-detail/{{record.id}}"  routerDirection="forward">
       <ion-avatar item-start slot="start">
         <img [src]="record.image" />
       </ion-avatar>
       <h2> {{ record.name }} </h2>
-      <ion-badge item-start slot="end"> KcPH {{ record.calorie_rate }}</ion-badge>
+      <ion-badge item-stop slot="end"> KcPH {{ record.calorie_rate }}</ion-badge>
     </ion-item>
   </ion-list>
 </ion-content>

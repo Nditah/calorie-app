@@ -1,59 +1,69 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Home</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="cog"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+  <ion-toolbar color="success">
+    <ion-title text-center>Welcome</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
-  <ion-row>
-    <ion-col>
-      <ion-card no-margin margin-bottom class="full-width">
-        <ion-card-header>
-          <h4 ion-text color="dark">03B WHITE: LAKE GROVE DYNAMITED (NYE)</h4>
-        </ion-card-header>
-        <ion-list>
-          <ion-item>
-            <ion-icon name="people" slot="start"></ion-icon> 
-            <h2 ion-text color="dark">Jon Doe</h2>
-          </ion-item>
-        </ion-list>
-      </ion-card>
-      
-      <ion-card no-margin margin-bottom>
-        <ion-card-content>
-          <p>Lorem ipsum...</p>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-
-  <ion-button expand="full" size="large" color="tertiary">Button</ion-button>
+<ion-content>
+  <section text-center>
+    <h1> Afro-Calorie </h1>
+  </section>
+  <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" routerLink="/user"  routerDirection="forward">
+              <ion-icon name="person"></ion-icon>
+              <h2>Profile</h2>
+          </ion-card>
+        </ion-col>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" routerLink="/dashboard"  routerDirection="forward">
+            <ion-icon name="pulse"></ion-icon>
+                <h2>Dashboard</h2>
+            </ion-card>
+        </ion-col>
+      </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <ion-card text-center padding color="danger" routerLink="/log"  routerDirection="forward">
+          <ion-icon name="calendar"></ion-icon>
+              <h2>Log Activity</h2>
+          </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card text-center padding color="danger" routerLink="/feedback"  routerDirection="forward">
+          <ion-icon name="checkmark-circle"></ion-icon>
+            <h2>Feedback</h2>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" routerLink="/exercise"  routerDirection="forward">
+            <ion-icon name="bicycle"></ion-icon>
+              <h2>Exercise</h2>
+          </ion-card>
+        </ion-col>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" routerLink="/food"  routerDirection="forward">
+            <ion-icon name="ice-cream"></ion-icon>
+                <h2>Food & Drinks</h2>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <ion-card text-center padding color="danger" routerLink="/minivite"  routerDirection="forward">
+          <ion-icon name="list"></ion-icon>
+            <h2>Nutrition</h2>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card text-center padding color="danger" routerLink="/setting"  routerDirection="forward">
+          <ion-icon name="settings"></ion-icon>
+              <h2>Settings</h2>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar color="primary">
-    <div class="tabs">
-      <div class="tab" [ngClass]="{ 'active' : segment === 'hottest' }" (click)="onTabSelected('hottest')">
-        <ion-icon name="flame"></ion-icon>
-        <div class="label">Hottest</div>
-      </div>
-      <div class="tab" [ngClass]="{ 'active' : segment === 'favs' }" (click)="onTabSelected('favs')">
-        <ion-icon name="star"></ion-icon>
-        <div class="label">Favorites</div>
-      </div>
-      <div class="tab" [ngClass]="{ 'active' : segment === 'profile' }" (click)="onTabSelected('profile')">
-        <ion-icon name="person"></ion-icon>
-        <div class="label">Profile</div>
-      </div>
-    </div>
-  </ion-toolbar>
-</ion-footer>

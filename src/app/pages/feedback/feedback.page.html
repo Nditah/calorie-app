@@ -4,10 +4,13 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ page }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/feedback-add"><ion-icon name="add-circle"></ion-icon></ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list>
     <ion-item *ngFor="let record of records" routerLink="/feedback-detail/{{record.id}}">
       <ion-icon name="desktop" slot="start"></ion-icon>

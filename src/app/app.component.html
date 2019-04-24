@@ -1,4 +1,9 @@
 <ion-app>
+
+  <div *nfIf="showSplash" class="splash">
+    <div class="spinner"></div>
+  </div>
+
   <ion-split-pane>
     <ion-menu>
       <ion-header>
@@ -6,21 +11,19 @@
           <ion-title>Menu</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="dark-bg">
+      <ion-content>
           <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item color="dark" [routerDirection]="'root'" [routerLink]="[p.url]">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                   <h2 ion-text color="light">{{p.title}}</h2>
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-item (click)="logout()">
+          <ion-item (click)="logout()" href="#">
             <ion-icon slot="start" name="log-out"></ion-icon>
-            <ion-label>
-              Logout
-            </ion-label>
+            <ion-label>Logout</ion-label>
           </ion-item>
         </ion-list>
       </ion-content>

@@ -9,6 +9,7 @@ export interface Log {
     food_quantity: number;
     exercise: Exercise;
     exercise_duration: number;
+    current_mass: number;
     remark: string;
     created_by: User;
     created_at: Date;

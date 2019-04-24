@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="success">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+        <ion-title>Nutrition</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchMinivite($event)" placeholder="Search Class"></ion-searchbar>
+<ion-list *ngFor="let record of currentRecords">
+  <ion-item routerLink="/minivite-detail/{{record.id}}"  routerDirection="forward">
+    <ion-avatar item-start slot="start">
+      <img [src]="record.image" />
+    </ion-avatar>
+    <h2> {{ record.name }} </h2>
+    <ion-badge item-start slot="end"> {{ record.symbol }}</ion-badge>
+  </ion-item>
+</ion-list>
+</ion-content>

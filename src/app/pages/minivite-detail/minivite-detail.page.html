@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="success">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/minivite"></ion-back-button>
+      </ion-buttons>
+    <ion-title>Class Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="record">
+    <div class="item-profile" text-center [style.background-image]="'url(' + record.image + ')'">
+      </div>
+  <ion-list>
+      <ion-list-header padding>
+          <ion-label><h2>{{ record.name }} {{ record.symbol }} </h2></ion-label>
+          <ion-badge >{{ record.type | lowercase }} {{ record.category | lowercase }}</ion-badge>
+        </ion-list-header>
+      <ion-item>
+        <ion-label text-wrap>
+            Description: <br/>
+            {{ record.requirement }} {{ record.unit }} 
+            {{ record.description }}
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
