@@ -97,7 +97,8 @@ npm install
 
 
 ```
-
+ionic cordova platform add android
+ionic cordova platform add ios
 ionic cordova platform add browser
 
 ionic cordova run browser

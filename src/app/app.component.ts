@@ -6,12 +6,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { AlertService } from './services/alert.service';
 
+import { timer } from 'rxjs';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+
+  showSplash = true;
 
   public appPages = [
     { title: 'Dashboard', url: '/dashboard', icon: 'pulse' },
@@ -22,7 +26,7 @@ export class AppComponent {
     { title: 'Exercise', url: '/exercise', icon: 'bicycle' },
     { title: 'Nutrition', url: '/minivite', icon: 'image' },
     { title: 'Profile', url: '/user', icon: 'person' },
-    { title: 'Setting', url: '/setting', icon: 'gear' },
+    { title: 'Setting', url: '/settings', icon: 'gear' },
   ];
 
   constructor(
@@ -41,6 +45,8 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.authService.getToken();
+
+      timer(3000).subscribe(() => this.showSplash = false );
     });
   }
 

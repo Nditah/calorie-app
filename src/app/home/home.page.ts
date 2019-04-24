@@ -11,9 +11,8 @@ import { ApiResponse } from 'src/app/models';
 })
 export class HomePage implements OnInit {
 
-  records: any;
-  segment: string;
-  page: number;
+  username = 'Telixia Talent';
+  record: any;
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -21,7 +20,6 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getHomes();
-    this.onTabSelected('hottest');
   }
 
   async getHomes() {
@@ -34,7 +32,7 @@ export class HomePage implements OnInit {
     await loading.present();
     await this.api.getSetting('/public').subscribe((res: ApiResponse) => {
         console.log(res);
-        this.records = res.payload;
+        this.record = res.payload;
         loading.dismiss();
         this.alertService.presentToast(res.message);
       }, err => {
@@ -43,9 +41,4 @@ export class HomePage implements OnInit {
         this.alertService.presentToast(err.message);
       });
   }
-
-    onTabSelected(segmentValue: string) {
-      this.segment = segmentValue;
-      this.page = 1;
-    }
 }

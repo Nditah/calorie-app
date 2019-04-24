@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/exercise"></ion-back-button>
+    </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="dismissRegister()"><ion-icon name="add-circle"></ion-icon></ion-button>
     </ion-buttons>
@@ -45,6 +48,7 @@
 </ion-grid>
   </form>
 
-  <p text-center>Already have a account?</p>
-  <a color="primary" (click)="loginModal()">Login</a>
+  <p text-center>Already have a account?<br/>
+    <a (click)="loginModal()"><h2>Login</h2></a></p>
+
 </ion-content>  
