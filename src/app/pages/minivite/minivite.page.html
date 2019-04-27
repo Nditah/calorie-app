@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-<ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchMinivite($event)" placeholder="Search Class"></ion-searchbar>
+<ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Class"></ion-searchbar>
 <ion-list *ngFor="let record of currentRecords">
   <ion-item routerLink="/minivite-detail/{{record.id}}"  routerDirection="forward">
     <ion-avatar item-start slot="start">

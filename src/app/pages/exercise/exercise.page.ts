@@ -90,7 +90,7 @@ export class ExercisePage implements OnInit {
     });
     await loading.present();
     await this.api.getExercise('').subscribe((res: ApiResponse) => {
-      if (res.success) {
+      if (res.success && res.payload.length > 0) {
         const result = res.payload.map((record, index) => {
           const obj = Object.assign({}, record);
           obj.image = this.api.getImageUrl(record.image);

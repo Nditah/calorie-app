@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 
@@ -11,15 +13,19 @@ import { User } from 'src/app/models/user';
 export class DashboardPage implements OnInit {
 
   user: User;
+
   public lineChartData:Array<any> = [
     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Mass'},
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Calorie'},
     {data: [18, 48, 77, 9, 100, 27, 40], label: 'Exercise'}
   ];
+
   public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June'];
+  
   public lineChartOptions:any = {
     responsive: true
   };
+
   public lineChartColors:Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
@@ -46,10 +52,26 @@ export class DashboardPage implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
+
   public lineChartLegend:boolean = true;
+
   public lineChartType:string = 'line';
 
-  constructor(private menu: MenuController, private authService: AuthService) { 
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Actual Intake' },
+    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Required Intake' }
+  ];
+
+  constructor(private menu: MenuController,
+    private authService: AuthService) {
     this.menu.enable(true);
   }
 
@@ -62,17 +84,6 @@ export class DashboardPage implements OnInit {
         this.user = user;
       }
     );
-  }
-
-  public randomize(): void {
-    const _lineChartData: Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.lineChartData = _lineChartData;
   }
 
   // events

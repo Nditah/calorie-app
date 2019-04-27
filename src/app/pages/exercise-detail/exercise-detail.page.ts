@@ -32,7 +32,6 @@ export class ExerciseDetailPage implements OnInit {
     // this.getExercise();
   }
 
-    /*
   async getExercise() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
@@ -43,11 +42,11 @@ export class ExerciseDetailPage implements OnInit {
           this.record = res.payload[0];
         }
         loading.dismiss();
-        this.alertService.presentToast(res.message);
+        // this.alertCtrl.presentToast(res.message);
       }, err => {
         console.log(err);
         loading.dismiss();
-        this.alertService.presentToast(err.message);
+        // this.alertCtrl.presentToast(err.message);
       });
   }
   async delete(id) {
@@ -55,7 +54,7 @@ export class ExerciseDetailPage implements OnInit {
     await loading.present();
     await this.api.deleteExercise(id).subscribe((res: ApiResponse) => {
       if (res.success) {
-        this.alertService.presentToast('Operation successful');
+        // this.alertCtrl.presentToast('Operation successful');
       }
       loading.dismiss();
         // this.location.back();
@@ -64,7 +63,7 @@ export class ExerciseDetailPage implements OnInit {
         loading.dismiss();
       });
   }
-  */
+
 
  async deleteRecord(record) {
 

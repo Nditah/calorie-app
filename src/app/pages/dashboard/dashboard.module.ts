@@ -9,10 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { DashboardPage } from './dashboard.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DashboardPage
-  }
+  { path: '', component: DashboardPage }
 ];
 
 @NgModule({

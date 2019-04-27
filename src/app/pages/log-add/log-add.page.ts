@@ -22,7 +22,8 @@ export class LogAddPage implements OnInit {
   selectedExercise: '';
   yesterday = '2019-05-12';
   today = '2019-05-11';
-
+  isReadyToSave = false;
+  
   constructor(public api: ApiService,
     private alertService: AlertService,
     public loadingController: LoadingController,

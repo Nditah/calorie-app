@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, MenuController, Platform, NavController, ToastController } from '@ionic/angular';
-import { RegisterPage } from '../auth/register/register.page';
-import { LoginPage } from '../auth/login/login.page';
 import { AuthService } from 'src/app/services/auth.service';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AlertService } from 'src/app/services/alert.service';
@@ -36,17 +34,11 @@ export class LandingPage implements OnInit {
 
   }
 
-  async register() {
-    const registerModal = await this.modalController.create({
-      component: RegisterPage
-    });
-    return await registerModal.present();
+  gotoLogin() {
+    this.navCtrl.navigateRoot('/login');
   }
 
-  async login() {
-    const loginModal = await this.modalController.create({
-      component: LoginPage,
-    });
-    return await loginModal.present();
+  gotoRegister() {
+    this.navCtrl.navigateRoot('/register');
   }
 }

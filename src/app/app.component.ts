@@ -26,7 +26,7 @@ export class AppComponent {
     { title: 'Exercise', url: '/exercise', icon: 'bicycle' },
     { title: 'Nutrition', url: '/minivite', icon: 'image' },
     { title: 'Profile', url: '/user', icon: 'person' },
-    { title: 'Setting', url: '/settings', icon: 'gear' },
+    { title: 'Setting', url: '/setting', icon: 'settings' },
   ];
 
   constructor(

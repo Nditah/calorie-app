@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/services';
@@ -14,12 +15,14 @@ export class ExerciseEditPage implements OnInit {
 
   page = 'Edit Exercise';
   editForm: FormGroup;
+  isReadyToSave = false;
 
   constructor(public api: ApiService,
     private alertService: AlertService,
     public loadingController: LoadingController,
     private route: ActivatedRoute,
     public router: Router,
+    private location: Location,
     private formBuilder: FormBuilder) {
       this.getFoom(this.route.snapshot.paramMap.get('id'));
       this.editForm = this.formBuilder.group({
@@ -69,5 +72,7 @@ export class ExerciseEditPage implements OnInit {
         console.log(err);
       });
   }
-
+  cancel() {
+    this.location.back();
+  }
 }

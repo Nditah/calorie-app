@@ -13,8 +13,8 @@ import { User, ApiResponse } from 'src/app/models';
 export class UserPage implements OnInit {
 
   editForm: FormGroup;
-  public isDisabled = true;
-  private caption_name = 'EDIT';
+  isDisabled = true;
+  caption_name = 'EDIT';
 
   user: User;
 

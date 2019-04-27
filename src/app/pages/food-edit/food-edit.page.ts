@@ -15,6 +15,8 @@ export class FoodEditPage implements OnInit {
   editForm: FormGroup;
   minerals: FormArray;
   vitamins: FormArray;
+  isReadyToSave = false;
+
   // 16 essential minerals
   mineralArr = ['calcium', 'phosphorus', 'potassium', 'sulfur', 'sodium', 'chloride', 'magnesium',
   'iron', 'zinc', 'copper', 'manganese', 'iodine', 'selenium', 'molybdenum', 'chromium', 'fluoride'];

@@ -16,6 +16,7 @@ export class FoodAddPage implements OnInit {
   addForm: FormGroup;
   vitamins: FormArray;
   minerals: FormArray;
+  isReadyToSave = false;
 
   constructor(public api: ApiService,
     private alertService: AlertService,

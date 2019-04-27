@@ -69,7 +69,7 @@
       </ion-label>
     </ion-item-divider>
     <div formArrayName="vitamins">
-      <ion-item *ngFor="let vitamin of addForm.get('vitamins').controls; let i=index" [formGroupName]="i">
+      <ion-item *ngFor="let vitamin of addForm.get('vitamins')['controls']; let i=index" [formGroupName]="i">
         <ion-label position="floating">Vitamin Name</ion-label>
         <ion-row>
             <ion-col size="7">
@@ -79,7 +79,7 @@
               <ion-input type="number" formControlName="vitamin_value" item-start></ion-input>
             </ion-col>
             <ion-col size="2">
-              <ion-button shape="round" color="dark" (click)="deleteVitamin(addForm.get('vitamins').controls,i)"><ion-icon name="trash"></ion-icon></ion-button>
+              <ion-button shape="round" color="dark" (click)="deleteVitamin(addForm.get('vitamins')['controls'], i)"><ion-icon name="trash"></ion-icon></ion-button>
             </ion-col>
         </ion-row>
       </ion-item>
@@ -91,7 +91,7 @@
       </ion-label>
     </ion-item-divider>
     <div formArrayName="minerals">
-        <ion-item *ngFor="let mineral of addForm.get('minerals').controls; let i=index" [formGroupName]="i">
+        <ion-item *ngFor="let mineral of addForm.get('minerals')['controls']; let i=index" [formGroupName]="i">
           <ion-label position="floating">Mineral Name</ion-label>
           <ion-row>
             <ion-col size="7">
@@ -101,7 +101,7 @@
               <ion-input type="number" formControlName="mineral_value" item-start></ion-input>
             </ion-col>
             <ion-col size="2">
-              <ion-button shape="round" color="dark" (click)="deleteMineral(addForm.get('minerals').controls,i)"><ion-icon name="trash"></ion-icon></ion-button>
+              <ion-button shape="round" color="dark" (click)="deleteMineral(addForm.get('minerals')['controls'], i)"><ion-icon name="trash"></ion-icon></ion-button>
             </ion-col>
           </ion-row>
         </ion-item>
