@@ -8,10 +8,18 @@
 </ion-header>
 
 <ion-content padding>
-    <div class="row">
-      <div class="col-md-6">
-        <div style="display: block;">
-        <canvas baseChart width="300" height="400"
+  <ion-grid>
+  <ion-row>
+      <ion-col>
+          <p *ngIf="user != undefined">
+              {{ user.username | uppercase  }} Calorie - Weight - Exercise Monitor
+          </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <div style="display: block;">
+              <canvas baseChart
                     [datasets]="lineChartData"
                     [labels]="lineChartLabels"
                     [options]="lineChartOptions"
@@ -19,14 +27,29 @@
                     [legend]="lineChartLegend"
                     [chartType]="lineChartType"
                     (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-        <div *ngIf="user != undefined">
-             {{ user.username | uppercase  }} Calorie - Weight - Exercise Monitor
-        </div>
-    </div>
+                    (chartClick)="chartClicked($event)">
+              </canvas>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <p>Actual - Expected Calorie intake (estimated)</p>
+        </ion-col>
+      </ion-row>
+    <ion-row>
+      <ion-col>
+          <div style="display: block;">
+              <canvas baseChart 
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+              </canvas>
+          </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   </ion-content>

@@ -18,15 +18,15 @@ export class AppComponent {
   showSplash = true;
 
   public appPages = [
-    { title: 'Dashboard', url: '/dashboard', icon: 'pulse' },
     { title: 'Home', url: '/home', icon: 'home' },
+    { title: 'Dashboard', url: '/dashboard', icon: 'pulse' },
     { title: 'Log', url: '/log', icon: 'list' },
     { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
     { title: 'Food', url: '/food', icon: 'ice-cream' },
     { title: 'Exercise', url: '/exercise', icon: 'bicycle' },
     { title: 'Nutrition', url: '/minivite', icon: 'image' },
     { title: 'Profile', url: '/user', icon: 'person' },
-    { title: 'Setting', url: '/settings', icon: 'gear' },
+    { title: 'Setting', url: '/setting', icon: 'settings' },
   ];
 
   constructor(

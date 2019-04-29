@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController, ToastController } from '@ionic/angular';
-import { ApiService, AlertService } from 'src/app/services';
+import { ApiService } from 'src/app/services';
 import { ApiResponse, Food } from 'src/app/models';
 import { Foods } from 'src/app/providers';
 
@@ -17,17 +17,17 @@ export class FoodPage implements OnInit {
 
   constructor(private router: Router,
     public api: ApiService,
-    private alertService: AlertService,
     public foods: Foods,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController) {
 
     this.currentRecords = this.foods.query();
+    console.log(this.currentRecords );
   }
 
   ngOnInit() {
-    this.getFoods();
+    // this.getFoods();
   }
 
   searchRecord(ev) {
@@ -41,29 +41,4 @@ export class FoodPage implements OnInit {
     });
   }
 
-  async getFoods() {
-    const loading = await this.loadingCtrl.create({
-      translucent: true,
-      animated: true,
-      message: 'Loading records...',
-      duration: 5000
-    });
-    await loading.present();
-    await this.api.getFood('').subscribe((res: ApiResponse) => {
-        if (res.success) {
-          const result = res.payload.map((record, index) => {
-            const obj = Object.assign({}, record);
-            obj.image = this.api.getImageUrl(record.image);
-            return obj;
-          });
-          this.currentRecords = result;
-        }
-        loading.dismiss();
-        this.alertService.presentToast(res.message);
-      }, err => {
-        console.log(err);
-        loading.dismiss();
-        this.alertService.presentToast(err.message);
-      });
-  }
 }

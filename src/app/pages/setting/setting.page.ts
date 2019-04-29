@@ -22,6 +22,7 @@ export class SettingPage implements OnInit {
     food_quantity: 'g',
     drink_quantity: 'ml',
   };
+  isReadyToSave = false;
 
   constructor(
     private storage: NativeStorage,

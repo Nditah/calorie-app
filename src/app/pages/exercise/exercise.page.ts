@@ -5,7 +5,6 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse, Exercise } from 'src/app/models';
 import { Exercises } from 'src/app/providers';
-import { ExerciseAddPage } from '../exercise-add/exercise-add.page';
 
 
 @Component({
@@ -90,7 +89,7 @@ export class ExercisePage implements OnInit {
     });
     await loading.present();
     await this.api.getExercise('').subscribe((res: ApiResponse) => {
-      if (res.success) {
+      if (res.success && res.payload.length > 0) {
         const result = res.payload.map((record, index) => {
           const obj = Object.assign({}, record);
           obj.image = this.api.getImageUrl(record.image);

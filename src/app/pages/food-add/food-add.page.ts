@@ -14,8 +14,8 @@ import { ApiResponse } from 'src/app/models';
 export class FoodAddPage implements OnInit {
 
   addForm: FormGroup;
-  vitamins: FormArray;
-  minerals: FormArray;
+  minivites: FormArray;
+  isReadyToSave = false;
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -31,49 +31,31 @@ export class FoodAddPage implements OnInit {
         'quantity': [null, Validators.required],
         'water': [null, Validators.required],
         'calories': [null, Validators.required],
-        'carbs': [null, Validators.required],
+        'carbohydrate': [null, Validators.required],
         'protein': [null, Validators.required],
-        'fat': [null, Validators.required],
-        'fiber': [null, Validators.required],
-        'vitamins' : this.formBuilder.array([]),
-        'minerals' : this.formBuilder.array([]),
+        'fats': [null, Validators.required],
+        'fibre': [null, Validators.required],
+        'minivites' : this.formBuilder.array([]),
       });
     }
 
   ngOnInit() {
   }
 
-  // * Vitamins
-  createVitamin(): FormGroup {
+  // * Minivites
+  createMinivite(): FormGroup {
     return this.formBuilder.group({
-      vitamin_name: [null, Validators.required],
-      vitamin_value: [null, Validators.required],
+      minivite_name: [null, Validators.required],
+      minivite_value: [null, Validators.required],
     });
   }
 
-  addBlankVitamin(): void {
-    this.minerals = this.addForm.get('vitamins') as FormArray;
-    this.minerals.push(this.createMineral());
+  addBlankMinivite(): void {
+    this.minivites = this.addForm.get('minivites') as FormArray;
+    this.minivites.push(this.createMinivite());
   }
 
-  deleteVitamin(control, index) {
-    control.removeAt(index);
-  }
-
-  // * Minerals
-  createMineral(): FormGroup {
-    return this.formBuilder.group({
-      mineral_name: [null, Validators.required],
-      mineral_value: [null, Validators.required],
-    });
-  }
-
-  addBlankMineral(): void {
-    this.minerals = this.addForm.get('minerals') as FormArray;
-    this.minerals.push(this.createMineral());
-  }
-
-  deleteMineral(control, index) {
+  deleteMinivite(control, index) {
     control.removeAt(index);
   }
 

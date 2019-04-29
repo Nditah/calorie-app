@@ -7,10 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FoodAddPage } from './food-add.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: FoodAddPage
-  }
+  { path: '', component: FoodAddPage }
 ];
 
 @NgModule({

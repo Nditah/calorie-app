@@ -8,7 +8,14 @@
 </ion-header>
 
 <ion-content>
-<ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchMinivite($event)" placeholder="Search Class"></ion-searchbar>
+<ion-searchbar padding animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Class"></ion-searchbar>
+<div padding>
+  <p>Most of the foods that you consume are made up of several of the classes of nutrients. 
+  Some of the nutrients are needed by the body all the time while the others are needed once in awhile. 
+  People’s health deteriorates because of the imbalance of nutrients. 
+  There can be too much of a nutrient or a deficiency in it.
+</p>
+</div>
 <ion-list *ngFor="let record of currentRecords">
   <ion-item routerLink="/minivite-detail/{{record.id}}"  routerDirection="forward">
     <ion-avatar item-start slot="start">

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Food } from '../../models';
+import { Food, ApiResponse } from '../../models';
+import { ApiService, AlertService } from 'src/app/services';
 
 @Injectable()
 export class Foods {
@@ -9,129 +10,44 @@ export class Foods {
   defaultRecord: Food = {
     id: '1',
     type: 'DEFAULT',
-    category: 'SPORT',
-    name: 'Football',
-    description: 'Favourite sport for cutting down fats for teens and adults',
-    calories: 2300,
-    image: 'assets/img/foods/bear.jpg',
+    category: 'FOOD',
+    name: 'Bread',
+    description: 'Whole wheat bread with added vitamins and minerals',
+    water: 0.4,
+    calories: 23400,
+    carbohydrate: 2345,
+    protein: 2500,
+    fats: 230.0,
+    fibre: 3570,
+    minivites: [{ minivite_id: '5cbb581b42b32d642a7c32f5', minivite_value: 120 }],
+    image: 'assets/images/junk.jpg',
   };
 
 
-  constructor() {
+  constructor(public api: ApiService) {
     const foods: Array<Food> = [
-      {
-        id: '12',
-        type: 'DEFAULT',
-        category: 'SPORT',
-        name: 'Soccer',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/cheetah.jpg',
-      },
-      {
-        id: '13',
-        type: 'DEFAULT',
-        category: 'SPORT',
-        name: 'Handball',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/duck.jpg',
-      },
-      {
-        id: '14',
-        type: 'DEFAULT',
-        category: 'SPORT',
-        name: 'Running',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/eagle.jpg',
-      },
-      {
-        id: '15',
-        type: 'CUSTOM',
-        category: 'SPORT',
-        name: 'Swimming',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/elephant.jpg',
-      },
-      {
-        id: '16',
-        type: 'DEFAULT',
-        category: 'SPORT',
-        name: 'Football',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/giraffe.jpg',
-      },
-      {
-        id: '17',
-        type: 'DEFAULT',
-        category: 'SPORT',
-        name: 'Cycling',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/iguana.jpg',
-      },
-      {
-        id: '18',
-        type: 'CUSTOM',
-        category: 'SPORT',
-        name: 'Jugging',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/kitten.jpg',
-      },
-      {
-        id: '19',
-        type: 'CUSTOM',
-        category: 'SPORT',
-        name: 'Skipping',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/lion.jpg',
-      },
-      {
-        id: '20',
-        type: 'DEFAULT',
-        category: 'SPORT',
-        name: 'Pushups',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/mouse.jpg',
-      },
-      {
-        id: '21',
-        type: 'CUSTOM',
-        category: 'SPORT',
-        name: 'Strething',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/puppy.jpg',
-      },
-      {
-        id: '22',
-        type: 'CUSTOM',
-        category: 'SPORT',
-        name: 'Walking Fast',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/rabbit.jpg',
-      },
-      {
-        id: '23',
-        type: 'CUSTOM',
-        category: 'SPORT',
-        name: 'Jumping',
-        description: 'Favourite sport for cutting down fats for teens and adults',
-        calories: 2300,
-        image: 'assets/img/foods/turtle.jpg',
-      },
+        {
+          id: '2',
+          type: 'DEFAULT',
+          category: 'FOOD',
+          name: 'Junk',
+          description: 'Buns, bread, fries are all junk food',
+          water: 0.4,
+          calories: 234,
+          carbohydrate: 2345,
+          protein: 4950,
+          fats: 23.0,
+          fibre: 3570,
+          minivites: [{ minivite_id: '5cbb581b42b32d642a7c32f5', minivite_value: 120 }],
+          image: 'assets/images/junk.jpg',
+      }
     ];
 
     for (const food of foods) {
       this.foods.push(new Food(food));
     }
+
+    this.getFoods();
   }
 
   query(params?: any) {
@@ -157,5 +73,22 @@ export class Foods {
 
   delete(food: Food) {
     this.foods.splice(this.foods.indexOf(food), 1);
+  }
+
+  async getFoods() {
+    await this.api.getFood('').subscribe((res: ApiResponse) => {
+      if (res.success && res.payload.length > 0) {
+          const foods = res.payload.map((record, index) => {
+            const obj = Object.assign({}, record);
+            obj.image = this.api.getImageUrl(record.image);
+            return obj;
+          });
+          for (const food of foods) {
+            this.foods.push(new Food(food));
+          }
+        }
+      }, err => {
+        console.log(err);
+      });
   }
 }
