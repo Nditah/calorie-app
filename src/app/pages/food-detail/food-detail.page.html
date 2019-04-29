@@ -4,26 +4,34 @@
         <ion-back-button defaultHref="/food"></ion-back-button>
       </ion-buttons>
       <ion-title>Food Details</ion-title>
+      <ion-buttons slot="end">
+        <ion-button routerLink="/food-edit/{{record.id}}">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+        <ion-button (click)="delete(record.id)" strong>
+          <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  
-  <ion-content padding>
-    <ion-card *ngIf="record">
-      <ion-card-header>
-        <ion-card-title>{{record.name}}</ion-card-title>
-      </ion-card-header>
-  
-      <ion-card-content>
-        <ion-card-subtitle>Type:</ion-card-subtitle>
-        {{ record.type }} {{ record.category }}
-        <ion-buttons slot="primary">
-          <ion-button routerLink="/food-edit/{{record.id}}">
-            <ion-icon slot="icon-only" name="create"></ion-icon>
-          </ion-button>
-          <ion-button (click)="delete(record.id)">
-            <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-card-content>
-    </ion-card>
-  </ion-content>
+
+  <ion-content *ngIf="record">
+      <div class="item-profile" text-center [style.background-image]="'url(' + record.image + ')'">
+        </div>
+    <ion-list>
+        <ion-list-header padding>
+            <ion-label><h2>{{ record.name }}</h2></ion-label>
+            <ion-badge >{{ record.type | lowercase }} {{ record.category | lowercase }}</ion-badge>
+          </ion-list-header>
+        <ion-item><ion-label>Name {{ record.name }}</ion-label></ion-item>
+        <ion-item><ion-label text-wrap>Description {{ record.description }}</ion-label></ion-item>
+        <ion-item><ion-label>Water {{ record.water }}</ion-label></ion-item>
+        <ion-item><ion-label>Calorie {{ record.calories }}</ion-label></ion-item>
+        <ion-item><ion-label>Carbs {{ record.carbs }}</ion-label></ion-item>
+        <ion-item><ion-label>Protein {{ record.protein }}</ion-label></ion-item>
+        <ion-item><ion-label>Fat {{ record.fat }}</ion-label></ion-item>
+        <ion-item><ion-label>Fiber {{ record.fiber }}</ion-label></ion-item>
+        <ion-item><ion-label>Vitamins {{ record.vitamins ? record.vitamins.length : ''}}</ion-label></ion-item>
+        <ion-item><ion-label>Minerals {{ record.minerals ? record.minerals.length : ''}}</ion-label></ion-item>
+      </ion-list>
+    </ion-content>

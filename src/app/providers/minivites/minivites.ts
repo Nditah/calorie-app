@@ -15,7 +15,7 @@ export class Minivites {
     description: 'Vitamin C is helpful for...',
     requirement: 2300,
     unit: 'miligram',
-    image: 'assets/img/juice.jpg',
+    image: 'assets/images/juice.jpg',
   };
 
   constructor() {
@@ -29,7 +29,7 @@ export class Minivites {
           description: 'Vitamin C is helpful for...',
           requirement: 2300,
           unit: 'miligram',
-          image: 'assets/img/juice.jpg',
+          image: 'assets/images/juice.jpg',
         },
       {
           id: '3',
@@ -40,7 +40,7 @@ export class Minivites {
           description: 'Zinc is helful for',
           requirement: 2300,
           unit: 'microgram',
-          image: 'assets/img/juice.jpg',
+          image: 'assets/images/junk.jpg',
         },
       {
           id: '4',
@@ -51,7 +51,7 @@ export class Minivites {
           description: 'Iron is helful for making haemoglobin in blood cells.',
           requirement: 2300,
           unit: 'ui',
-          image: 'assets/img/sardin.jpg',
+          image: 'assets/images/drinks.jpg',
         },
   ];
 
@@ -76,5 +76,11 @@ export class Minivites {
       return null;
     });
   }
+  add(minivite: Minivite) {
+    this.minivites.push(minivite);
+  }
 
+  delete(minivite: Minivite) {
+    this.minivites.splice(this.minivites.indexOf(minivite), 1);
+  }
 }

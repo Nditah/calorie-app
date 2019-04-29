@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
+import { Foods } from 'src/app/providers';
 
 @Component({
   selector: 'app-food-detail',
@@ -14,17 +15,23 @@ export class FoodDetailPage implements OnInit {
   record: any = {};
 
   constructor(public api: ApiService,
+    public foods: Foods,
     private alertService: AlertService,
     public loadingCtrl: LoadingController,
-    public route: ActivatedRoute,
-    public router: Router){ }
+    public activatedRoute: ActivatedRoute,
+    public router: Router) {
+      const id = this.activatedRoute.snapshot.paramMap.get('id');
+      const record = this.foods.query({ id })[0];
+      this.record = record || foods.defaultRecord;
+      console.log(record);
+    }
 
   ngOnInit() {
-    this.getFood();
+    // this.getFood();
   }
 
   async getFood() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
     await this.api.getFood(`?_id=${id}`).subscribe((res: ApiResponse) => {

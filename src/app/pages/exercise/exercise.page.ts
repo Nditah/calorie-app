@@ -5,7 +5,6 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse, Exercise } from 'src/app/models';
 import { Exercises } from 'src/app/providers';
-import { ExerciseAddPage } from '../exercise-add/exercise-add.page';
 
 
 @Component({

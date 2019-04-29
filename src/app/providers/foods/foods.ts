@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Food } from '../../models';
+import { Food, ApiResponse } from '../../models';
+import { ApiService, AlertService } from 'src/app/services';
 
 @Injectable()
 export class Foods {
@@ -13,116 +14,35 @@ export class Foods {
     name: 'Bread',
     description: 'Wheat bread enrich with vitamins A,B,C',
     calories: 2300,
-    image: 'assets/img/bread.jpg',
+    image: 'assets/images/bread.jpg',
   };
 
 
-  constructor() {
+  constructor(public api: ApiService) {
     const foods: Array<Food> = [
-      {
-        id: '12',
-        type: 'DEFAULT',
-        category: 'FOOD',
-        name: 'Salad',
-        description: 'Fruit Salad',
-        calories: 2300,
-        image: 'assets/img/salad.png',
-      },
-      {
-        id: '13',
-        type: 'DEFAULT',
-        category: 'DRINK',
-        name: 'Water',
-        description: 'Pure water',
-        calories: 2300,
-        image: 'assets/img/water.jpg',
-      },
-      {
-        id: '14',
-        type: 'DEFAULT',
-        category: 'DRINK',
-        name: 'Juice',
-        description: 'Assorted blend of fresh fruit juice',
-        calories: 2300,
-        image: 'assets/img/juice.jpg',
-      },
-      {
-        id: '16',
-        type: 'DEFAULT',
-        category: 'FOOD',
-        name: 'Sardin',
-        description: 'Sardin Fish',
-        calories: 2300,
-        image: 'assets/img/sardin.jpg',
-      },
-      {
-        id: '17',
-        type: 'DEFAULT',
-        category: 'FOOD',
-        name: 'Rice and Stew',
-        description: 'Rice and tomatoe stew',
-        calories: 2300,
-        image: 'assets/img/rice.jpg',
-      },
-      {
-        id: '18',
-        type: 'CUSTOM',
-        category: 'FOOD',
-        name: 'Pasta',
-        description: 'Spaghetti and Noddles',
-        calories: 2300,
-        image: 'assets/img/pasta.jpg',
-      },
-      {
-        id: '19',
-        type: 'CUSTOM',
-        category: 'DRINK',
-        name: 'Whisky',
-        description: 'Strong drink like wine, whisky',
-        calories: 2300,
-        image: 'assets/img/whisky.png',
-      },
-      {
-        id: '20',
-        type: 'DEFAULT',
-        category: 'DRINK',
-        name: 'Carbonated drinks',
-        description: 'Carbonated sweet drinks',
-        calories: 2300,
-        image: 'assets/img/drinks.jpg',
-      },
-      {
-        id: '21',
-        type: 'CUSTOM',
-        category: 'FOOD',
-        name: 'Junk',
-        description: 'Wheat junk food: buns, fishroll, doughnuts, chin-chin',
-        calories: 2300,
-        image: 'assets/img/junk.jpg',
-      },
-      {
-        id: '22',
-        type: 'CUSTOM',
-        category: 'FOOD',
-        name: 'Yam porrage',
-        description: 'Yam mixed in vegetable soup',
-        calories: 2300,
-        image: 'assets/img/yams.jpg',
-      },
-      {
-        id: '23',
-        type: 'CUSTOM',
-        category: 'FOOD',
-        name: 'fufu and soup',
-        description: 'Fufu and vegetable soup: santa, towo',
-        calories: 2300,
-        image: 'assets/img/fufu.jpg',
-      },
+        {
+          id: '2',
+          type: 'DEFAULT',
+          category: 'FOOD',
+          name: 'Junk',
+          description: 'Buns, bread, fries are all junk food',
+          water: 0.4,
+          calories: 234,
+          carbs: 2345,
+          protein: 4950,
+          fat: 23.0,
+          fiber: 3570,
+          vitamins: [{ vitamin_id: '5cbb581b42b32d642a7c32f5', vitamin_value: 120 }],
+          minerals: [{ mineral_id: '5cbb581b42b32d642a7c32f5', mineral_value: 293 }],
+          image: 'assets/images/junk.jpg',
+      }
     ];
 
     for (const food of foods) {
       this.foods.push(new Food(food));
     }
+
+    this.getFoods();
   }
 
   query(params?: any) {
@@ -148,5 +68,22 @@ export class Foods {
 
   delete(food: Food) {
     this.foods.splice(this.foods.indexOf(food), 1);
+  }
+
+  async getFoods() {
+    await this.api.getFood('').subscribe((res: ApiResponse) => {
+      if (res.success && res.payload.length > 0) {
+          const foods = res.payload.map((record, index) => {
+            const obj = Object.assign({}, record);
+            obj.image = this.api.getImageUrl(record.image);
+            return obj;
+          });
+          for (const food of foods) {
+            this.foods.push(new Food(food));
+          }
+        }
+      }, err => {
+        console.log(err);
+      });
   }
 }
