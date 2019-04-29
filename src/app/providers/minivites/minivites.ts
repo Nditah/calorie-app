@@ -8,19 +8,28 @@ export class Minivites {
   minivites: Minivite[] = [];
 
   defaultRecord: Minivite = {
-    id: '1',
-    type: 'VITAMIN',
-    category: 'FAT_BASED',
-    symbol: 'C',
-    name: 'Acorbic Acid',
-    classification: '',
-    source: '',
-    use: '',
-    description: 'Vitamin C is helpful for...',
-    requirement: 2300,
-    dri: null,
-    unit: 'mg',
-    image: 'assets/images/juice.jpg',
+    'id': '1',
+    'name': 'Carbohydrates',
+    'classification': 'carbohydrate',
+    'category': 'carbohydrate',
+    'type': 'MAIN',
+    'symbol': 'Cm(H2O)n',
+    'requirement': 130000,
+    'limit': 325000,
+    'unit': 'mg',
+    'source': 'Carbohydrates constitute majority of foods like bread, noodles, rice, and other products that have grains.',
+    'use': 'Main source of calorie intake',
+    'description': `Carbohydrates are classified based on the number of monomer units in them or the number of sugar units they have. 
+    They can be monosaccharides, disaccharides, or polysaccharides. Monosaccharides have one sugar unit, disaccharides have two sugar unites, 
+    and polysaccharides have three or more sugar units.
+    Monosaccharides and disaccharides are simpler carbohydrates while the polysaccharides are complex carbohydrates. 
+    Complex carbohydrates take longer to digest because they need more time to be broken down into simpler sugar units. 
+    Only the simpler sugar units can be absorbed by the blood.
+    The spikes in the sugar levels of the blood are caused by too much consumption of simpler carbohydrates. 
+    The simple carbohydrates are absorbed by the blood very quickly which causes the blood sugar levels to spike abnormally. 
+    This leads to heart diseases and vascular diseases. You should keep in mind that there are a lot of foods out there that are composed of simple sugars. 
+    One of them is the sugar-based juice.`,
+    image: 'assets/images/junk.jpg',
   };
 
   constructor() {

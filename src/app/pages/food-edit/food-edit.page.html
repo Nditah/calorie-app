@@ -10,23 +10,63 @@
 <ion-content padding>
   <form [formGroup]="editForm">
     <ion-item>
-      <ion-label position="floating">Food Name</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
+      <ion-label>Food Name</ion-label>
+      <ion-input type="text" formControlName="name" id="name"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-select formControlName="category" id="category">
+        <ion-select-option value="FOOD">FOOD</ion-select-option>
+        <ion-select-option value="DRINK">DRINK</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-input type="text" formControlName="description" id="description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Food Quantity</ion-label>
+      <ion-input type="number" formControlName="quantity" id="quantity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Water Content</ion-label>
+      <ion-input type="number" formControlName="water" id="water"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Calories</ion-label>
+      <ion-input type="number" formControlName="calories" id="calories"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Carbohydrate</ion-label>
+      <ion-input type="number" formControlName="carbohydrate" id="carbs"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Protein</ion-label>
+      <ion-input type="number" formControlName="protein" id="protein"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fats</ion-label>
+      <ion-input type="number" formControlName="fats" id="fats"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fiber</ion-label>
+      <ion-input type="number" formControlName="fibre" id="fibre"></ion-input>
+    </ion-item>
+    
     <ion-item-divider>
       <ion-label>
-        Minerals <ion-button shape="round" (click)="addBlankMineral()"><ion-icon name="add-circle"></ion-icon></ion-button>
+        Nutrients <ion-button shape="round" (click)="addBlankMinivite()"><ion-icon name="add-circle"></ion-icon></ion-button>
       </ion-label>
     </ion-item-divider>
-    <div formArrayName="minerals">
-      <ion-item *ngFor="let mineral of editForm.get('minerals')['controls']; let i=index" [formGroupName]="i">
-        <ion-label position="floating">Mineral Name</ion-label>
+    <div formArrayName="minivites">
+      <ion-item *ngFor="let nutrient of editForm.get('minivites')['controls']; let i=index" [formGroupName]="i">
+        <ion-label position="floating">Nutrient Name</ion-label>
         <ion-row>
           <ion-col size="10">
-            <ion-input type="text" formControlName="mineral_name" item-start></ion-input>
+            <ion-input type="text" formControlName="minivite_name" item-start></ion-input>
           </ion-col>
           <ion-col size="2">
-            <ion-button shape="round" color="dark" (click)="deleteInput(editForm.get('minerals')['controls'], i)"><ion-icon name="trash"></ion-icon></ion-button>
+            <ion-button shape="round" color="dark" (click)="deleteInput(editForm.get('minivites')['controls'], i)"><ion-icon name="trash"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-item>

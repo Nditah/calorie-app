@@ -9,12 +9,11 @@ export class Food {
     ph?: number;
     water?: number;
     calories?: number;
-    carbs?: number;
+    carbohydrate?: number;
     protein?: number;
-    fat?: number;
-    fiber?: number;
-    vitamins?: Array<any>;
-    minerals?: Array<any>;
+    fats?: number;
+    fibre?: number;
+    minivites?: Array<{ minivite_id: string, minivite_value: number }>;
     image?: string;
     created_by?: User;
     created_at?: Date;

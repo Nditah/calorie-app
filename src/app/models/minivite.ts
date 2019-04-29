@@ -2,11 +2,11 @@
 
 export class Minivite {
     id: string;
-    type: string; // enum: ["VITAMIN", "MINERAL"]
-    category: string; // enum: ["FAT", "WATER", "MACRO", "TRACE"]
+    type: string; // enum: ["sub", "main"]
+    category: string; // enum: ["fat-based", "water-based", "macro-mineral", "trace-mineral", "carbohydrate"]
     name: string;
     symbol: string;
-    classification: string;
+    classification: string; // [protein]
     source: string;
     use: string;
     description: string;

@@ -13,13 +13,9 @@ import { ApiResponse } from 'src/app/models';
 export class FoodEditPage implements OnInit {
 
   editForm: FormGroup;
-  minerals: FormArray;
+  minivites: FormArray;
   vitamins: FormArray;
   isReadyToSave = false;
-
-  // 16 essential minerals
-  mineralArr = ['calcium', 'phosphorus', 'potassium', 'sulfur', 'sodium', 'chloride', 'magnesium',
-  'iron', 'zinc', 'copper', 'manganese', 'iodine', 'selenium', 'molybdenum', 'chromium', 'fluoride'];
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -36,12 +32,11 @@ export class FoodEditPage implements OnInit {
         'quantity': [null, Validators.required],
         'water': [null, Validators.required],
         'calories': [null, Validators.required],
-        'carbs': [null, Validators.required],
+        'carbohydrate': [null, Validators.required],
         'protein': [null, Validators.required],
-        'fat': [null, Validators.required],
-        'fiber': [null, Validators.required],
-        'vitamins' : this.formBuilder.array([]),
-        'minerals' : this.formBuilder.array([]),
+        'fats': [null, Validators.required],
+        'fibre': [null, Validators.required],
+        'minivites' : this.formBuilder.array([]),
       });
     }
 
@@ -61,33 +56,21 @@ export class FoodEditPage implements OnInit {
       this.editForm.controls['quantity'].setValue(record.name);
       this.editForm.controls['water'].setValue(record.name);
       this.editForm.controls['calories'].setValue(record.name);
-      this.editForm.controls['carbs'].setValue(record.name);
+      this.editForm.controls['carbohydrate'].setValue(record.name);
       this.editForm.controls['protein'].setValue(record.name);
-      this.editForm.controls['fat'].setValue(record.name);
-      this.editForm.controls['fiber'].setValue(record.name);
+      this.editForm.controls['fats'].setValue(record.name);
+      this.editForm.controls['fibre'].setValue(record.name);
 
-      const controlArray1 = <FormArray>this.editForm.controls['vitamins'];
-      record.vitamins.forEach(item => {
-        controlArray1.push(this.formBuilder.group({
-          vitamin_name: '',
-          vitamin_value: '',
-        }));
-      });
-      for (let i = 0; i < record.vitamins.length; i++) {
-        controlArray1.controls[i].get('vitamin_name').setValue(record.vitamins[i].vitamin_name);
-        controlArray1.controls[i].get('vitamin_value').setValue(record.vitamins[i].vitamin_value);
-      }
-
-      const controlArray = <FormArray>this.editForm.controls['minerals'];
-      record.minerals.forEach(item => {
+      const controlArray = <FormArray>this.editForm.controls['minivites'];
+      record.minivites.forEach(item => {
         controlArray.push(this.formBuilder.group({
-          mineral_name: '',
-          mineral_value: '',
+          minivite_name: '',
+          minivite_value: '',
         }));
       });
-      for (let i = 0; i < record.minerals.length; i++) {
-        controlArray.controls[i].get('mineral_name').setValue(record.minerals[i].mineral_name);
-        controlArray.controls[i].get('mineral_value').setValue(record.minerals[i].mineral_value);
+      for (let i = 0; i < record.minivites.length; i++) {
+        controlArray.controls[i].get('minivite_name').setValue(record.minivites[i].minivite_name);
+        controlArray.controls[i].get('minivite_value').setValue(record.minivites[i].minivite_value);
       }
 
       console.log(this.editForm);
@@ -113,28 +96,16 @@ export class FoodEditPage implements OnInit {
       });
   }
 
-  createVitamin(): FormGroup {
+  createMinivite(): FormGroup {
     return this.formBuilder.group({
-      vitamin_name: '',
-      vitamin_value: '',
+      minivite_name: '',
+      minivite_value: '',
     });
   }
 
-  addBlankVitamin(): void {
-    this.vitamins = this.editForm.get('vitamins') as FormArray;
-    this.vitamins.push(this.createVitamin());
-  }
-
-  createMineral(): FormGroup {
-    return this.formBuilder.group({
-      mineral_name: '',
-      mineral_value: '',
-    });
-  }
-
-  addBlankMineral(): void {
-    this.minerals = this.editForm.get('minerals') as FormArray;
-    this.minerals.push(this.createMineral());
+  addBlankMinivite(): void {
+    this.minivites = this.editForm.get('minivites') as FormArray;
+    this.minivites.push(this.createMinivite());
   }
 
   deleteInput(control, index) {

@@ -12,9 +12,15 @@ export class Foods {
     type: 'DEFAULT',
     category: 'FOOD',
     name: 'Bread',
-    description: 'Wheat bread enrich with vitamins A,B,C',
-    calories: 2300,
-    image: 'assets/images/bread.jpg',
+    description: 'Whole wheat bread with added vitamins and minerals',
+    water: 0.4,
+    calories: 23400,
+    carbohydrate: 2345,
+    protein: 2500,
+    fats: 230.0,
+    fibre: 3570,
+    minivites: [{ minivite_id: '5cbb581b42b32d642a7c32f5', minivite_value: 120 }],
+    image: 'assets/images/junk.jpg',
   };
 
 
@@ -28,12 +34,11 @@ export class Foods {
           description: 'Buns, bread, fries are all junk food',
           water: 0.4,
           calories: 234,
-          carbs: 2345,
+          carbohydrate: 2345,
           protein: 4950,
-          fat: 23.0,
-          fiber: 3570,
-          vitamins: [{ vitamin_id: '5cbb581b42b32d642a7c32f5', vitamin_value: 120 }],
-          minerals: [{ mineral_id: '5cbb581b42b32d642a7c32f5', mineral_value: 293 }],
+          fats: 23.0,
+          fibre: 3570,
+          minivites: [{ minivite_id: '5cbb581b42b32d642a7c32f5', minivite_value: 120 }],
           image: 'assets/images/junk.jpg',
       }
     ];

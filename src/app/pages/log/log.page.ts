@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
+import { Logs } from 'src/app/providers';
 
 
 @Component({
@@ -14,11 +15,13 @@ export class LogPage implements OnInit {
   records: any;
 
   constructor(public api: ApiService,
-    private alertService: AlertService,
-    public loadingCtrl: LoadingController) { }
+    public logs: Logs,
+    public loadingCtrl: LoadingController) {
+      this.records = this.logs.query();
+    }
 
   ngOnInit() {
-    this.getLogs();
+    // this.getLogs();
   }
 
   async getLogs() {
@@ -33,11 +36,9 @@ export class LogPage implements OnInit {
         console.log(res);
         this.records = res.payload;
         loading.dismiss();
-        this.alertService.presentToast(res.message);
       }, err => {
         console.log(err);
         loading.dismiss();
-        this.alertService.presentToast(err.message);
       });
   }
 }
