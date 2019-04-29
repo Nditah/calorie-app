@@ -121,6 +121,44 @@ ionic cordova run android
 
 [Charts](https://www.djamware.com/post/598953f880aca768e4d2b12b/creating-beautiful-charts-easily-using-ionic-3-and-angular-4)
 
+[Deploy] (https://angularfirebase.com/snippets/deploying-ionic4-to-android-and-google-play/)
+
+javac -version
+
+
+cd /Library/Java/JavaVirtualMachines
+sudo rm -rf adoptopenjdk-11.jdk
+
+
+gradle -version
+
+ ~/Library/Android/sdk/tools/bin/sdkmanager --licenses
+
+
+cordova build android --release  --stacktrace 
+
+
+code ~/.bash_profile
+
+keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
+
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.jks  platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk my-alias
+
+
+printenv ANDROID_HOME
+
+echo $ANDROID_HOME 
+
+
+ls ~/Library/Android/sdk/build-tools
+
+cd /Users/mac/Projects/calorie-app/platforms/android/app/build/outputs/apk/release
+
+~/Library/Android/sdk/build-tools/28.0.3/zipalign  -v 4 app-release-unsigned.apk AfroCalorie.apk
+
+ ~/Library/Android/sdk/build-tools/28.0.3/apksigner verify  AfroCalorie.apk
+
 
 ## Info Ref
 

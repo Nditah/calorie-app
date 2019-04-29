@@ -12,7 +12,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "clean": "sudo rm -rf node_modules && npm rebuild node-sass && npm i"
+    "clean": "sudo rm -rf node_modules && npm rebuild node-sass && npm i",
+    "apk": "cordova build android --prod --release  --stacktrace"
   },
   "private": true,
   "dependencies": {
