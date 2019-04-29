@@ -6,7 +6,11 @@ export class Minivite {
     category: string; // enum: ["FAT", "WATER", "MACRO", "TRACE"]
     name: string;
     symbol: string;
+    classification: string;
+    source: string;
+    use: string;
     description: string;
+    dri?: number; // DRI (Dietary Reference Intake) grams per kilogram of body weight,
     requirement: number;
     unit: string;
     image: string;
