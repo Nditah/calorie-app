@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicSelectableModule } from 'ionic-selectable';
 
 import { IonicModule } from '@ionic/angular';
-
 import { LogAddPage } from './log-add.page';
 
 const routes: Routes = [

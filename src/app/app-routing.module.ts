@@ -23,8 +23,8 @@ const routes: Routes = [
   { path: 'log', loadChildren: './pages/log/log.module#LogPageModule', canActivate: [AuthGuard] },
   { path: 'log-add', loadChildren: './pages/log-add/log-add.module#LogAddPageModule' },
   { path: 'log-detail/:id', loadChildren: './pages/log-detail/log-detail.module#LogDetailPageModule' },
-  { path: 'minivite', loadChildren: './pages/minivite/minivite.module#MinivitePageModule' },
-  { path: 'minivite-detail/:id', loadChildren: './pages/minivite-detail/minivite-detail.module#MiniviteDetailPageModule' },
+  { path: 'nutrient', loadChildren: './pages/nutrient/nutrient.module#NutrientPageModule' },
+  { path: 'nutrient-detail/:id', loadChildren: './pages/nutrient-detail/nutrient-detail.module#NutrientDetailPageModule' },
   { path: 'setting', loadChildren: './pages/setting/setting.module#SettingPageModule', canActivate: [AuthGuard] },
   { path: 'user', loadChildren: './pages/user/user.module#UserPageModule', canActivate: [AuthGuard] },
   ];

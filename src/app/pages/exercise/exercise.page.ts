@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController, ToastController, AlertController } from '@ionic/angular';
-import { Vibration } from '@ionic-native/vibration/ngx';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse, Exercise } from 'src/app/models';
 import { Exercises } from 'src/app/providers';
@@ -24,8 +23,7 @@ export class ExercisePage implements OnInit {
     public exercises: Exercises,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    public loadingCtrl: LoadingController,
-    private vibration: Vibration) {
+    public loadingCtrl: LoadingController) {
 
     this.currentRecords = this.exercises.query();
   }
@@ -52,7 +50,6 @@ export class ExercisePage implements OnInit {
     this.router.navigate([`/exercise-detail/1`, { exercise }]);
   }
 
-
   async addRecord() {
     const addModal = await this.modalCtrl.create({ component: 'ExerciseAddPage'});
     const { data } = await addModal.onDidDismiss();
@@ -62,19 +59,6 @@ export class ExercisePage implements OnInit {
     }
     return await addModal.present();
   }
-
-  async pressEvent(ev) {
-    this.press++;
-    this.vibration.vibrate(150);
-    const toast = await this.toastCtrl.create({
-      message: 'please slide to get the options .',
-      duration: 2000,
-      position: 'top'
-    });
-    await toast.present();
-  }
-
-
 
   ngOnInit() {
     this.getExercises();

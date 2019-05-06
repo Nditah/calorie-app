@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Minivite } from '../../models';
-import table from './minivites-data';
+import { Nutrient } from '../../models';
+import table from './nutrients-data';
 
 @Injectable()
-export class Minivites {
+export class Nutrients {
 
-  minivites: Minivite[] = [];
+  nutrients: Nutrient[] = [];
 
-  defaultRecord: Minivite = {
+  defaultRecord: Nutrient = {
     'id': '1',
     'name': 'Carbohydrates',
     'classification': 'carbohydrate',
@@ -33,34 +33,34 @@ export class Minivites {
   };
 
   constructor() {
-    const minivites = table;
-    for (const minivite of minivites) {
-      this.minivites.push(new Minivite(minivite));
+    const nutrients = table;
+    for (const nutrient of nutrients) {
+      this.nutrients.push(new Nutrient(nutrient));
     }
   }
 
   query(params?: any) {
     if (!params) {
-      return this.minivites;
+      return this.nutrients;
     }
-    return this.minivites.filter((minivite) => {
+    return this.nutrients.filter((nutrient) => {
       for (const key in params) {
-        const field = minivite[key];
+        const field = nutrient[key];
         if (typeof field == 'string' && field.toLowerCase().indexOf(params[key].toLowerCase()) >= 0) {
-          return minivite;
+          return nutrient;
         } else if (field == params[key]) {
-          return minivite;
+          return nutrient;
         }
       }
       return null;
     });
   }
-  add(minivite: Minivite) {
-    this.minivites.push(minivite);
+  add(nutrient: Nutrient) {
+    this.nutrients.push(nutrient);
   }
 
-  delete(minivite: Minivite) {
-    this.minivites.splice(this.minivites.indexOf(minivite), 1);
+  delete(nutrient: Nutrient) {
+    this.nutrients.splice(this.nutrients.indexOf(nutrient), 1);
   }
 }
 

@@ -1,4 +1,3 @@
-import { Food } from './food';
 import { User } from './user';
 
 export class Exercise {

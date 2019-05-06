@@ -27,7 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { InterceptorService } from './services/interceptor.service';
 import { ApiService } from './services';
 
-import { Settings, Exercises, Minivites, Foods, Logs, Feedbacks, User, Api } from './providers';
+import { Settings, Exercises, Nutrients, Foods, Logs, Feedbacks, User, Api } from './providers';
 
 
 // AoT requires an exported function for factories
@@ -72,7 +72,7 @@ export function provideSettings(storage: Storage) {
   providers: [
     ApiService,
     Exercises,
-    Minivites,
+    Nutrients,
     Foods,
     Logs,
     Feedbacks,

@@ -5,10 +5,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MiniviteDetailPage } from './minivite-detail.page';
+import { NutrientPage } from './nutrient.page';
 
 const routes: Routes = [
-  { path: '', component: MiniviteDetailPage }
+  { path: '', component: NutrientPage }
 ];
 
 @NgModule({
@@ -18,6 +18,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MiniviteDetailPage]
+  declarations: [NutrientPage]
 })
-export class MiniviteDetailPageModule {}
+export class NutrientPageModule {}

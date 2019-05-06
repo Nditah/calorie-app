@@ -24,7 +24,7 @@ export class AppComponent {
     { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
     { title: 'Food', url: '/food', icon: 'ice-cream' },
     { title: 'Exercise', url: '/exercise', icon: 'bicycle' },
-    { title: 'Nutrition', url: '/minivite', icon: 'image' },
+    { title: 'Nutrient', url: '/nutrient', icon: 'image' },
     { title: 'Profile', url: '/user', icon: 'person' },
     { title: 'Setting', url: '/setting', icon: 'settings' },
   ];

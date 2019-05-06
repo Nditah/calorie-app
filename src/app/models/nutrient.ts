@@ -1,6 +1,6 @@
 ﻿import { User } from './user';
 
-export class Minivite {
+export class Nutrient {
     id: string;
     type: string; // enum: ["sub", "main"]
     category: string; // enum: ["fat-based", "water-based", "macro-mineral", "trace-mineral", "carbohydrate"]
@@ -28,6 +28,6 @@ export class Minivite {
 
 }
 
-export interface Minivite {
+export interface Nutrient {
     [prop: string]: any;
 }

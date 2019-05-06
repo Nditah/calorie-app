@@ -8,4 +8,4 @@ export * from './select-option';
 export * from './setting';
 export * from './food';
 export * from './user';
-export * from './minivite';
+export * from './nutrient';
