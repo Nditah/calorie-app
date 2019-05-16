@@ -1,9 +1,18 @@
 
 h1 { 
-  font-size:1.8em;
+  font-size:1.5em;
 }
 
 
 ion-icon { 
-  font-size: 60px;
+  font-size: 40px;
+}
+
+.card {
+  background: #27293d;
+  border: 0;
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+  box-shadow: 0 1px 20px 0px rgba(0, 0, 0, 0.1);
 }

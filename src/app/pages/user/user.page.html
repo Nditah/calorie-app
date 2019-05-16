@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color="success">
+    <ion-toolbar color="tertiary">
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
@@ -10,19 +10,18 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content>
+  <ion-content class="body">
     <div class="fixed-content">
-  
       <form *ngIf="editForm" [formGroup]="editForm" (ngSubmit)="saveProfile()">
         <div class="upperDiv">
           <div class="profile-image-wrapper">
             <div class="profile-image" *ngIf="user">
-                <img *ngIf="user.gender==='FEMALE'" src="../../../assets/img/female-avatar.png">
-                <img *ngIf="user.gender==='MALE'" src="../../../assets/img/male-avatar.png">
+                <img class="avatar" *ngIf="user.gender==='FEMALE'" src="../../../assets/img/female-avatar.png">
+                <img class="avatar" *ngIf="user.gender==='MALE'" src="../../../assets/img/male-avatar.png">
             </div>
           </div>
   
-          <h3 class="displayname" *ngIf="user">{{ user.username }}</h3>
+          <h3 class="title" *ngIf="user">{{ user.username }}</h3>
           <h3 class="userDetails" *ngIf="user">{{ user.lifestyle }}</h3>
   
         </div>

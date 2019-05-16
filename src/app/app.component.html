@@ -5,29 +5,29 @@
   </div>
 
   <ion-split-pane>
-    <ion-menu>
+    <ion-menu class="body">
       <ion-header>
-        <ion-toolbar color="dark">
-          <ion-title>Menu</ion-title>
+        <ion-toolbar color="tertiary">
+          <ion-title text-center>Afro Calorie</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content>
-          <ion-list>
+      <ion-content color="dark">
+        <ion-list class="card">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                  <h2 ion-text color="light">{{p.title}}</h2>
-              </ion-label>
+            <ion-item color="primary" class="btn-primary" [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon color="light" slot="start" [name]="p.icon"></ion-icon>
+              <ion-label padding-left color="light">{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-item (click)="logout()" href="#">
+          <ion-item color="primary" class="btn-primary" (click)="logout()" routerLink="">
             <ion-icon slot="start" name="log-out"></ion-icon>
-            <ion-label>Logout</ion-label>
+            <ion-label padding-left color="light">Logout</ion-label>
           </ion-item>
+          <br/>
         </ion-list>
       </ion-content>
     </ion-menu>
+
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

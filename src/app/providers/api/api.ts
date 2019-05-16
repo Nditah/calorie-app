@@ -7,9 +7,10 @@ import { EnvService } from '../../services';
  */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
+  url: string;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private env: EnvService) {
+    this.url = env.API_URL;
   }
 
   get(endpoint: string, params?: any, reqOpts?: any) {

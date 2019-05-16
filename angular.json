@@ -39,7 +39,29 @@
                 "input": "src/global.scss"
               }
             ],
-            "scripts": []
+            "scripts": [
+              {
+                "input": "src/assets/js/core/jquery.min.js"
+              },
+              {
+                "input": "src/assets/js/core/popper.min.js"
+              },
+              {
+                "input": "src/assets/js/core/bootstrap.min.js"
+              },
+              {
+                "input": "src/assets/js/plugins/perfect-scrollbar.jquery.min.js"
+              },
+              {
+                "input": "src/assets/js/plugins/chartjs.min.js"
+              },
+              {
+                "input": "src/assets/js/plugins/bootstrap-notify.js"
+              },
+              {
+                "input": "src/assets/js/black-dashboard.js"
+              }
+            ]
           },
           "configurations": {
             "production": {

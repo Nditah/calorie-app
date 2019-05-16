@@ -3,15 +3,14 @@
 @import '~@ionic/angular/css/normalize.css';
 @import '~@ionic/angular/css/structure.css';
 @import '~@ionic/angular/css/typography.css';
-
 @import '~@ionic/angular/css/padding.css';
 @import '~@ionic/angular/css/float-elements.css';
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
-// http://ionicframework.com/docs/theming/
-
+@import 'assets/css/nucleo-icons.css';
+@import 'assets/css/black-dashboard.css';
 
 // App Global Sass
 // ----------------------------------------------------------------------------
@@ -26,20 +25,42 @@
 // To declare rules for a specific mode, create a child rule for the .md, .ios,
 // or .wp mode classes. The mode class is automatically applied to the <body>
 // element in the app.
+  
 
-.content-fullscreen-message {
-    text-align: center;
-    padding: 30% 15%;
-    font-size: 26px;
-    font-weight: 300;
-    opacity: 0.2;
-  }
-  
-  //// Background colors
-  .dark-bg {
-    background-color: #110A3B;
-    .scroll {
-      background-color: #110A3B;
-    }
-  }
-  
+
+.navbar {
+  padding: 1.6rem 0.9375rem !important;
+}
+
+.content {
+  margin: 1em !important;
+  padding-top: 1em;
+}
+.footer {
+  padding: 0;
+}
+.card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  padding: 0.5em;
+}
+hr {
+  margin: 5px 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+  border-color: #2b3553;
+}
+.foot-heart {
+  height: 2em;
+  width: 2em;
+  margin-bottom: -8px;
+}
+select option {
+  color: black;
+  font-size: medium;
+}
+.fab {
+  position: fixed;
+  bottom: 3vh;
+  right: 5vh;
+}

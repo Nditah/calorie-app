@@ -16,6 +16,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { Admob } from '@ionic-native/admob/ngx';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -87,6 +88,7 @@ export function provideSettings(storage: Storage) {
     File,
     WebView,
     FilePath,
+    Admob,
   ],
   bootstrap: [AppComponent]
 })
