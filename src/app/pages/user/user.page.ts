@@ -27,6 +27,9 @@ export class UserPage implements OnInit {
       public loadingCtrl: LoadingController) {
 
     this.menu.enable(true);
+    this.authService.isAuthenticated().then(user => {
+      this.user = user;
+    }).catch(err => console.log(err));
 
     this.editForm = this.formBuilder.group({
       username: [''],
@@ -45,10 +48,7 @@ export class UserPage implements OnInit {
 }
 
   ngOnInit() {
-    this.authService.getUser().then(user => {
-      this.user = user;
-      console.log(user);
-    });
+
    }
 
   ionViewWillEnter() {
@@ -81,8 +81,8 @@ export class UserPage implements OnInit {
     });
     await loading.present();
     console.log('editForm payload ', payload);
-    return this.apiService.updateUser(this.user.id, payload)
-    .subscribe((data: ApiResponse) => {
+    return this.authService.userUpdate(this.user.id, payload)
+    .then((data: ApiResponse) => {
         if (data.success) {
           setTimeout(async() => {
             loading.dismiss();

@@ -1,54 +1,60 @@
 import { Injectable } from '@angular/core';
-import { Food, ApiResponse } from '../../models';
-import { ApiService, AlertService } from 'src/app/services';
+import { map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { Food, ApiResponse, User } from '../../models';
+import { ApiService, EnvService, AuthService } from '../../services';
+import { hasProp } from 'src/app/helpers';
+
 
 @Injectable()
 export class Foods {
 
-  foods: Food[] = [];
-
-  defaultRecord: Food = {
+  foods: Food[] = [    {
     id: '1',
     type: 'DEFAULT',
     category: 'FOOD',
-    name: 'Bread',
-    description: 'Whole wheat bread with added vitamins and minerals',
+    name: 'Chicken',
+    description: 'Roasted rice',
     water: 0.4,
-    calories: 23400,
+    calories: 234,
     carbohydrate: 2345,
-    protein: 2500,
-    fats: 230.0,
+    protein: 4950,
+    fats: 23.0,
     fibre: 3570,
-    minivites: [{ minivite_id: '5cbb581b42b32d642a7c32f5', minivite_value: 120 }],
-    image: 'assets/images/junk.jpg',
-  };
+    nutrients: [{ nutrient_id: '5cc74ee9b27a5b01bd016185', nutrient_value: 120 }],
+    images: ['assets/img/dishes/dish01.jpg', 'assets/img/dishes/dish02.jpg'],
+},
+{
+    id: '2',
+    type: 'CUSTOM',
+    category: 'FOOD',
+    name: 'Rice and Beans',
+    description: 'Fried rice and green beans',
+    water: 0.4,
+    calories: 234,
+    carbohydrate: 2345,
+    protein: 4950,
+    fats: 23.0,
+    fibre: 3570,
+    nutrients: [{ nutrient_id: '5cc74ee9b27a5b01bd016185', nutrient_value: 120 }],
+    images: ['assets/img/dishes/dish03.jpg', 'assets/img/dishes/dish04.jpg'],
+}];
+  user: User;
 
-
-  constructor(public api: ApiService) {
-    const foods: Array<Food> = [
-        {
-          id: '2',
-          type: 'DEFAULT',
-          category: 'FOOD',
-          name: 'Junk',
-          description: 'Buns, bread, fries are all junk food',
-          water: 0.4,
-          calories: 234,
-          carbohydrate: 2345,
-          protein: 4950,
-          fats: 23.0,
-          fibre: 3570,
-          minivites: [{ minivite_id: '5cbb581b42b32d642a7c32f5', minivite_value: 120 }],
-          image: 'assets/images/junk.jpg',
+  constructor(private env: EnvService,
+    private apiService: ApiService,
+    private authService: AuthService) {
+    this.authService.isAuthenticated().then(user => {
+      this.user = user;
+    });
+    this.authService.isAuthenticated().then((user) => {
+      if (user && hasProp(user, 'id')) {
+        this.user = new User(user);
+        const queryString = `?filter={"$or":[{"created_by":"${this.user.id}"},{"type":"DEFAULT"}]}`;
+        this.recordRetrieve(queryString).then().catch(err => console.log(err));
       }
-    ];
-
-    for (const food of foods) {
-      this.foods.push(new Food(food));
-    }
-
-    this.getFoods();
-  }
+  }).catch(err => console.log(err));
+}
 
   query(params?: any) {
     if (!params) {
@@ -56,39 +62,85 @@ export class Foods {
     }
     return this.foods.filter((food) => {
       for (const key in params) {
-        const field = food[key];
-        if (typeof field == 'string' && field.toLowerCase().indexOf(params[key].toLowerCase()) >= 0) {
-          return food;
-        } else if (field == params[key]) {
-          return food;
-        }
+          if (params.hasOwnProperty(key)) {
+            const field = food[key];
+            if (typeof field === 'string' && field.toLowerCase().indexOf(params[key].toLowerCase()) >= 0) {
+              return food;
+            } else if (field === params[key]) {
+              return food;
+            }
+          }
       }
       return null;
     });
   }
 
-  add(food: Food) {
-    this.foods.push(food);
+  add(record: Food) {
+    this.foods.push(new Food(record));
   }
 
-  delete(food: Food) {
-    this.foods.splice(this.foods.indexOf(food), 1);
+  delete(record: Food) {
+    this.foods.splice(this.foods.indexOf(record), 1);
   }
 
-  async getFoods() {
-    await this.api.getFood('').subscribe((res: ApiResponse) => {
-      if (res.success && res.payload.length > 0) {
-          const foods = res.payload.map((record, index) => {
-            const obj = Object.assign({}, record);
-            obj.image = this.api.getImageUrl(record.image);
-            return obj;
-          });
-          for (const food of foods) {
-            this.foods.push(new Food(food));
-          }
-        }
-      }, err => {
-        console.log(err);
-      });
+  async recordRetrieve(queryString = ''): Promise<ApiResponse> {
+      const query = queryString || `${this.user.id}`;
+      const url = `${this.env.API_URL}/foods${queryString}`;
+      const proRes = this.apiService.getApi(url).pipe(
+          map((res: ApiResponse) => {
+              console.log(res);
+              if (res.success && res.payload.length > 0) {
+                  res.payload.forEach(element => {
+                      this.add(element);
+                  });
+              } else {
+                  throwError(res.message);
+              }
+              return res;
+          }));
+      return await proRes.toPromise();
   }
+
+  async recordCreate(record: Food): Promise<ApiResponse> {
+      const url = `${this.env.API_URL}/foods`;
+      const proRes = this.apiService.postApi(url, record).pipe(
+          map((res: ApiResponse) => {
+              if (res.success && res.payload) {
+                  console.log('recordCreate() successful');
+              } else {
+                  throwError(res.message);
+              }
+              return res;
+          }));
+      return await proRes.toPromise();
+  }
+
+  async recordUpdate(record: Food, payload): Promise<ApiResponse> {
+      const url = `${this.env.API_URL}/foods/${record.id}`;
+      const proRes = this.apiService.updateApi(url, payload).pipe(
+          map((res: ApiResponse) => {
+              if (res.success) {
+                  this.delete(record);
+              } else {
+                  throwError(res.message);
+              }
+              return res;
+          }));
+      return await proRes.toPromise();
+  }
+
+  async recordDelete(record: Food): Promise<ApiResponse> {
+      const url = `${this.env.API_URL}/foods/${record.id}`;
+      const proRes = this.apiService.deleteApi(url).pipe(
+          map((res: ApiResponse) => {
+              if (res.success) {
+                  this.delete(record);
+              } else {
+                  throwError(res.message);
+              }
+              return res;
+          }));
+      return await proRes.toPromise();
+  }
+
 }

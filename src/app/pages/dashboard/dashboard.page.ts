@@ -80,7 +80,7 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.authService.getUser().then(user => {
+    this.authService.isAuthenticated().then(user => {
         this.user = user;
       }
     );

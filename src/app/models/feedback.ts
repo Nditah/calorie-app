@@ -1,16 +1,16 @@
 import { User } from './user';
 
 export class Feedback {
-    id: string;
+    id?: string;
     user?: User;
-    message: string;
-    status: string;
+    message?: string;
+    status?: string;
     created_by?: User;
     created_at?: Date;
     updated_by?: User;
     updated_at?: Date;
 
-    constructor(fields: any) {
+    constructor(fields?: any) {
         // Quick and dirty extend/assign fields to this model
         for (const f in fields) {
             // @ts-ignore
@@ -20,5 +20,13 @@ export class Feedback {
 }
 
 export interface Feedback {
-    [prop: string]: any;
+   // [prop?: string]?: any;
+   id?: string;
+   user?: User;
+   message?: string;
+   status?: string;
+   created_by?: User;
+   created_at?: Date;
+   updated_by?: User;
+   updated_at?: Date;
 }

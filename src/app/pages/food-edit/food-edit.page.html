@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="success">
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -55,18 +55,18 @@
     
     <ion-item-divider>
       <ion-label>
-        Nutrients <ion-button shape="round" (click)="addBlankMinivite()"><ion-icon name="add-circle"></ion-icon></ion-button>
+        Nutrients <ion-button shape="round" (click)="addBlankNutrient()"><ion-icon name="add-circle"></ion-icon></ion-button>
       </ion-label>
     </ion-item-divider>
-    <div formArrayName="minivites">
-      <ion-item *ngFor="let nutrient of editForm.get('minivites')['controls']; let i=index" [formGroupName]="i">
+    <div formArrayName="nutrients">
+      <ion-item *ngFor="let nutrient of editForm.get('nutrients')['controls']; let i=index" [formGroupName]="i">
         <ion-label position="floating">Nutrient Name</ion-label>
         <ion-row>
           <ion-col size="10">
-            <ion-input type="text" formControlName="minivite_name" item-start></ion-input>
+            <ion-input type="text" formControlName="nutrient_name" item-start></ion-input>
           </ion-col>
           <ion-col size="2">
-            <ion-button shape="round" color="dark" (click)="deleteInput(editForm.get('minivites')['controls'], i)"><ion-icon name="trash"></ion-icon></ion-button>
+            <ion-button shape="round" color="dark" (click)="deleteInput(editForm.get('nutrients')['controls'], i)"><ion-icon name="trash"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-item>

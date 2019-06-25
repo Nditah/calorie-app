@@ -1,8 +1,7 @@
-export { Api } from './api/api';
-export { Exercises } from './exercises/exercises';
-export { Foods } from './foods/foods';
-export { Feedbacks } from './feedbacks/feedbacks';
-export { Logs } from './logs/logs';
-export { Nutrients } from './nutrients/nutrients';
-export { Settings } from './settings/settings';
-export { User } from './user/user';
+export * from './exercises/exercises';
+export * from './foods/foods';
+export * from './feedbacks/feedbacks';
+export * from './logs/logs';
+export * from './dish/dish.service';
+export * from './nutrients/nutrients';
+export * from './settings/settings';

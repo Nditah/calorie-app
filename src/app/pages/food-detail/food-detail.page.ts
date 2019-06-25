@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService, AlertService } from 'src/app/services';
+import { NavController, ModalController, ToastController } from '@ionic/angular';
+import { AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
-import { Foods } from 'src/app/providers';
+import { Foods, Logs, DishService } from 'src/app/providers';
+import { ImagePage } from './../modal/image/image.page';
+import { DishPage } from './../modal/dish/dish.page';
 
 @Component({
   selector: 'app-food-detail',
@@ -13,17 +16,20 @@ import { Foods } from 'src/app/providers';
 export class FoodDetailPage implements OnInit {
 
   record: any = {};
+  recordId: any;
+  qtd = 1;
 
-  constructor(public api: ApiService,
-    public foods: Foods,
+  constructor(
+    public toastCtrl: ToastController,
+    public modalCtrl: ModalController,
     private alertService: AlertService,
     public loadingCtrl: LoadingController,
     public activatedRoute: ActivatedRoute,
-    public router: Router) {
-      const id = this.activatedRoute.snapshot.paramMap.get('id');
-      const record = this.foods.query({ id })[0];
-      this.record = record || foods.defaultRecord;
-      console.log(record);
+    public router: Router,
+    public logService: DishService,
+    public foods: Foods) {
+      this.recordId = this.activatedRoute.snapshot.paramMap.get('id');
+      this.record = this.foods.query({ id: this.recordId })[0];
     }
 
   ngOnInit() {
@@ -34,7 +40,7 @@ export class FoodDetailPage implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.api.getFood(`?_id=${id}`).subscribe((res: ApiResponse) => {
+    await this.foods.recordRetrieve(`?_id=${id}`).then((res: ApiResponse) => {
       console.log(id);
         if (res.success && res.payload.length > 0) {
           console.log(res.payload);
@@ -51,7 +57,7 @@ export class FoodDetailPage implements OnInit {
   async delete(id) {
     const loading = await this.loadingCtrl.create({message: 'Deleting'});
     await loading.present();
-    await this.api.deleteFood(id).subscribe((res: ApiResponse) => {
+    await this.foods.recordDelete(id).then((res: ApiResponse) => {
       if (res.success) {
         this.alertService.presentToast('Operation successful');
       }
@@ -62,4 +68,44 @@ export class FoodDetailPage implements OnInit {
         loading.dismiss();
       });
   }
+
+
+  // minus adult when click minus button
+  minusQtd() {
+    this.qtd--;
+  }
+  // plus adult when click plus button
+  plusQtd() {
+    this.qtd++;
+  }
+
+  addcart(dish, qtd) {
+    this.logService.addtoDish(dish, qtd).then(async () => {
+      const toast = await this.toastCtrl.create({
+          message: 'Dish added to Dish',
+          duration: 2000,
+          position: 'top',
+          closeButtonText: 'OK',
+          showCloseButton: true
+      });
+
+      toast.present();
+    });
+  }
+
+  async openCart() {
+    const modal = await this.modalCtrl.create({
+      component: DishPage
+    });
+    return await modal.present();
+  }
+
+  async presentImage(image: any) {
+    const modal = await this.modalCtrl.create({
+      component: ImagePage,
+      componentProps: { value: image }
+    });
+    return await modal.present();
+  }
+
 }

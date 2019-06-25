@@ -4,8 +4,9 @@ import { Location } from '@angular/common';
 import { Router  } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { ApiService, AlertService } from 'src/app/services';
+import { AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
+import { Exercises } from 'src/app/providers';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ExerciseAddPage implements OnInit {
   item: any;
 
   constructor(private camera: Camera,
-    public api: ApiService,
+    public exercises: Exercises,
     private alertService: AlertService,
     public loadingController: LoadingController,
     public router: Router,
@@ -49,16 +50,14 @@ export class ExerciseAddPage implements OnInit {
     if (!this.addForm.valid) { return; }
     const payload = this.addForm.value;
     payload.type = 'CUSTOM';
-    await this.api.postExercise(payload)
-    .subscribe((res: ApiResponse) => {
+    await this.exercises.recordCreate(payload)
+    .then((res: ApiResponse) => {
       if (res.success) {
         const id = res['id'];
         this.router.navigate(['/exercise-detail/' + id]);
       } else {
         this.alertService.presentToast(res.message);
-      }}, (err) => {
-        console.log(err);
-      });
+      }});
   }
 
   getPicture() {

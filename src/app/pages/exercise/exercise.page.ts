@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController, ToastController, AlertController } from '@ionic/angular';
-import { ApiService, AlertService } from 'src/app/services';
+import { AlertService } from 'src/app/services';
 import { ApiResponse, Exercise } from 'src/app/models';
 import { Exercises } from 'src/app/providers';
 
@@ -17,7 +17,6 @@ export class ExercisePage implements OnInit {
   public press = 0;
 
   constructor(private router: Router,
-    public api: ApiService,
     private alertService: AlertService,
     private alertCtrl: AlertController,
     public exercises: Exercises,
@@ -46,8 +45,8 @@ export class ExercisePage implements OnInit {
    * Navigate to the detail page for this exercise.
    */
   openRecord(exercise: Exercise) {
-    // this.router.navigate([`/exercise-detail/${exercise.id}`]);
-    this.router.navigate([`/exercise-detail/1`, { exercise }]);
+    this.router.navigate([`/exercise-detail/${exercise.id}`]);
+    // this.router.navigate([`/exercise-detail`, { exercise }]);
   }
 
   async addRecord() {
@@ -72,18 +71,13 @@ export class ExercisePage implements OnInit {
       duration: 5000
     });
     await loading.present();
-    await this.api.getExercise('').subscribe((res: ApiResponse) => {
+    await this.exercises.recordRetrieve('').then((res: ApiResponse) => {
       if (res.success && res.payload.length > 0) {
-        const result = res.payload.map((record, index) => {
-          const obj = Object.assign({}, record);
-          obj.image = this.api.getImageUrl(record.image);
-          return obj;
-        });
-        this.currentRecords = result;
+        this.currentRecords = res.payload;
         }
         loading.dismiss();
         this.alertService.presentToast(res.message);
-      }, err => {
+      }).catch (err => {
         console.log(err);
         loading.dismiss();
         this.alertService.presentToast(err.message);

@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EnvService {
+  adMobPubId = '';
+  adMobIntId = '';
   // API_URL = 'https://calorie-api.herokuapp.com/api';
-  API_URL = 'http://localhost:5000/api';
-  adMobPubId = 'ca-app-pubz-9523247492220942/9437355526';
-  adMobIntId = 'ca-app-pubz-9523247492220942/1862251283';
+  API_URL = 'http://0.0.0.0:5000/api';
 
   constructor() { }
 }

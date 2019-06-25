@@ -1,29 +1,35 @@
 <ion-header>
-    <ion-toolbar color="success">
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title> Foods & Drinks</ion-title>
-        <ion-buttons slot="end">
-          <ion-button routerLink="/food-add"><ion-icon name="add-circle"></ion-icon></ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title> Foods & Drinks</ion-title>
+      <ion-buttons slot="end">
+        <ion-button routerLink="/food-add"><ion-icon name="add-circle"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 
 <ion-content>
-    <ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Food"></ion-searchbar>
-    <ion-list *ngFor="let record of currentRecords">
-      <ion-item routerLink="/food-detail/{{record.id}}"  routerDirection="forward">
-        <ion-avatar item-start slot="start">
-          <img [src]="record.image" />
-        </ion-avatar>
-        <h2> {{ record.name }} </h2>
-        <!--
-      <div *ngIf="selectedItem" padding>
-        You navigated here from <b>{{selectedItem.title }}</b>
-      </div>
-    -->
-        <ion-badge item-start slot="end"> {{ record.calories }} Kacl</ion-badge>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+  <ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Food"></ion-searchbar>
+
+  <ion-list no-margin [@staggerIn]="records">
+    <ion-item no-padding lines="none" *ngFor="let record of records" tappable routerLink="/food-detail/{{ record.id }}">
+      <ion-thumbnail margin slot="start">
+          <img [src]="record.images[0]">
+        </ion-thumbnail>
+      <ion-label>
+        <h2 class="fw700 text08">
+          <ion-text color="dark">{{record.name}}</ion-text>
+        </h2>
+        <p>
+          <ion-text color="primary">{{ record.ingredients }}</ion-text>
+        </p>
+      </ion-label>
+      <ion-badge color="success">
+        <ion-text color="light">{{ record.calories | number }}Kacl</ion-text>
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

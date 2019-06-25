@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ 'app.pages.message.title.header' | translate }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding class="animated fadeIn">
+
+    <ion-card class="bg-white" no-margin>
+      <ion-card-header>
+          <ion-card-subtitle>{{message.date | date: 'MM/dd/yyyy'}} ∙ by <strong>{{message.senderName}}</strong></ion-card-subtitle>
+          <ion-card-title>
+            <ion-text color="primary">
+              {{message.title}}
+            </ion-text>
+          </ion-card-title>
+      </ion-card-header>
+        <ion-card-content>
+					<p margin-top>
+            <ion-text color="primary">
+              {{message.message}}
+            </ion-text>
+          </p>
+        </ion-card-content>
+      </ion-card>
+
+</ion-content>

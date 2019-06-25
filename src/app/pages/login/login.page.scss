@@ -1,11 +1,24 @@
-ion-item{
-    --background: #3880ff;
-    --color: #fff;
-}
-ion-button{
-    --background: #062f77;
+:host {
+    ion-content {
+        --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+    }
 }
 
-a{
-    color: #fff;
+.theme-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+    opacity: .4; //.12
+    background-image: url("/assets/img/fruit-girl.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.paz {
+    position: relative;
+    z-index: 10;
 }

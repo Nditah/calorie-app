@@ -1,0 +1,41 @@
+<ion-content>
+
+  <ion-slides pager="true" dir="ltr" options="slideOpts">
+    <ion-slide *ngFor="let slide of slideList" class="bg-profile">
+      <div padding>
+        <img [src]="slide.image" alt="foodIonic icons" margin-bottom class="slide-image animated fadeInDown slow">
+        <h3 class="slide-title text-white animated fadeIn" [innerHTML]="slide.title"></h3>
+        <ion-text color="light">
+          <p [innerHTML]="slide.description" class="animated fadeIn"></p>
+        </ion-text>
+
+        <ion-button icon-left expand="full" shape="round" color="secondary" margin-top (click)="onSlideNext()">
+          Next
+          <ion-icon name="arrow-round-forward"></ion-icon>
+        </ion-button>
+      </div>
+
+      <!-- <div padding>
+
+      </div> -->
+    </ion-slide>
+    <ion-slide class="bg-profile">
+      <div class="w100" padding>
+        <img src="assets/img/foodIonic-ico.png" alt="foodIonic" class="slide-image animated fadeInDown slow">
+        <h2 class="slide-title text-white" margin-bottom>Ready to Lunch?</h2>
+
+        <hr>
+
+        <ion-button expand="full" shape="round" color="secondary" margin-top (click)="openLoginPage()">
+          Enter
+        </ion-button>
+        <ion-button expand="full" shape="round" color="dark" margin-top (click)="openHomeLocation()">
+          <!-- routerLink="/home" -->
+          Get Started
+        </ion-button>
+      </div>
+
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

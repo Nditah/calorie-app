@@ -14,7 +14,7 @@ export class ExerciseDetailPage implements OnInit {
 
   record: Exercise;
 
-  constructor(public api: ApiService,
+  constructor(
     public exercises: Exercises,
     private alertCtrl: AlertController,
     public toastCtrl: ToastController,
@@ -22,10 +22,7 @@ export class ExerciseDetailPage implements OnInit {
     public activatedRoute: ActivatedRoute,
     public router: Router) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
-      const record = this.exercises.query({ id })[0];
-      this.record = record || exercises.defaultRecord;
-      console.log(record);
-
+      this.record = this.exercises.query({ id })[0];
     }
 
   ngOnInit() {
@@ -36,7 +33,7 @@ export class ExerciseDetailPage implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.api.getExercise(`?_id=${id}`).subscribe((res: ApiResponse) => {
+    await this.exercises.recordRetrieve(`?_id=${id}`).then((res: ApiResponse) => {
       console.log(res);
       if (res.success) {
           this.record = res.payload[0];
@@ -49,10 +46,10 @@ export class ExerciseDetailPage implements OnInit {
         // this.alertCtrl.presentToast(err.message);
       });
   }
-  async delete(id) {
+  async delete(record) {
     const loading = await this.loadingCtrl.create({message: 'Deleting'});
     await loading.present();
-    await this.api.deleteExercise(id).subscribe((res: ApiResponse) => {
+    await this.exercises.recordDelete(record).then((res: ApiResponse) => {
       if (res.success) {
         // this.alertCtrl.presentToast('Operation successful');
       }

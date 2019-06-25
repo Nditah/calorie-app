@@ -20,9 +20,7 @@ export class NutrientDetailPage implements OnInit {
     public activatedRoute: ActivatedRoute,
     public router: Router) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
-      const record = this.nutrients.query({ id })[0];
-      this.record = record || nutrients.defaultRecord;
-      console.log(record);
+      this.record = this.nutrients.query({ id })[0];
     }
 
   ngOnInit() {

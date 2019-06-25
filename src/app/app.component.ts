@@ -49,7 +49,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.authService.getToken();
       this.InitAds();
       timer(3000).subscribe(() => this.showSplash = false );
     });
@@ -57,12 +56,12 @@ export class AppComponent {
 
 
   logout() {
-    this.authService.logout().then(data => {
+    this.authService.userLogout().then(data => {
         this.alertService.presentToast(data['message']);
       }).catch(error => {
         console.log(error);
       });
-      return this.navCtrl.navigateRoot('/landing');
+      return this.navCtrl.navigateRoot('/home');
   }
 
   showBannerAds() {

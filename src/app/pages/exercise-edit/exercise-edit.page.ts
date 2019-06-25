@@ -4,7 +4,8 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse } from 'src/app/models';
+import { ApiResponse, Exercise } from 'src/app/models';
+import { Exercises } from 'src/app/providers';
 
 @Component({
   selector: 'app-exercise-edit',
@@ -16,23 +17,17 @@ export class ExerciseEditPage implements OnInit {
   page = 'Edit Exercise';
   editForm: FormGroup;
   isReadyToSave = false;
+  record: Exercise;
 
-  constructor(public api: ApiService,
+  constructor(public exercises: Exercises,
     private alertService: AlertService,
     public loadingController: LoadingController,
     private route: ActivatedRoute,
     public router: Router,
     private location: Location,
     private formBuilder: FormBuilder) {
-      this.getFoom(this.route.snapshot.paramMap.get('id'));
-      this.editForm = this.formBuilder.group({
-        'name' : [null, Validators.required],
-        // 'type': [null, Validators.required], // enum: ["DEFAULT", "CUSTOM"]
-        'category': [null, Validators.required], // enum: ["FOOD", "DRINK"]
-        'description': [null, Validators.required],
-        'duration': [null, Validators.required],
-        'calorie': [null, Validators.required],
-      });
+      const id = this.route.snapshot.paramMap.get('id');
+      this.getFoom(id);
     }
 
   ngOnInit() {
@@ -41,14 +36,13 @@ export class ExerciseEditPage implements OnInit {
   async getFoom(id) {
     const loading = await this.loadingController.create({ message: 'Loading' });
     await loading.present();
-    await this.api.getExercise(`?_id=${id}`).subscribe((res: ApiResponse) => {
+    await this.exercises.recordRetrieve(`?_id=${id}`).then((res: ApiResponse) => {
     if (res.success) {
-      const record = res.payload[0];
-      this.editForm.controls['name'].setValue(record.name);
-      this.editForm.controls['category'].setValue(record.category);
-      this.editForm.controls['description'].setValue(record.description);
-      this.editForm.controls['duration'].setValue(record.duration);
-      this.editForm.controls['calorie'].setValue(record.calorie);
+      this.record = res.payload[0];
+      this.editForm.controls['name'].setValue(this.record.name);
+      this.editForm.controls['category'].setValue(this.record.category);
+      this.editForm.controls['description'].setValue(this.record.description);
+      this.editForm.controls['calorie_rate'].setValue(this.record.calorie_rate);
 
       console.log(this.editForm);
       loading.dismiss();
@@ -63,7 +57,7 @@ export class ExerciseEditPage implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     const payload = this.editForm.value;
     payload.type = 'CUSTOM';
-    await this.api.updateExercise(id, payload).subscribe((res: ApiResponse) => {
+    await this.exercises.recordUpdate(this.record, payload).then((res: ApiResponse) => {
       if (res.success) {
         this.router.navigate(['/exercise-detail', id]);
       } else {

@@ -1,11 +1,5 @@
-ion-item{
-    --background: #3880ff;
-    --color: #fff;
-}
-ion-button{
-    --background: #062f77;
-}
-
-a{
-    color: #fff;
+:host {
+  ion-content {
+    --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary))
+  }
 }

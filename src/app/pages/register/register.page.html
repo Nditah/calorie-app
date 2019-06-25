@@ -1,54 +1,85 @@
-<ion-header>
-  <ion-toolbar color="success">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/landing"></ion-back-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="gotoLogin()"><ion-icon name="add-circle"></ion-icon></ion-button>
-    </ion-buttons>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content padding class="animated fadeIn login auth-page">
 
-<ion-content padding color="primary">
-  <form #form="ngForm" (ngSubmit)="register(form)" method="post">
-      <ion-grid>
-          <ion-row color="primary" justify-content-center>
-            <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-              <div text-center>
-                <h3>Create your account!</h3>
-              </div>
-              <div padding>
-    <ion-item>
-        <ion-label position="floating">User name</ion-label>
-        <ion-input ngModel type="text" name="username" autocapitalize="on" maxlength="20" required=true></ion-input>
-    </ion-item>
+  <div class="auth-content">
+    <!-- Logo -->
+    <div padding-horizontal text-center class="animated fadeInDown">
+      <div class="logo"></div>
+      <h3 no-margin>
+        <ion-text color="light" class="fw700">
+          <ion-text color="secondary">Register</ion-text>
+        </ion-text>
+      </h3>
+    </div>
 
-    <ion-item>
-      <ion-label position="floating">Phone</ion-label>
-      <ion-input ngModel type="tel" name="phone" maxlength="15" required=true></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input ngModel type="email" name="email" maxlength="100"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input ngModel type="password" name="password" maxlength="20" required=true></ion-input>
-    </ion-item>
-  
+    <!-- Register form -->
+    <form [formGroup]="signupForm" class="list-form">
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="person" item-start></ion-icon>
+          Username
+        </ion-label>
+        <ion-input color="secondary" type="text" formControlName="username"></ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="signupForm.get('username').touched && signupForm.get('username').hasError('required')">
+        <ion-text color="warning">
+          This field is required
+        </ion-text>
+      </p>
+
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="call" item-start></ion-icon>
+          Phone
+        </ion-label>
+        <ion-input color="secondary" type="phone" formControlName="phone"></ion-input>
+      </ion-item>
+
+      
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="mail" item-start></ion-icon>
+          Email
+        </ion-label>
+        <ion-input color="secondary" type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="signupForm.get('email').touched && signupForm.get('email').hasError('required')">
+        <ion-text color="warning">
+          This field is required
+        </ion-text>
+      </p>
+
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          Password
+        </ion-label>
+        <ion-input color="secondary" type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <p ion-text color="warning" class="text08" *ngIf="signupForm.get('password').touched && signupForm.get('password').hasError('required')">
+        <ion-text color="warning">
+          This field is required
+        </ion-text>
+      </p>
+    </form>
+
+    <div margin-top>
+      <ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="signup()" [disabled]="!signupForm.valid"
+        tappable>
+        <ion-icon name="log-in"></ion-icon>
+        Signup
+      </ion-button>
+
+      <p></p>
+    </div>
+
+    <!-- Other links -->
+    <div text-center margin-top>
+      <span (click)="goToLogin()" tappable>
+        <ion-text color="light">
+          <strong>I have an account!</strong>
+        </ion-text>
+      </span>
+    </div>
+
   </div>
-  <div padding>
-    <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
-  </div>
-</ion-col>
-</ion-row>
-</ion-grid>
-  </form>
-
-  <p text-center>Already have a account?<br/>
-    <a (click)="gotoLogin()"><h2>Login</h2></a></p>
-
-</ion-content>  
+</ion-content>

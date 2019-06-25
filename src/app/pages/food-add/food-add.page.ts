@@ -5,6 +5,7 @@ import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
+import { Foods } from 'src/app/providers';
 
 @Component({
   selector: 'app-food-add',
@@ -14,10 +15,10 @@ import { ApiResponse } from 'src/app/models';
 export class FoodAddPage implements OnInit {
 
   addForm: FormGroup;
-  minivites: FormArray;
+  nutrients: FormArray;
   isReadyToSave = false;
 
-  constructor(public api: ApiService,
+  constructor(public foods: Foods,
     private alertService: AlertService,
     public loadingController: LoadingController,
     private location: Location,
@@ -35,7 +36,7 @@ export class FoodAddPage implements OnInit {
         'protein': [null, Validators.required],
         'fats': [null, Validators.required],
         'fibre': [null, Validators.required],
-        'minivites' : this.formBuilder.array([]),
+        'nutrients' : this.formBuilder.array([]),
       });
     }
 
@@ -45,14 +46,14 @@ export class FoodAddPage implements OnInit {
   // * Minivites
   createMinivite(): FormGroup {
     return this.formBuilder.group({
-      minivite_name: [null, Validators.required],
-      minivite_value: [null, Validators.required],
+      nutrient_name: [null, Validators.required],
+      nutrient_value: [null, Validators.required],
     });
   }
 
   addBlankMinivite(): void {
-    this.minivites = this.addForm.get('minivites') as FormArray;
-    this.minivites.push(this.createMinivite());
+    this.nutrients = this.addForm.get('nutrients') as FormArray;
+    this.nutrients.push(this.createMinivite());
   }
 
   deleteMinivite(control, index) {
@@ -62,7 +63,7 @@ export class FoodAddPage implements OnInit {
   async submitRecord() {
     const payload = this.addForm.value;
     payload.type = 'CUSTOM';
-    await this.api.postFood(payload).subscribe((res: ApiResponse) => {
+    await this.foods.recordCreate(payload).then((res: ApiResponse) => {
       if (res.success) {
         const id = res['id'];
         this.router.navigate(['/food-detail/' + id]);

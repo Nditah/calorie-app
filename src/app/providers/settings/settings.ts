@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 /**
  * A simple settings/config class for storing key/value pairs with persistence.

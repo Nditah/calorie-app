@@ -1,0 +1,22 @@
+ion-slides {
+    height: 100%;
+  }
+
+  .toolbar-background {
+    background: var(--ion-color-primary) !important;
+    border-color: transparent;
+  }
+
+  .slide-zoom {
+    height: 99vh;
+  }
+
+  .slide-title {
+    margin-top: 0;
+  }
+
+  .slide-image {
+    // max-height: 50%;
+    max-width: 128px !important;
+    margin: 0 0 18px;
+  }

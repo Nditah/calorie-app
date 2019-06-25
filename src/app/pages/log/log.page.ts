@@ -32,12 +32,9 @@ export class LogPage implements OnInit {
       duration: 5000
     });
     await loading.present();
-    await this.api.getLog('').subscribe((res: ApiResponse) => {
+    await this.logs.recordRetrieve('').then((res: ApiResponse) => {
         console.log(res);
         this.records = res.payload;
-        loading.dismiss();
-      }, err => {
-        console.log(err);
         loading.dismiss();
       });
   }

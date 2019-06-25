@@ -3,7 +3,8 @@ import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse } from 'src/app/models';
+import { ApiResponse, Food } from 'src/app/models';
+import { Foods } from 'src/app/providers';
 
 @Component({
   selector: 'app-food-edit',
@@ -13,30 +14,22 @@ import { ApiResponse } from 'src/app/models';
 export class FoodEditPage implements OnInit {
 
   editForm: FormGroup;
-  minivites: FormArray;
+  nutrients: FormArray;
   vitamins: FormArray;
   isReadyToSave = false;
+  record: Food;
 
-  constructor(public api: ApiService,
+  constructor(public foods: Foods,
     private alertService: AlertService,
     public loadingController: LoadingController,
     private route: ActivatedRoute,
     public router: Router,
     private formBuilder: FormBuilder) {
-      this.getFoom(this.route.snapshot.paramMap.get('id'));
-      this.editForm = this.formBuilder.group({
-        'name' : [null, Validators.required],
-        // 'type': [null, Validators.required], // enum: ["DEFAULT", "CUSTOM"]
-        'category': [null, Validators.required], // enum: ["FOOD", "DRINK"]
-        'description': [null, Validators.required],
-        'quantity': [null, Validators.required],
-        'water': [null, Validators.required],
-        'calories': [null, Validators.required],
-        'carbohydrate': [null, Validators.required],
-        'protein': [null, Validators.required],
-        'fats': [null, Validators.required],
-        'fibre': [null, Validators.required],
-        'minivites' : this.formBuilder.array([]),
+      const id = this.route.snapshot.paramMap.get('id');
+      this.foods.recordRetrieve(`?_id=${id}`).then((res: ApiResponse) => {
+        if (res.success) {
+          this.record = res.payload[0];
+        }
       });
     }
 
@@ -46,49 +39,38 @@ export class FoodEditPage implements OnInit {
   async getFoom(id) {
     const loading = await this.loadingController.create({ message: 'Loading' });
     await loading.present();
-    await this.api.getFood(`?_id=${id}`).subscribe((res: ApiResponse) => {
-      console.log(res);
-      if (res.success) {
-      const record = res.payload[0];
-      this.editForm.controls['name'].setValue(record.name);
-      this.editForm.controls['category'].setValue(record.name);
-      this.editForm.controls['description'].setValue(record.name);
-      this.editForm.controls['quantity'].setValue(record.name);
-      this.editForm.controls['water'].setValue(record.name);
-      this.editForm.controls['calories'].setValue(record.name);
-      this.editForm.controls['carbohydrate'].setValue(record.name);
-      this.editForm.controls['protein'].setValue(record.name);
-      this.editForm.controls['fats'].setValue(record.name);
-      this.editForm.controls['fibre'].setValue(record.name);
+      this.editForm.controls['name'].setValue(this.record.name);
+      this.editForm.controls['category'].setValue(this.record.category);
+      this.editForm.controls['description'].setValue(this.record.description);
+      this.editForm.controls['water'].setValue(this.record.water);
+      this.editForm.controls['calories'].setValue(this.record.calories);
+      this.editForm.controls['carbohydrate'].setValue(this.record.carbohydrate);
+      this.editForm.controls['protein'].setValue(this.record.protein);
+      this.editForm.controls['fats'].setValue(this.record.fats);
+      this.editForm.controls['fibre'].setValue(this.record.fibre);
 
-      const controlArray = <FormArray>this.editForm.controls['minivites'];
-      record.minivites.forEach(item => {
+      const controlArray = <FormArray>this.editForm.controls['nutrients'];
+      this.record.nutrients.forEach(item => {
         controlArray.push(this.formBuilder.group({
-          minivite_name: '',
-          minivite_value: '',
+          nutrient_name: '',
+          nutrient_value: '',
         }));
       });
-      for (let i = 0; i < record.minivites.length; i++) {
-        controlArray.controls[i].get('minivite_name').setValue(record.minivites[i].minivite_name);
-        controlArray.controls[i].get('minivite_value').setValue(record.minivites[i].minivite_value);
+      for (let i = 0; i < this.record.nutrients.length; i++) {
+        controlArray.controls[i].get('nutrient_name').setValue(this.record.nutrients[i].nutrient_id);
+        controlArray.controls[i].get('nutrient_value').setValue(this.record.nutrients[i].nutrient_value);
       }
 
       console.log(this.editForm);
       loading.dismiss();
-    }
-    }, err => {
-      console.log(err);
-      loading.dismiss();
-    });
   }
 
   async submitRecord() {
-    const id = this.route.snapshot.paramMap.get('id');
     const payload = this.editForm.value;
     payload.type = 'CUSTOM';
-    await this.api.updateFood(id, payload).subscribe((res: ApiResponse) => {
+    await this.foods.recordUpdate(this.record, payload).then((res: ApiResponse) => {
       if (res.success) {
-        this.router.navigate(['/food-detail', id]);
+        this.router.navigate(['/food-detail', this.record.id]);
       } else {
         this.alertService.presentToast(res.message);
       }}, (err) => {
@@ -96,16 +78,16 @@ export class FoodEditPage implements OnInit {
       });
   }
 
-  createMinivite(): FormGroup {
+  createNutrient(): FormGroup {
     return this.formBuilder.group({
-      minivite_name: '',
-      minivite_value: '',
+      nutrient_name: '',
+      nutrient_value: '',
     });
   }
 
-  addBlankMinivite(): void {
-    this.minivites = this.editForm.get('minivites') as FormArray;
-    this.minivites.push(this.createMinivite());
+  addBlankNutrient(): void {
+    this.nutrients = this.editForm.get('nutrients') as FormArray;
+    this.nutrients.push(this.createNutrient());
   }
 
   deleteInput(control, index) {

@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
+import { Logs } from 'src/app/providers';
 
 @Component({
   selector: 'app-log-detail',
@@ -13,7 +14,7 @@ export class LogDetailPage implements OnInit {
 
   record: any = {};
 
-  constructor(public api: ApiService,
+  constructor(public logs: Logs,
     private alertService: AlertService,
     public loadingCtrl: LoadingController,
     public route: ActivatedRoute,
@@ -27,7 +28,7 @@ export class LogDetailPage implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.api.getLog(`?_id=${id}`).subscribe((res: ApiResponse) => {
+    await this.logs.recordRetrieve(`?_id=${id}`).then((res: ApiResponse) => {
         if (res.success) {
           this.record = res.payload[0];
         }
@@ -42,7 +43,7 @@ export class LogDetailPage implements OnInit {
   async delete(id) {
     const loading = await this.loadingCtrl.create({message: 'Deleting'});
     await loading.present();
-    await this.api.deleteLog(id).subscribe((res: ApiResponse) => {
+    await this.logs.recordDelete(id).then((res: ApiResponse) => {
       if (res.success) {
         this.alertService.presentToast('Operation successful');
       }

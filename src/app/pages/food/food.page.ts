@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
 import { ApiService } from 'src/app/services';
 import { ApiResponse, Food } from 'src/app/models';
 import { Foods } from 'src/app/providers';
@@ -9,21 +10,27 @@ import { Foods } from 'src/app/providers';
 @Component({
   selector: 'app-food',
   templateUrl: './food.page.html',
-  styleUrls: ['./food.page.scss'],
+  styleUrls: ['./food.page.scss'],  animations: [
+    trigger('staggerIn', [
+      transition('* => *', [
+        query(':enter', style({ opacity: 0, transform: `translate3d(-100px,0,0)` }), { optional: true }),
+        query(':enter', stagger('300ms', [animate('500ms', style({ opacity: 1, transform: `translate3d(0,0,0)` }))]), { optional: true })
+      ])
+    ])
+  ]
 })
 export class FoodPage implements OnInit {
 
-  currentRecords: Array<Food>;
+  records: Array<Food>;
 
   constructor(private router: Router,
-    public api: ApiService,
     public foods: Foods,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController) {
 
-    this.currentRecords = this.foods.query();
-    console.log(this.currentRecords );
+    this.records = this.foods.query();
+    console.log(this.records );
   }
 
   ngOnInit() {
@@ -33,10 +40,10 @@ export class FoodPage implements OnInit {
   searchRecord(ev) {
     const val = ev.target.value;
     if (!val || !val.trim()) {
-      this.currentRecords = this.foods.query();
+      this.records = this.foods.query();
       return;
     }
-    this.currentRecords = this.foods.query({
+    this.records = this.foods.query({
       name: val
     });
   }

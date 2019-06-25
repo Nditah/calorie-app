@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
+import { Feedbacks } from 'src/app/providers';
 
 @Component({
   selector: 'app-feedback-detail',
@@ -13,7 +14,7 @@ export class FeedbackDetailPage implements OnInit {
 
   record: any = {};
 
-  constructor(public api: ApiService,
+  constructor(public feedbacks: Feedbacks,
     private alertService: AlertService,
     public loadingCtrl: LoadingController,
     public route: ActivatedRoute,
@@ -27,7 +28,7 @@ export class FeedbackDetailPage implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.api.getFeedback(`?_id=${id}`).subscribe((res: ApiResponse) => {
+    await this.feedbacks.recordRetrieve(`?_id=${id}`).then((res: ApiResponse) => {
         if (res.success) {
           this.record = res.payload[0];
         }
@@ -42,7 +43,7 @@ export class FeedbackDetailPage implements OnInit {
   async delete(id) {
     const loading = await this.loadingCtrl.create({message: 'Deleting'});
     await loading.present();
-    await this.api.deleteFeedback(id).subscribe((res: ApiResponse) => {
+    await this.feedbacks.recordDelete(id).then((res: ApiResponse) => {
       if (res.success) {
         this.alertService.presentToast('Operation successful');
       }

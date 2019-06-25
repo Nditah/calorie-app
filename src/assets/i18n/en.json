@@ -1,4 +1,134 @@
 {
+  "app.name": "afroCalori",
+  "app.namea": "afro",
+  "app.nameb": "Calorie",
+  "app.version": "1",
+  "app.description": "Afro Calorie: Diet & nutrition tracking app for African dishes and exercises",
+
+  "app.button.search": "Search",
+  "app.button.checkout": "Checkout",
+  "app.button.moreresults": "More Results",
+  "app.button.callus": "Call us",
+  "app.button.fav": "Favorite",
+  "app.button.share": "Share",
+  "app.button.signin": "Sign in",
+  "app.button.signup": "Sign up",
+  "app.button.nearby": "Nearby",
+  "app.button.bycategory": "Category",
+  "app.button.orders": "Orders",
+
+  "app.label.booked": "Booked",
+  "app.label.book": "Book",
+  "app.label.resultsf": "Results Found!",
+  "app.label.cc": "Credit Card",
+  "app.label.ch": "Card Holder",
+  "app.label.cn": "Card Number",
+  "app.label.pp": "Paypal",
+  "app.label.freecancel": "free cancellation",
+  "app.label.average": "Average",
+  "app.label.averageprice": "average price",
+  "app.label.totalvat": "Total + VAT",
+  "app.label.total": "Total",
+  "app.label.voucher": "Voucher",
+  "app.label.description": "Description",
+  "app.label.location": "Location",
+
+  "app.label.userdata": "User Data",
+  "app.label.usertype": "User Type",
+  "app.label.edit": "Edit",
+  "app.label.insertavatar": "Insert Avatar",
+  "app.label.name": "Name",
+  "app.label.fullname": "Full Name",
+  "app.label.address": "Address",
+  "app.label.city": "City",
+  "app.label.state": "State",
+  "app.label.email": "Email",
+  "app.label.password": "Password",
+  "app.label.details": "Details",
+  "app.label.rating": "Rating",
+  "app.label.about": "About",
+  "app.label.amenities": "Amenities",
+  "app.label.features": "Features",
+  "app.label.selectlocal": "Select Local",
+
+  "app.label.errors.field": "This field is required",
+
+  "app.pages.extras.title.header": "Extras pages",
+  "app.pages.extras.profileone.title.header": "Profile One",
+  "app.pages.extras.profiletwo.title.header": "Profile Two",
+  "app.pages.extras.timeline.title.header": "Timeline",
+  "app.pages.extras.auth.title.header": "Authentication",
+  "app.pages.extras.popupmenu.title.header": "Popup menu",
+  "app.pages.extras.charts.title.header": "Charts",
+  "app.pages.extras.post.title.header": "Blog Post",
+
+  "app.pages.menu.home": "Home",
+  "app.pages.menu.booking": "Booking List",
+  "app.pages.menu.favorites": "Favorites",
+  "app.pages.menu.rentacar": "Rent a Car",
+  "app.pages.menu.activities": "Trip Activities",
+  "app.pages.menu.activitiestab": "Activities",
+  "app.pages.menu.logout": "Logout",
+  "app.pages.menu.editprofile": "Edit Profile",
+  "app.pages.menu.weather": "Local Weather",
+  "app.pages.menu.about": "About App",
+  "app.pages.menu.settings": "Settings",
+  "app.pages.menu.support": "Support",
+
+
+  "app.pages.about.title.header": "About",
+  "app.pages.support.title.header": "Support",
+
+  "app.pages.editprofile.title.header": "Edit Profile",
+  "app.pages.editprofile.avail.text": "Available to chat w/ Restaurants?",
+
+  "app.pages.favorites.title.header": "Favorites",
+  "app.pages.favorites.title.nores": "You have no favorite hotels.",
+
+  "app.pages.login.label.forgot": "Forgot Password?",
+  "app.pages.login.text.forgot": "Enter you email address to send a reset link password.",
+  "app.pages.login.text.sended": "Email was sended successfully.",
+
+  "app.pages.register.title.header": "Register",
+  "app.pages.register.label.ihave": "I have an account!",
+
+  "app.pages.homelocation.label.setlocation": "Set location",
+  "app.pages.homelocation.label.or": "Or",
+  "app.pages.homelocation.label.mylocation": "Current location",
+
+  "app.pages.homeresults.label.rnear": "Restaurants near you",
+  "app.pages.homeresults.label.or": "Or",
+  "app.pages.homeresults.label.mylocation": "Current location",
+
+  "app.pages.bycategory.title.header": "Restaurants by category",
+  "app.pages.nearby.title.header": "Nearby Restaurants",
+
+  "app.pages.message.title.header": "Message",
+  "app.pages.messages.title.header": "Messages",
+  "app.pages.messages.label.error": "You have no messages.",
+
+  "app.pages.settings.title.header": "App Settings",
+
+  "app.pages.restaurantlist.title.header": "Restaurants",
+  "app.pages.restaurantlist.label.type": "Restaurant Type",
+
+  "app.pages.dishlist.title.header": "Dish List",
+
+  "app.pages.favoriterestaurants.title.header": "Favorite Restaurants",
+
+  "app.pages.dishdetail.label.ingredients": "Ingredients",
+  "app.pages.dishdetail.label.description": "Description",
+
+  "app.pages.cart.title.header": "Cart",
+  "app.pages.cart.label.error": "You still haven't any item.",
+
+  "app.pages.checkout.title.header": "Checkout",
+
+
+  "app.pages.latestorders.title.header": "Latest Orders",
+  "app.pages.latestorders.label.error": "You have no past orders.",
+
+  
   "BACK_BUTTON_TEXT": "Back",
 
   "NAME": "Name",

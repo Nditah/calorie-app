@@ -1,43 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Nutrient } from '../../models';
-import table from './nutrients-data';
+import { map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { Nutrient, ApiResponse, User } from '../../models';
+import { ApiService, EnvService, AuthService } from '../../services';
+import { hasProp } from 'src/app/helpers';
+
 
 @Injectable()
 export class Nutrients {
 
   nutrients: Nutrient[] = [];
+  user: User;
 
-  defaultRecord: Nutrient = {
-    'id': '1',
-    'name': 'Carbohydrates',
-    'classification': 'carbohydrate',
-    'category': 'carbohydrate',
-    'type': 'MAIN',
-    'symbol': 'Cm(H2O)n',
-    'requirement': 130000,
-    'limit': 325000,
-    'unit': 'mg',
-    'source': 'Carbohydrates constitute majority of foods like bread, noodles, rice, and other products that have grains.',
-    'use': 'Main source of calorie intake',
-    'description': `Carbohydrates are classified based on the number of monomer units in them or the number of sugar units they have. 
-    They can be monosaccharides, disaccharides, or polysaccharides. Monosaccharides have one sugar unit, disaccharides have two sugar unites, 
-    and polysaccharides have three or more sugar units.
-    Monosaccharides and disaccharides are simpler carbohydrates while the polysaccharides are complex carbohydrates. 
-    Complex carbohydrates take longer to digest because they need more time to be broken down into simpler sugar units. 
-    Only the simpler sugar units can be absorbed by the blood.
-    The spikes in the sugar levels of the blood are caused by too much consumption of simpler carbohydrates. 
-    The simple carbohydrates are absorbed by the blood very quickly which causes the blood sugar levels to spike abnormally. 
-    This leads to heart diseases and vascular diseases. You should keep in mind that there are a lot of foods out there that are composed of simple sugars. 
-    One of them is the sugar-based juice.`,
-    image: 'assets/images/junk.jpg',
-  };
 
-  constructor() {
-    const nutrients = table;
-    for (const nutrient of nutrients) {
-      this.nutrients.push(new Nutrient(nutrient));
-    }
-  }
+  constructor(private env: EnvService,
+    private apiService: ApiService,
+    private authService: AuthService) {
+    this.authService.isAuthenticated().then(user => {
+      this.user = user;
+    });
+    this.authService.isAuthenticated().then((user) => {
+      if (user && hasProp(user, 'id')) {
+        this.user = new User(user);
+        const queryString = `?filter={"$or":[{"created_by":"${this.user.id}"},{"type":"DEFAULT"}]}`;
+        this.recordRetrieve(queryString).then().catch(err => console.log(err));
+      }
+  }).catch(err => console.log(err));
+}
 
   query(params?: any) {
     if (!params) {
@@ -45,24 +34,85 @@ export class Nutrients {
     }
     return this.nutrients.filter((nutrient) => {
       for (const key in params) {
-        const field = nutrient[key];
-        if (typeof field == 'string' && field.toLowerCase().indexOf(params[key].toLowerCase()) >= 0) {
-          return nutrient;
-        } else if (field == params[key]) {
-          return nutrient;
-        }
+          if (params.hasOwnProperty(key)) {
+            const field = nutrient[key];
+            if (typeof field === 'string' && field.toLowerCase().indexOf(params[key].toLowerCase()) >= 0) {
+              return nutrient;
+            } else if (field === params[key]) {
+              return nutrient;
+            }
+          }
       }
       return null;
     });
   }
-  add(nutrient: Nutrient) {
-    this.nutrients.push(nutrient);
+
+  add(record: Nutrient) {
+    this.nutrients.push(new Nutrient(record));
   }
 
-  delete(nutrient: Nutrient) {
-    this.nutrients.splice(this.nutrients.indexOf(nutrient), 1);
+  delete(record: Nutrient) {
+    this.nutrients.splice(this.nutrients.indexOf(record), 1);
   }
+
+  async recordRetrieve(queryString = ''): Promise<ApiResponse> {
+      const query = queryString || `${this.user.id}`;
+      const url = `${this.env.API_URL}/nutrients${queryString}`;
+      const proRes = this.apiService.getApi(url).pipe(
+          map((res: ApiResponse) => {
+              console.log(res);
+              if (res.success && res.payload.length > 0) {
+                  res.payload.forEach(element => {
+                      this.add(element);
+                  });
+              } else {
+                  throwError(res.message);
+              }
+              return res;
+          }));
+      return await proRes.toPromise();
+  }
+
+  async recordCreate(record: Nutrient): Promise<ApiResponse> {
+      const url = `${this.env.API_URL}/nutrients`;
+      const proRes = this.apiService.postApi(url, record).pipe(
+          map((res: ApiResponse) => {
+              if (res.success && res.payload) {
+                  console.log('recordCreate() successful');
+              } else {
+                  throwError(res.message);
+              }
+              return res;
+          }));
+      return await proRes.toPromise();
+  }
+
+  async recordUpdate(record: Nutrient, payload): Promise<ApiResponse> {
+      const url = `${this.env.API_URL}/nutrients/${record.id}`;
+      const proRes = this.apiService.updateApi(url, payload).pipe(
+          map((res: ApiResponse) => {
+              if (res.success) {
+                  this.delete(record);
+              } else {
+                  throwError(res.message);
+              }
+              return res;
+          }));
+      return await proRes.toPromise();
+  }
+
+  async recordDelete(record: Nutrient): Promise<ApiResponse> {
+      const url = `${this.env.API_URL}/nutrients/${record.id}`;
+      const proRes = this.apiService.deleteApi(url).pipe(
+          map((res: ApiResponse) => {
+              if (res.success) {
+                  this.delete(record);
+              } else {
+                  throwError(res.message);
+              }
+              return res;
+          }));
+      return await proRes.toPromise();
+  }
+
 }
-
-// http://www.medic8.com/healthguide/articles/foodgroups.html
-// https://www.webmd.com/food-recipes/guide/vitamins-and-minerals-good-food-sources
