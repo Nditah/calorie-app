@@ -1,30 +1,35 @@
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title> Activity Log </ion-title>
-        <ion-buttons slot="end">
-          <ion-button routerLink="/log-add"><ion-icon name="add-circle"></ion-icon></ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Activity Log </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/log-add"><ion-icon name="add-circle"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let record of records" routerLink="/log-detail/{{record.id}}">
-      <ion-icon name="desktop" slot="start"></ion-icon>
-      <p *ngIf="record.food">{{ record.food.name }}</p>
-      <p> &nbsp; | &nbsp; </p>
-      <p *ngIf="record.exercise">{{ record.exercise.name }}</p>
-      <div class="item-note" slot="end">
-        {{ record.day | date }}
-      </div>
-    </ion-item>
-  </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
+<ion-content padding class="animated fadeIn">
+    <ion-list no-margin [@staggerIn]="records">
+      <ion-item no-padding lines="none" *ngFor="let record of records" tappable routerLink="/log-detail/{{ record.id }}">
+        <ion-label>
+          <h2 class="fw700 text08" *ngIf="record.food">
+            <ion-text color="dark">Meal: {{ record.food.name }}</ion-text>
+          </h2>
+          <p *ngIf="record.food && record.food_quantity">
+            <ion-text color="primary">Quantity: {{ record.food_quantity }}</ion-text>
+          </p>          
+          <h2 class="fw700 text08" *ngIf="record.exercise">
+            <ion-text color="dark">Exercise: {{ record.exercise.name }}</ion-text>
+          </h2>
+          <p *ngIf="record.exercise && record.exercise_duration">
+            <ion-text color="primary">Duration: {{ record.exercise_duration }}</ion-text>
+          </p>
+        </ion-label>
+        <ion-badge color="success">
+          <ion-text color="light">{{ record.day | date }}</ion-text>
+        </ion-badge>
+      </ion-item>
+    </ion-list>
 </ion-content>

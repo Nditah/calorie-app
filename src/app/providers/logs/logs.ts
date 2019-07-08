@@ -19,7 +19,7 @@ export class Logs {
     name: 'Bread',
     description: 'Wheat bread enrich with vitamins A,B,C',
     calories: 2300,
-    image: 'assets/img/bread.jpg',
+    images: ['assets/img/bread.jpg'],
   };
 
   exercise: any = {
@@ -29,7 +29,7 @@ export class Logs {
     name: 'Football',
     description: 'Favourite sport for cutting down fats for teens and adults',
     calorie_rate: '2300',
-    image: 'assets/img/football.png',
+    images: ['assets/img/football.png'],
   };
 
   defaultRecord: Log = {
@@ -50,17 +50,14 @@ export class Logs {
     for (const log of logs) {
       this.logs.push(new Log(log));
     }
-    this.authService.isAuthenticated().then(user => {
-      this.user = user;
-    });
     this.authService.isAuthenticated().then((user) => {
       if (user && hasProp(user, 'id')) {
         this.user = new User(user);
         const queryString = `?created_by=${this.user.id}&sort=-created_at`;
         this.recordRetrieve(queryString).then().catch(err => console.log(err));
       }
-  }).catch(err => console.log(err));
-}
+    }).catch(err => console.log(err.message));
+  }
 
 query(params?: any) {
   if (!params) {

@@ -19,7 +19,13 @@ export class RegisterPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private alertService: AlertService
-  ) { }
+  ) {
+    this.authService.isAuthenticated().then(data => {
+      if (!!data) {
+        this.goToHome();
+      }
+    });
+  }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -70,8 +76,9 @@ export class RegisterPage implements OnInit {
     );
   }
 
-
-  // // //
+  goToHome() {
+    this.navCtrl.navigateRoot('/home');
+  }
   goToLogin() {
     this.navCtrl.navigateRoot('/login');
   }

@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Feedback Notification</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content padding class="animated fadeIn">
+    <ion-list no-margin [@staggerIn]="records">
+        <ion-item no-padding lines="none" *ngFor="let record of records" tappable routerLink="/notification-detail/{{ record.id }}">
+          <ion-thumbnail margin slot="start">
+            <ion-icon [color]="record.type" name="heart" size="large"></ion-icon>
+          </ion-thumbnail>
+          <ion-label>
+            <h2 class="fw700 text08">
+              <ion-text color="dark">{{ record.message }}</ion-text>
+            </h2>
+            <p>
+              <ion-text color="primary">{{ record.created_at | date }}</ion-text>
+            </p>
+          </ion-label>
+          <ion-thumbnail slot="end">
+            <ion-icon name="mail" color="dark" *ngIf="record.status === 'unread'" size="large"></ion-icon>
+            <ion-icon name="mail-open" color="light" *ngIf="record.status === 'read'" size="large"></ion-icon>
+          </ion-thumbnail>
+        </ion-item>
+      </ion-list>
+  
+  </ion-content>

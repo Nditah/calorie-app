@@ -27,7 +27,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { JwtInterceptor, ApiService, ErrorInterceptor, AuthService, AlertService, EnvService  } from './services';
-import { Settings, Exercises, Nutrients, Foods, Logs, Feedbacks } from './providers';
+import { Settings, Exercises, Nutrients, Foods, Logs, Notifications } from './providers';
 
 
 // AoT requires an exported function for factories
@@ -71,7 +71,7 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     ApiService, AuthService, AlertService, EnvService,
-    Exercises, Nutrients, Foods, Logs, Feedbacks,
+    Exercises, Nutrients, Foods, Logs, Notifications,
     StatusBar, SplashScreen, Camera, Vibration,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

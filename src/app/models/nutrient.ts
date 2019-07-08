@@ -13,7 +13,7 @@ export class Nutrient {
     dri?: number; // DRI (Dietary Reference Intake) grams per kilogram of body weight,
     requirement?: number;
     unit?: string;
-    image?: string;
+    images?: Array<string>;
     created_by?: User;
     created_at?: Date;
     updated_by?: User;
@@ -42,7 +42,7 @@ export interface Nutrient {
    dri?: number; // DRI (Dietary Reference Intake) grams per kilogram of body weight,
    requirement?: number;
    unit?: string;
-   image?: string;
+   images?: Array<string>;
    created_by?: User;
    created_at?: Date;
    updated_by?: User;

@@ -8,21 +8,44 @@
 </ion-header>
 
 <ion-content>
-<ion-searchbar padding animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Class"></ion-searchbar>
-<div padding>
-  <p>Most of the foods that you consume are made up of several of the classes of nutrients. 
-  Some of the nutrients are needed by the body all the time while the others are needed once in awhile. 
-  People’s health deteriorates because of the imbalance of nutrients. 
-  There can be too much of a nutrient or a deficiency in it.
-</p>
-</div>
-<ion-list *ngFor="let record of currentRecords">
-  <ion-item routerLink="/nutrient-detail/{{record.id}}"  routerDirection="forward">
-    <ion-avatar item-start slot="start">
-      <img [src]="record.image" />
-    </ion-avatar>
-    <h2> {{ record.name }} </h2>
-    <ion-badge item-start slot="end"> {{ record.symbol }}</ion-badge>
-  </ion-item>
-</ion-list>
+
+  <ion-card class="bg-white" no-margin>
+    <ion-card-header>
+        <ion-card-subtitle>Food<strong> Classes</strong></ion-card-subtitle>
+        <ion-card-title>
+          <ion-text color="primary">
+            Nutrients
+          </ion-text>
+        </ion-card-title>
+    </ion-card-header>
+      <ion-card-content>
+        <p margin-top>
+          <ion-text color="primary">
+            {{ description }}
+          </ion-text>
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+  <ion-searchbar padding animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search nutrient"></ion-searchbar>
+
+  <ion-list no-margin [@staggerIn]="records">
+    <ion-item no-padding lines="none" *ngFor="let record of records" tappable routerLink="/nutrient-detail/{{ record.id }}">
+        <ion-thumbnail margin slot="start">
+          <img [src]="record.images[0]">
+        </ion-thumbnail>
+      <ion-label>
+        <h2 class="fw700 text08">
+          <ion-text color="dark">{{ record.name }}</ion-text>
+        </h2>
+        <p>
+          <ion-text color="primary">{{ record.source }}</ion-text>
+        </p>
+      </ion-label>
+      <ion-badge color="success">
+        <ion-text color="light">{{ record.symbol }}</ion-text>
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

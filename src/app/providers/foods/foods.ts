@@ -9,7 +9,8 @@ import { hasProp } from 'src/app/helpers';
 @Injectable()
 export class Foods {
 
-  foods: Food[] = [    {
+  foods: Food[] = [
+    {
     id: '1',
     type: 'DEFAULT',
     category: 'FOOD',
@@ -21,6 +22,7 @@ export class Foods {
     protein: 4950,
     fats: 23.0,
     fibre: 3570,
+    ingredients: 'Spices, Vegetable',
     nutrients: [{ nutrient_id: '5cc74ee9b27a5b01bd016185', nutrient_value: 120 }],
     images: ['assets/img/dishes/dish01.jpg', 'assets/img/dishes/dish02.jpg'],
 },
@@ -36,6 +38,7 @@ export class Foods {
     protein: 4950,
     fats: 23.0,
     fibre: 3570,
+    ingredients: 'Rice, Beans, fish, meat',
     nutrients: [{ nutrient_id: '5cc74ee9b27a5b01bd016185', nutrient_value: 120 }],
     images: ['assets/img/dishes/dish03.jpg', 'assets/img/dishes/dish04.jpg'],
 }];
@@ -44,16 +47,13 @@ export class Foods {
   constructor(private env: EnvService,
     private apiService: ApiService,
     private authService: AuthService) {
-    this.authService.isAuthenticated().then(user => {
-      this.user = user;
-    });
     this.authService.isAuthenticated().then((user) => {
       if (user && hasProp(user, 'id')) {
         this.user = new User(user);
         const queryString = `?filter={"$or":[{"created_by":"${this.user.id}"},{"type":"DEFAULT"}]}`;
         this.recordRetrieve(queryString).then().catch(err => console.log(err));
       }
-  }).catch(err => console.log(err));
+  }).catch(err => console.log(err.message));
 }
 
   query(params?: any) {
@@ -84,7 +84,6 @@ export class Foods {
   }
 
   async recordRetrieve(queryString = ''): Promise<ApiResponse> {
-      const query = queryString || `${this.user.id}`;
       const url = `${this.env.API_URL}/foods${queryString}`;
       const proRes = this.apiService.getApi(url).pipe(
           map((res: ApiResponse) => {

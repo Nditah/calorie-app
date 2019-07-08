@@ -9,7 +9,27 @@ import { hasProp } from 'src/app/helpers';
 @Injectable()
 export class Exercises {
 
-  exercises: Exercise[] = [];
+  exercises: Exercise[] = [
+    {
+    id: '1',
+    type: 'DEFAULT',
+    category: 'SPORT',
+    name: '400M Sprint',
+    description: 'Short distance fast running',
+    calorie_rate: 234,
+    tasks: 'Running',
+    images: ['assets/img/dishes/dish01.jpg', 'assets/img/dishes/dish02.jpg'],
+  },
+  {
+      id: '2',
+      type: 'CUSTOM',
+      category: 'WORKOUT',
+      name: 'Hide and Seek',
+      description: 'Run and hide while another searches for you.',
+      calorie_rate: 234,
+      tasks: 'Run, Squart',
+      images: ['assets/img/dishes/dish03.jpg', 'assets/img/dishes/dish04.jpg'],
+  }];
   user: User;
 
 
@@ -23,8 +43,8 @@ export class Exercises {
         const queryString = `?filter={"$or":[{"created_by":"${this.user.id}"},{"type":"DEFAULT"}]}`;
         this.recordRetrieve(queryString).then().catch(err => console.log(err));
       }
-  }).catch(err => console.log(err));
-}
+    }).catch(err => console.log(err.message));
+  }
 
   query(params?: any) {
     if (!params) {

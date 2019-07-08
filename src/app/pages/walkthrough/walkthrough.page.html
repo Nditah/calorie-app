@@ -2,7 +2,13 @@
 
   <ion-slides pager="true" dir="ltr" options="slideOpts">
     <ion-slide *ngFor="let slide of slideList" class="bg-profile">
+          
       <div padding>
+          <ion-text color="light">
+              <p><a (click)="onLastSlide()"><h3 class="text-white">Skip</h3></a></p>
+          </ion-text>
+        
+
         <img [src]="slide.image" alt="foodIonic icons" margin-bottom class="slide-image animated fadeInDown slow">
         <h3 class="slide-title text-white animated fadeIn" [innerHTML]="slide.title"></h3>
         <ion-text color="light">
@@ -29,7 +35,7 @@
         <ion-button expand="full" shape="round" color="secondary" margin-top (click)="openLoginPage()">
           Enter
         </ion-button>
-        <ion-button expand="full" shape="round" color="dark" margin-top (click)="openHomeLocation()">
+        <ion-button expand="full" shape="round" color="dark" margin-top (click)="openHomePage()">
           <!-- routerLink="/home" -->
           Get Started
         </ion-button>

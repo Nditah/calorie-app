@@ -4,29 +4,27 @@ import { throwError } from 'rxjs';
 import { Nutrient, ApiResponse, User } from '../../models';
 import { ApiService, EnvService, AuthService } from '../../services';
 import { hasProp } from 'src/app/helpers';
+import nutrientData from './nutrients-data';
 
 
 @Injectable()
 export class Nutrients {
 
-  nutrients: Nutrient[] = [];
+  nutrients: any[] = nutrientData;
   user: User;
 
 
   constructor(private env: EnvService,
     private apiService: ApiService,
     private authService: AuthService) {
-    this.authService.isAuthenticated().then(user => {
-      this.user = user;
-    });
     this.authService.isAuthenticated().then((user) => {
       if (user && hasProp(user, 'id')) {
         this.user = new User(user);
         const queryString = `?filter={"$or":[{"created_by":"${this.user.id}"},{"type":"DEFAULT"}]}`;
         this.recordRetrieve(queryString).then().catch(err => console.log(err));
       }
-  }).catch(err => console.log(err));
-}
+    }).catch(err => console.log(err.message));
+  }
 
   query(params?: any) {
     if (!params) {
@@ -57,7 +55,7 @@ export class Nutrients {
 
   async recordRetrieve(queryString = ''): Promise<ApiResponse> {
       const query = queryString || `${this.user.id}`;
-      const url = `${this.env.API_URL}/nutrients${queryString}`;
+      const url = `${this.env.API_URL}/nutrients?${query}`;
       const proRes = this.apiService.getApi(url).pipe(
           map((res: ApiResponse) => {
               console.log(res);

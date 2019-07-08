@@ -15,7 +15,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "A large proportion of the water is taken in the form of beverages, wines, beer,succulent fruits and vegetables, or in milk",
         use: "It forms the chief ingredient of all the fluids of the body and maintains their proper degree of dilution. Lukewarm water acts as an emetic if drunk in large quantity. ",
         description: "Water’s involved in every type of cellular process in your body, and when you’re dehydrated, they all run less efficiently -- and that includes your metabolism. ",
@@ -34,7 +34,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Carbohydrates constitute majority of foods like bread, noodles, rice, and other products that have grains.",
         use: "Main source of calorie intake",
         description: `Carbohydrates are classified based on the number of monomer units in them or the number of sugar units they have. 
@@ -65,7 +65,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: `Complete protein sources are those with all the essential amino acids while an incomplete source of protein lacks one or more of the essential amino acids. 
         In order to make a complete protein source, one or more incomplete protein sources can be combined. 
         For example, rice and beans can be combined in order to make a complete protein source. 
@@ -106,7 +106,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: `In order to get the essential fatty acids, one must consume vegetables, seeds, nuts, and marine oils. 
         The best sources of these essential fatty acids include flaxseed oils, fish, soya and soya products, pumpkin seeds, sunflower seeds, and walnuts.`,
         use: "",
@@ -167,7 +167,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Plant foods, including oatmeal, lentils, peas, beans, fruits, and vegetables",
         use: "Helps with digestion, lowers LDL ('bad') cholesterol, helps you feel full, and helps maintain blood sugar levels",
         description: `Fibre is a type of carbohydrate that is not completely absorbed by human beings and in several similar animals. 
@@ -202,7 +202,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         category: "macro-mineral",
         source: "Milk, fortified nondairy alternatives like soy milk, yogurt, hard cheeses, fortified cereals, kale",
         use: "Needed for bone growth and strength, blood clotting, muscle contraction, and more",
@@ -229,7 +229,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         category: "macro-mineral",
         source: "Milk, liver, eggs, peanuts",
         use: "Helps make cells",
@@ -253,7 +253,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         category: "macro-mineral",
         source: "Broccoli, potatoes, meats, poultry, fish, some cereals",
         use: "Helps control blood sugar levels",
@@ -278,7 +278,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Milk and other dairy products, peas, meat, eggs, some cereals and breads",
         use: "Cells need it to work normally. Helps make energy. Needed for bone growth.",
         description: `Phosphorus - this is required for bones and it is essential in processing energy.<br/>
@@ -303,7 +303,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Potatoes, bananas, yogurt, milk, yellowfin tuna, soybeans, and a variety of fruits and vegetables.",
         use: "Helps control blood pressure, makes kidney stones less likely.",
         description: `
@@ -327,7 +327,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         use: "Helps your body process iron",
         source: "Seafood, nuts, seeds, wheat bran cereals, whole grains",
         description: `copper - you need this for many redox enzymes which include cytochrome and oxidase
@@ -349,7 +349,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Foods made with added salt, such as processed and restaurant foods",
         use: "Important for fluid balance",
         description: `Sodium - this is a common electrolyte which is not usually found in dietary supplements. It is needed in large quantities. This is very common in food anyway. You can find it in the form of sodium chloride or common salt<br/>       
@@ -374,7 +374,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Seafood, egg,  liver, heart, and kidneys; Veal, beef, chicken, and pork; Nuts such as peanuts, brazil nuts, almonds, and walnuts",
         use: "Dietary sulfur promotes healthy skin by helping the body eliminate toxins.",
         description: `sulphur - this is essential for amino acids and many proteins in the body 
@@ -391,7 +391,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         description: `Minerals are chemical elements that are needed by living things. Carbon, hydrogen, nitrogen, and oxygen exist in organic molecules. 
         The word mineral is archaic since it attempts to describe the less abundant elements needed by the human body. 
         These elements are heavier than the basic four elements. 
@@ -421,7 +421,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "fish, nuts, leafy green vegetables, such as broccoli and spinach, and cereals, including oats",
         use: "Cobalt is a key component of vitamin B12, and is required for the synthesis of hemoglobin",
         description: "cobalt - this is required for biosynthesis for the vitamin B12 family of coenzymes",
@@ -440,7 +440,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Seaweed, seafood, dairy products, processed foods, iodized salt",
         use: "Helps make thyroid hormones",
         description: `Iodine - this is needed for biosynthesis of the element thyroxin. This is needed in a much larger quantity compared to the others on this list. Iodine is usually classified as one of the macrominerals <br/>
@@ -462,7 +462,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Fluoridated water, some sea fish",
         use: "Prevents cavities in teeth, helps with bone growth",
         description: `
@@ -484,7 +484,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Fortified cereals, beans, lentils, beef, turkey (dark meat), soy beans, spinach",
         use: "Needed for red blood cells and many enzymes",
         description: `Iron - this is required for several enzymes especially haemoglobin and other proteins. 
@@ -509,7 +509,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Nuts, beans and other legumes, tea, whole grains",
         use: "Helps form bones and make some enzymes",
         description: `manganese - this is needed for the processing of oxygen
@@ -534,7 +534,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Green leafy vegetables, nuts, dairy, soybeans, potatoes, whole wheat, quinoa",
         use: "Helps with heart rhythm, muscle and nerve function, bone strength",
         description: `Magnesium - this is required for processing ATP or adenosine tri phosphate, the energy of the body. 
@@ -564,7 +564,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Legumes, leafy vegetables, grains, nuts",
         use: "Needed to make some enzymes",
         description: `Molybdenum is required for xanthine and other oxidases. <br/>
@@ -587,7 +587,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Dry beans, cocoa, baking soda, and nuts, including hazel nuts, almonds and pistachios contain high levels of nicke",
         use: "Nickel plays a major role in helping the body absorb the iron it needs",
         description: "nickel - this is needed in urease",
@@ -606,7 +606,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Organ meats, seafood, dairy, some plants (if grown in soil with selenium), Brazil nuts",
         use: "Protects cells from damage. Helps manage thyroid hormone.",
         description: `Selenium - this is needed for peroxidase or the anti-oxidant proteins. <br/>
@@ -630,7 +630,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "mushrooms, shellfish, black pepper, parsley, dill weed, beer, wine, grain and grain products, and artificially sweetened drinks.",
         use: "vanadium may lower blood sugar levels and improve sensitivity to insulin in people with type 2 diabetes. ",
         description: `vanadium - there is no current RDA for vanadium although it has been spotted in lower organisms. 
@@ -650,7 +650,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Red meats, some seafood, fortified cereals",
         use: "Supports your immune system and nerve function. Also important for reproduction.",
         description: `Zinc - this is needed for enzymes like carboxypeptidase,
@@ -673,7 +673,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         description: `Just like the mineral mentioned above, there are twelve vitamins that are deemed as essential nutrients. 
         They are needed in order to maintain good health. 
         The only vitamin that is not essential is Vitamin D because it can be synthesized in the skin when you are under Ultra Violet B Radiation. 
@@ -702,7 +702,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: `Sweet potatoes, carrots, spinach, fortified cereals, from animal origin as Vitamin A / all-trans-Retinol: Fish in general, liver and dairy products;
             from plant origin as provitamin A / all-trans-beta-carotene: orange, ripe yellow fruits, leafy vegetables, carrots, pumpkin, squash, spinach`,
         use: "Needed for vision, the immune system, and reproduction",
@@ -728,7 +728,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Pork, oatmeal, brown rice, vegetables, potatoes, liver, eggs, whole-grain, enriched, fortified products like bread and cereals",
         use: "Helps the body process carbs and some protein",
         description: `Vitamin B1 (thiamine)<br/>
@@ -751,7 +751,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Dairy products, bananas, green beans, asparagus, Milk, bread products, fortified cereals",
         use: "Helps convert food into energy. Also helps make red blood cells.",
         description: `Vitamin B2 (riboflavin)<br/>
@@ -776,7 +776,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "many vegetables, mushrooms, tree nuts, Meat, fish, poultry, enriched and whole grain breads, fortified cereals",
         use: "Helps with digestion and with making cholesterol",
         description: `Vitamin B3 (niacin)<br/>
@@ -803,7 +803,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Meat, broccoli, avocados, chicken, beef, potatoes, oats, cereals, tomatoes",
         use: "Helps turn carbs, protein, and fat into energy",
         description: `How much you need:<br/>
@@ -826,7 +826,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Meat, vegetables, tree nuts, bananas, fortified cereals, fortified soy products, chickpeas, potatoes, organ meats",
         use: "Helps with metabolism, the immune system, and babies' brain development",
         description: `How much you need:<br/>
@@ -851,7 +851,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Raw egg yolk, liver, peanuts, leafy green vegetables, liver, fruits, meats",
         use: "Helps your body make fats, protein, and other things your cells need",
         description: `How much you need:<br/>
@@ -873,7 +873,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Dark, leafy vegetables; enriched and whole grain breads; fortified cereals",
         use: "Helps prevent birth defects, important for heart health and for cell development",
         description: `Folic acid (Folate)
@@ -895,7 +895,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Meat, poultry, fish, eggs, dairy products, fortified cereals",
         use: "Helps your body make red blood cells",
         description: `How much you need:<br/>
@@ -918,7 +918,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Many fruits and vegetables, liver, red and green peppers, kiwis, oranges and other citrus fruits, strawberries, broccoli, tomatoes",
         use: "Helps protect against cell damage, supports the immune system, and helps your body make collagen",
         description: `How much you need:<br/>
@@ -943,7 +943,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Fish liver oils, fatty fish, fortified milk products, fortified cereals, lichen, eggs, liver, certain fish species such as sardines, certain mushroom species such as shiitake",
         use: "Needed for bones, muscles, the immune system, and communication between the brain and the rest of your body",
         description: `How much you need:<br/>
@@ -965,7 +965,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Many fruits and vegetables, nuts and seeds, and seed oils; fortified cereals, sunflower seeds, almonds, peanut butter, vegetable oils",
         use: "Helps protect cells against damage",
         description: `
@@ -988,7 +988,7 @@ const table = [
         ear: null,
         rda_male: null,
         rda_female: null,
-        image: "bread.jpg",
+        images: ["bread.jpg"],
         source: "Leafy green vegetables such as spinach, collards, and broccoli; egg yolks; liver, Brussels sprouts; cabbage",
         use: "Important in blood clotting and bone health",
         description: `How much you need:<br/>
@@ -1009,9 +1009,9 @@ const baseId = '5951bc91860d8b5b9';
 const userBaseId = '5a51bc91860d8b5ba';
 
 const result = table.map((record, index) => {
-    const obj = Object.assign({ id: '', image: '', created_by: '' }, record);
+    const obj = Object.assign({ id: '', created_by: '' }, record);
     const id = index + 1;
-    obj.image = 'assets/images/juice.jpg';
+    obj.images = ['assets/img/dishes/dish01.jpg'];
     obj.id = toObjectId(baseId, id);
     obj.created_by = toObjectId(userBaseId, 1);
     return obj;

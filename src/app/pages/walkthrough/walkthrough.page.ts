@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, IonSlides, MenuController } from '@ionic/angular';
+import { AuthService } from 'src/app/services';
 
 @Component({
   selector: 'app-walkthrough',
@@ -43,8 +44,13 @@ export class WalkthroughPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
-    public router: Router
-  ) {
+    public router: Router,
+    public authService: AuthService) {
+      this.authService.isAuthenticated().then(data => {
+        if (!!data) {
+          this.openHomePage();
+        }
+      });
   }
 
   ionViewWillEnter() {
@@ -58,7 +64,11 @@ export class WalkthroughPage implements OnInit {
     this.slides.slideNext(1000, false);
   }
 
-	onSlidePrev() {
+  onLastSlide() {
+    this.slides.slideTo(4, 300);
+  }
+
+  onSlidePrev() {
     this.slides.slidePrev(300);
   }
 
@@ -66,9 +76,9 @@ export class WalkthroughPage implements OnInit {
   // 	this.slides.slideTo(3, 300)
   // }
 
-  openHomeLocation() {
-    this.navCtrl.navigateRoot('/home-location');
-    // this.router.navigateByUrl('/tabs/(home:home)');
+  openHomePage() {
+    this.navCtrl.navigateRoot('/home');
+    // this.router.navigateByUrl('/home');
   }
 
   openLoginPage() {

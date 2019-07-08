@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
-import { ApiService } from 'src/app/services';
-import { ApiResponse, Food } from 'src/app/models';
+import { Food } from 'src/app/models';
 import { Foods } from 'src/app/providers';
 
 

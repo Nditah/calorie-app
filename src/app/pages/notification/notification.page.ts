@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
 import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse, Log } from 'src/app/models';
-import { Logs } from 'src/app/providers';
+import { ApiResponse, Notification } from 'src/app/models';
+import { Notifications } from 'src/app/providers';
 
 
 @Component({
-  selector: 'app-log',
-  templateUrl: './log.page.html',
-  styleUrls: ['./log.page.scss'], animations: [
+  selector: 'app-notification',
+  templateUrl: './notification.page.html',
+  styleUrls: ['./notification.page.scss'], animations: [
     trigger('staggerIn', [
       transition('* => *', [
         query(':enter', style({ opacity: 0, transform: `translate3d(-100px,0,0)` }), { optional: true }),
@@ -18,21 +18,28 @@ import { Logs } from 'src/app/providers';
     ])
   ]
 })
-export class LogPage implements OnInit {
+export class NotificationPage implements OnInit {
 
-  records: Array<Log>;
+  records: Array<Notification>;
+  danger = 'flash';
+  warning = 'warning';
+  success = 'checkmark-circle';
+  info = 'bulb';
+  secondary = 'water';
+  primary = 'restaurant';
 
-  constructor(public api: ApiService,
-    public logs: Logs,
+
+  constructor(public notifications: Notifications,
+    private alertService: AlertService,
     public loadingCtrl: LoadingController) {
-      this.records = this.logs.query();
+      this.records = this.notifications.query();
     }
 
   ngOnInit() {
-    // this.getLogs();
+    // this.getNotifications();
   }
 
-  async getLogs() {
+  async getNotifications() {
     const loading = await this.loadingCtrl.create({
       translucent: true,
       animated: true,
@@ -40,10 +47,15 @@ export class LogPage implements OnInit {
       duration: 5000
     });
     await loading.present();
-    await this.logs.recordRetrieve('').then((res: ApiResponse) => {
+    await this.notifications.recordRetrieve('').then((res: ApiResponse) => {
         console.log(res);
         this.records = res.payload;
         loading.dismiss();
+        this.alertService.presentToast(res.message);
+      }).catch (err => {
+        console.log(err);
+        loading.dismiss();
+        this.alertService.presentToast(err.message);
       });
   }
 }

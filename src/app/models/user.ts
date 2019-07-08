@@ -1,5 +1,5 @@
 import { Log } from './log';
-import { Feedback } from './feedback';
+import { Notification } from './notification';
 import { Food } from './food';
 import { Exercise } from './exercise';
 
@@ -20,7 +20,7 @@ export class User {
     height?: number;
     lifestyle?: string;
     logs?: Array<Log>;
-    feedbacks?: Array<Feedback>;
+    notifications?: Array<Notification>;
     is_complete?: boolean;
     favorite_foods?: Array<Food>;
     custom_foods?: Array<Food>;
@@ -55,7 +55,7 @@ export interface User {
     height?: number;
     lifestyle?: string;
     logs?: Array<Log>;
-    feedbacks?: Array<Feedback>;
+    notifications?: Array<Notification>;
     is_complete?: boolean;
     favorite_foods?: Array<Food>;
     custom_foods?: Array<Food>;

@@ -8,10 +8,9 @@ const routes: Routes = [
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
-
   { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule', canActivate: [AuthGuard] },
-  { path: 'feedback', loadChildren: './pages/feedback/feedback.module#FeedbackPageModule', canActivate: [AuthGuard] },
-  { path: 'feedback-detail/:id', loadChildren: './pages/feedback-detail/feedback-detail.module#FeedbackDetailPageModule' },
+  { path: 'notification', loadChildren: './pages/notification/notification.module#NotificationPageModule', canActivate: [AuthGuard] },
+  { path: 'notification-detail/:id', loadChildren: './pages/notification-detail/notification-detail.module#NotificationDetailPageModule' },
   { path: 'food', loadChildren: './pages/food/food.module#FoodPageModule', canActivate: [AuthGuard] },
   { path: 'food-add', loadChildren: './pages/food-add/food-add.module#FoodAddPageModule' },
   { path: 'food-edit/:id', loadChildren: './pages/food-edit/food-edit.module#FoodEditPageModule' },
@@ -27,8 +26,6 @@ const routes: Routes = [
   { path: 'nutrient-detail/:id', loadChildren: './pages/nutrient-detail/nutrient-detail.module#NutrientDetailPageModule' },
   { path: 'setting', loadChildren: './pages/setting/setting.module#SettingPageModule', canActivate: [AuthGuard] },
   { path: 'user', loadChildren: './pages/user/user.module#UserPageModule', canActivate: [AuthGuard] },
-  // just added
-
   ];
 
 @NgModule({

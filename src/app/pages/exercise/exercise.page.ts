@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController, ToastController, AlertController } from '@ionic/angular';
+import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
 import { AlertService } from 'src/app/services';
 import { ApiResponse, Exercise } from 'src/app/models';
 import { Exercises } from 'src/app/providers';
@@ -9,11 +10,18 @@ import { Exercises } from 'src/app/providers';
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.page.html',
-  styleUrls: ['./exercise.page.scss'],
+  styleUrls: ['./exercise.page.scss'], animations: [
+    trigger('staggerIn', [
+      transition('* => *', [
+        query(':enter', style({ opacity: 0, transform: `translate3d(-100px,0,0)` }), { optional: true }),
+        query(':enter', stagger('300ms', [animate('500ms', style({ opacity: 1, transform: `translate3d(0,0,0)` }))]), { optional: true })
+      ])
+    ])
+  ]
 })
 export class ExercisePage implements OnInit {
 
-  currentRecords: Array<Exercise>;
+  records: Array<Exercise>;
   public press = 0;
 
   constructor(private router: Router,
@@ -24,7 +32,7 @@ export class ExercisePage implements OnInit {
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController) {
 
-    this.currentRecords = this.exercises.query();
+    this.records = this.exercises.query();
   }
 
   /**
@@ -33,10 +41,10 @@ export class ExercisePage implements OnInit {
   searchRecord(ev) {
     const val = ev.target.value;
     if (!val || !val.trim()) {
-      this.currentRecords = this.exercises.query();
+      this.records = this.exercises.query();
       return;
     }
-    this.currentRecords = this.exercises.query({
+    this.records = this.exercises.query({
       name: val
     });
   }
@@ -73,7 +81,7 @@ export class ExercisePage implements OnInit {
     await loading.present();
     await this.exercises.recordRetrieve('').then((res: ApiResponse) => {
       if (res.success && res.payload.length > 0) {
-        this.currentRecords = res.payload;
+        this.records = res.payload;
         }
         loading.dismiss();
         this.alertService.presentToast(res.message);
