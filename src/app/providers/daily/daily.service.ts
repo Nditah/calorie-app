@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class DishService {
+export class DailyService {
   orderCounter = 0;
   orders: Array<any> = [];
 

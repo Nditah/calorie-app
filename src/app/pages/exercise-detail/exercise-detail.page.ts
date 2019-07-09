@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, AlertController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse, Exercise } from 'src/app/models';
-import { Exercises } from 'src/app/providers';
+import { Exercises, DailyService } from 'src/app/providers';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -13,16 +12,19 @@ import { Exercises } from 'src/app/providers';
 export class ExerciseDetailPage implements OnInit {
 
   record: Exercise;
+  recordId: Exercise['id'];
+  duration = 1;
 
   constructor(
     public exercises: Exercises,
+    public dailyService: DailyService,
     private alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
-    public activatedRoute: ActivatedRoute,
+    public route: ActivatedRoute,
     public router: Router) {
-      const id = this.activatedRoute.snapshot.paramMap.get('id');
-      this.record = this.exercises.query({ id })[0];
+      this.recordId = this.route.snapshot.paramMap.get('id');
+      this.record = exercises.query({ id: this.recordId })[0] || {};
     }
 
   ngOnInit() {
@@ -30,7 +32,7 @@ export class ExerciseDetailPage implements OnInit {
   }
 
   async getExercise() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
     await this.exercises.recordRetrieve(`?_id=${id}`).then((res: ApiResponse) => {
@@ -98,4 +100,26 @@ export class ExerciseDetailPage implements OnInit {
   alert.present();
 }
 
+
+  // minus adult when click minus button
+  minusQtd() {
+    this.duration--;
+  }
+  // plus adult when click plus button
+  plusQtd() {
+    this.duration++;
+  }
+
+  addcart(dish, qtd) {
+    this.dailyService.addtoDish(dish, qtd).then(async () => {
+      const toast = await this.toastCtrl.create({
+          message: 'Dish added to Dish',
+          duration: 2000,
+          position: 'top',
+          closeButtonText: 'OK',
+          showCloseButton: true
+      });
+      toast.present();
+    });
+  }
 }

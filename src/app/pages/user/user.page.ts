@@ -94,7 +94,6 @@ export class UserPage implements OnInit {
             this.caption_name = 'EDIT';
             this.isDisabled = true;
             await toast.present();
-  
           }, 2000);
         } else {
           setTimeout(async() => {
@@ -107,7 +106,6 @@ export class UserPage implements OnInit {
             this.caption_name = 'EDIT';
             this.isDisabled = true;
             await toast.present();
-  
           }, 2000);
         }
       }),  err => {

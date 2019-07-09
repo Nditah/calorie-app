@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, ModalController, IonItemSliding } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Foods, Logs, DishService } from '../../../providers';
+import { Foods, Logs, DailyService } from '../../../providers';
 
 @Component({
   selector: 'app-dish',
@@ -18,7 +18,7 @@ export class DishPage {
   constructor(
     public navCtrl: NavController,
     public foodService: Foods,
-    public logService: DishService,
+    public dailyService: DailyService,
     public route: Router,
     private modalCtrl: ModalController
   ) {
@@ -26,7 +26,7 @@ export class DishPage {
   }
 
   async removeOrder (order) {
-    this.logService.removefromDish(order)
+    this.dailyService.removefromDish(order)
       .then(() => {
           this.getOrders();
       })
@@ -36,7 +36,7 @@ export class DishPage {
   }
 
   getOrders () {
-    this.logService.getOrders().then(orders => {
+    this.dailyService.getOrders().then(orders => {
       this.orders = orders;
       this.totalVal = 0;
       this.orders.forEach((val, i) => {
@@ -47,7 +47,7 @@ export class DishPage {
 
   // minus adult when click minus button
   minusQtd(order) {
-    this.logService.editQtdOrder(order, 'minus')
+    this.dailyService.editQtdOrder(order, 'minus')
       .then(() => {
           this.getOrders();
       })
@@ -56,7 +56,7 @@ export class DishPage {
 
   // plus adult when click plus button
   plusQtd(order) {
-    this.logService.editQtdOrder(order, 'plus')
+    this.dailyService.editQtdOrder(order, 'plus')
       .then(() => {
           this.getOrders();
       })

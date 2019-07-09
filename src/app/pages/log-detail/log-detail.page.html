@@ -3,34 +3,67 @@
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/log"></ion-back-button>
       </ion-buttons>
-      <ion-title>Activity Details</ion-title>
+      <ion-title>{{ record.day | date }} Details</ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="deleteRecord(record)" strong>
+            <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
+          </ion-button>
+        </ion-buttons>
     </ion-toolbar>
   </ion-header>
+
+
+<ion-content *ngIf="record">
+    <span class="card-img-price text-white">
+      <strong>{{ record.day | date }}</strong> {{ record.current_mass | number }} Kg
+    </span>
   
-  <ion-content *ngIf="record">
+    <ion-slides pager="true">
+      <ion-slide *ngFor="let image of record?.food?.images" (click)="presentImage(image)">
+        <img [src]="image">
+        <div class="shadow"></div>
+      </ion-slide>
+    </ion-slides>
+  
+    <ion-card no-margin color="primary" class="dotted">
+        <ion-card-content>
+          <ion-grid no-padding>
+            <ion-row margin-bottom>
+              <ion-col text-center>
+                <h4 ion-text color="light">Food:</h4>
+                <h2 ion-text>{{ record.food.name }} {{ record.food_quantity }} gram | Litre</h2>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
 
-      <div class="item-profile" text-center #profilePic *ngIf="record.food"
-      [style.background-image]="'url(' + record.food.image + ')'">
-      </div>
-
-  <ion-list>
-      <ion-list-header padding>
-        <ion-label><h2>{{ record.day | date }} </h2></ion-label>
-        <ion-badge >{{ record.current_mass | number }} Kg</ion-badge>
-      </ion-list-header>
-      <ion-item *ngIf="record.food">
-        <ion-label text-wrap>Food: {{ record.food.name }} {{ record.food_quantity }} gram | Litre</ion-label>
-      </ion-item>
-      <ion-item *ngIf="record.exercise">
-        <ion-label text-wrap>Exercise: {{ record.exercise.name }} {{ record.exercise_duration }} minutes</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label text-wrap>Remark: {{ record.remark }} </ion-label>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-button color="danger" (click)="deleteRecord(record)">
-        <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-list>
+    <ion-slides pager="true">
+        <ion-slide *ngFor="let image of record?.exercise?.images" (click)="presentImage(image)">
+          <img [src]="image">
+          <div class="shadow"></div>
+        </ion-slide>
+      </ion-slides>
+      
+    <ion-card no-margin color="primary" class="dotted">
+      <ion-card-content>
+        <ion-grid no-padding>
+          <ion-row margin-bottom>
+              <ion-col text-center>
+                <h4 ion-text color="light">Exercise:</h4>
+                <h2 ion-text>{{ record.exercise.name }} {{ record.exercise_duration }} minutes</h2>
+              </ion-col>
+            </ion-row>
+  
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card no-margin class="spacerFab bg-white dotted">
+      <ion-card-content>
+        <h2><ion-text color="primary">Remark</ion-text></h2>
+        <p>{{ record.remark }}</p>
+      </ion-card-content>
+    </ion-card> 
+  
   </ion-content>

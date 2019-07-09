@@ -27,7 +27,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { JwtInterceptor, ApiService, ErrorInterceptor, AuthService, AlertService, EnvService  } from './services';
-import { Settings, Exercises, Nutrients, Foods, Logs, Notifications } from './providers';
+import { DailyService, Settings, Exercises, Nutrients, Foods, Logs, Notifications } from './providers';
 
 
 // AoT requires an exported function for factories

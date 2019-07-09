@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse } from 'src/app/models';
+import { AlertService } from 'src/app/services';
+import { ApiResponse, Log } from 'src/app/models';
 import { Logs } from 'src/app/providers';
 
 @Component({
@@ -12,34 +12,39 @@ import { Logs } from 'src/app/providers';
 })
 export class LogDetailPage implements OnInit {
 
-  record: any = {};
+  record: Log = {};
+  recordId: any = '';
 
   constructor(public logs: Logs,
     private alertService: AlertService,
     public loadingCtrl: LoadingController,
     public route: ActivatedRoute,
-    public router: Router){ }
+    public router: Router) {
+      this.recordId = this.route.snapshot.paramMap.get('id');
+      this.record = logs.query({ id: this.recordId })[0] || {};
+    }
 
   ngOnInit() {
-    this.getLog();
+    // this.getLog();
   }
 
   async getLog() {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.recordId = this.route.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.logs.recordRetrieve(`?_id=${id}`).then((res: ApiResponse) => {
-        if (res.success) {
-          this.record = res.payload[0];
-        }
-        loading.dismiss();
-        this.alertService.presentToast(res.message);
-      }, err => {
+    try {
+      const res: ApiResponse = await this.logs.recordRetrieve(`?_id=${this.recordId}`);
+      if (res.success) {
+        this.record = res.payload[0];
+      }
+      loading.dismiss();
+      this.alertService.presentToast(res.message);
+      } catch (err) {
         console.log(err);
-        loading.dismiss();
         this.alertService.presentToast(err.message);
-      });
+      }
   }
+
   async delete(id) {
     const loading = await this.loadingCtrl.create({message: 'Deleting'});
     await loading.present();

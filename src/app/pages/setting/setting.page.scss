@@ -1,6 +1,10 @@
-h2{
-    color:  var(--ion-color-success-theme) !important;
-    font-size: 16px !important;
-    width: 100%;
-    text-align: center;
+:host {
+  ion-content {
+    --background: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light))
   }
+}
+
+ion-avatar {
+    width: 68px;
+    height: 68px;
+}

@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color="tertiary">
+    <ion-toolbar color="primary">
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
@@ -10,59 +10,69 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content class="body">
+  <ion-content>
+    <ion-list no-border>
+      <ion-item class="bg-profile">
+        <ion-avatar slot="start">
+          <img src="assets/img/avatar.jpeg" class="user-avatar">
+        </ion-avatar>
+        <ion-label>
+          <ion-text color="light">
+            <h2><strong>{{ user?.username }}</strong></h2>
+          </ion-text>
+          <ion-text color="tertiary"><h3>{{ user?.email }}</h3></ion-text>
+          <ion-button icon-left size="small" shape="round" color="dark" (click)="editProfile()">
+            <ion-icon name="contact"></ion-icon>
+            Edit Profile
+          </ion-button>
+          <ion-button icon-left size="small" shape="round" color="secondary" (click)="logout()">
+            <ion-icon name="log-out"></ion-icon>
+            Logout
+          </ion-button>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
     <div class="fixed-content">
       <form *ngIf="editForm" [formGroup]="editForm" (ngSubmit)="saveProfile()">
-        <div class="upperDiv">
-          <div class="profile-image-wrapper">
-            <div class="profile-image" *ngIf="user">
-                <img class="avatar" *ngIf="user.gender==='FEMALE'" src="../../../assets/img/female-avatar.png">
-                <img class="avatar" *ngIf="user.gender==='MALE'" src="../../../assets/img/male-avatar.png">
-            </div>
-          </div>
-  
-          <h3 class="title" *ngIf="user">{{ user.username }}</h3>
-          <h3 class="userDetails" *ngIf="user">{{ user.lifestyle }}</h3>
-  
-        </div>
         <ion-list class="my-list">
           <ion-item class="my-item">
-            <ion-label class="label_here">User Name :</ion-label>
+            <ion-label class="label" color="primary">User Name :</ion-label>
             <ion-input class="inputFields" type="text" formControlName="username" (keyup)="changedSmtng()"></ion-input>
           </ion-item>
   
           <ion-item>
-            <ion-label class="label_here">Email :</ion-label>
+            <ion-label class="label" color="primary">Email :</ion-label>
             <ion-input class="inputFields" type="text" formControlName="email" (keyup)="changedSmtng()"></ion-input>
           </ion-item>
   
           <ion-item>
-            <ion-label class="label_here">Password :</ion-label>
+            <ion-label class="label" color="primary">Password :</ion-label>
             <ion-input class="inputFields" type="password" formControlName="password" (keyup)="changedSmtng()"></ion-input>
           </ion-item>
   
           <ion-item style="border-bottom: 0.55px solid #fff !important;">
-            <ion-label class="label_here">Birth Date :</ion-label>
+            <ion-label class="label" color="primary">Birth Date :</ion-label>
             <ion-input class="inputFields" type="date" formControlName="birth_date" (keyup)="changedSmtng()"></ion-input>
           </ion-item>
    
           <ion-item style="border-bottom: 0.55px solid #fff !important;">
-              <ion-label class="label_here">Phone :</ion-label>
+              <ion-label class="label" color="primary">Phone :</ion-label>
               <ion-input class="inputFields" type="tel" formControlName="phone" (keyup)="changedSmtng()"></ion-input>
           </ion-item>
 
           <ion-item style="border-bottom: 0.55px solid #fff !important;">
-            <ion-label class="label_here">Height(cm) :</ion-label>
+            <ion-label class="label" color="primary">Height(cm) :</ion-label>
             <ion-input class="inputFields" type="number" formControlName="height" (keyup)="changedSmtng()"></ion-input>
           </ion-item>
 
           <ion-item style="border-bottom: 0.55px solid #fff !important;">
-            <ion-label class="label_here">Desired Mass(Kg) :</ion-label>
+            <ion-label class="label" color="primary">Desired Mass(Kg) :</ion-label>
             <ion-input class="inputFields" type="number" formControlName="desired_mass" (keyup)="changedSmtng()"></ion-input>
           </ion-item>
 
           <ion-item style="border-bottom: 0.55px solid #fff !important;">
-            <ion-label class="label_here">Gender :</ion-label>
+            <ion-label class="label" color="primary">Gender :</ion-label>
             <ion-select class="inputFields" formControlName="gender" (keyup)="changedSmtng()">
               <ion-select-option value="FEMALE">Female</ion-select-option>
               <ion-select-option value="MALE">Male</ion-select-option>
@@ -70,7 +80,7 @@
           </ion-item>
 
           <ion-item style="border-bottom: 0.55px solid #fff !important;">
-            <ion-label class="label_here">Lifestyle :</ion-label>
+            <ion-label class="label" color="primary">Lifestyle :</ion-label>
             <ion-select class="inputFields" formControlName="lifestyle" (keyup)="changedSmtng()">
               <ion-select-option value="Active">Active</ion-select-option>
               <ion-select-option value="Very">Very Active</ion-select-option>
@@ -79,7 +89,7 @@
           </ion-item>
 
           <ion-item style="border-bottom: 0.55px solid #fff !important;">
-            <ion-label class="label_here">Country :</ion-label>
+            <ion-label class="label" color="primary">Country :</ion-label>
             <ion-select class="inputFields" type="text" formControlName="country_iso2" (keyup)="changedSmtng()">
               <ion-select-option value="Ng">Nigeria</ion-select-option>
               <ion-select-option value="O">Others</ion-select-option>

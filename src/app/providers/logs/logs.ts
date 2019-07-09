@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { Log, Food, User, ApiResponse } from '../../models';
+import { Log, Food, User, ApiResponse, Exercise } from '../../models';
 import { ApiService, EnvService, AuthService } from '../../services';
 import { hasProp } from 'src/app/helpers';
 
@@ -12,27 +12,35 @@ export class Logs {
   logs: Log[] = [];
   user: User;
 
-  food: Food = {
+  food: Food =     {
     id: '1',
     type: 'DEFAULT',
     category: 'FOOD',
-    name: 'Bread',
-    description: 'Wheat bread enrich with vitamins A,B,C',
-    calories: 2300,
-    images: ['assets/img/bread.jpg'],
-  };
+    name: 'Chicken',
+    description: 'Roasted rice',
+    water: 0.4,
+    calories: 234,
+    carbohydrate: 2345,
+    protein: 4950,
+    fats: 23.0,
+    fibre: 3570,
+    ingredients: 'Spices, Vegetable',
+    nutrients: [{ nutrient_id: '5cc74ee9b27a5b01bd016185', nutrient_value: 120 }],
+    images: ['assets/img/dishes/dish01.jpg', 'assets/img/dishes/dish02.jpg'],
+};
 
-  exercise: any = {
-    id: '1',
-    type: 'DEFAULT',
-    category: 'SPORT',
-    name: 'Football',
-    description: 'Favourite sport for cutting down fats for teens and adults',
-    calorie_rate: '2300',
-    images: ['assets/img/football.png'],
-  };
+  exercise: Exercise = {
+    id: '2',
+    type: 'CUSTOM',
+    category: 'WORKOUT',
+    name: 'Hide and Seek',
+    description: 'Run and hide while another searches for you.',
+    calorie_rate: 234,
+    tasks: 'Run, Squart',
+    images: ['assets/img/dishes/dish03.jpg', 'assets/img/dishes/dish04.jpg'],
+};
 
-  defaultRecord: Log = {
+  logData: Array<Log> = [{
     id: '1',
     day: new Date(),
     food: this.food,
@@ -41,12 +49,12 @@ export class Logs {
     exercise_duration: 20,
     current_mass: 97,
     remark: 'Making progress',
-  };
+  }];
 
   constructor(private env: EnvService,
     private apiService: ApiService,
     private authService: AuthService) {
-    const logs = []; // [] Initial Values
+    const logs = this.logData; // [] Initial Values
     for (const log of logs) {
       this.logs.push(new Log(log));
     }

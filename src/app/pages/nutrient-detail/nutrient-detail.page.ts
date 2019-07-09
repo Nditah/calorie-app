@@ -12,15 +12,16 @@ import { Nutrients } from 'src/app/providers';
 export class NutrientDetailPage implements OnInit {
 
   record: Nutrient;
+  recordId: Nutrient['id'] = '';
 
   constructor(
     public nutrients: Nutrients,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
-    public activatedRoute: ActivatedRoute,
+    public route: ActivatedRoute,
     public router: Router) {
-      const id = this.activatedRoute.snapshot.paramMap.get('id');
-      this.record = this.nutrients.query({ id })[0];
+      this.recordId = this.route.snapshot.paramMap.get('id');
+      this.record = nutrients.query({ id: this.recordId })[0] || {};
     }
 
   ngOnInit() {

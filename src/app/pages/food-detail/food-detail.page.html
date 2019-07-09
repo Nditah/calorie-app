@@ -34,12 +34,12 @@
   
           <ion-row margin-bottom>
             <ion-col text-center>
-              <ion-icon name="remove-circle" class="text25" tappable (click)="minusQtd()" [hidden]="qtd < 2"
+              <ion-icon name="remove-circle" class="text25" tappable (click)="minusQtd()" [hidden]="quantity < 2"
                         color="secondary"></ion-icon>
             </ion-col>
             <ion-col width-10 text-center>
               <h4 ion-text color="light">Quantity:</h4>
-              <h2 ion-text>{{ qtd }}</h2>
+              <h2 ion-text>{{ quantity }}</h2>
             </ion-col>
             <ion-col width-10 text-center>
               <ion-icon name="add-circle" class="text25" tappable (click)="plusQtd()" color="secondary"></ion-icon>
@@ -47,9 +47,9 @@
           </ion-row>
           <ion-row>
             <ion-col text-center>
-              <ion-button color="secondary" (click)="addcart(record, qtd)">
-                <ion-icon slot="start" name="cart" color="light"></ion-icon>
-                <ion-text color="light">Add to Cart ({{ record.price * qtd | currency }})</ion-text>
+              <ion-button color="secondary" (click)="addcart(record, quantity)">
+                <ion-icon slot="start" name="restaurant" color="light"></ion-icon>
+                <ion-text color="light">Add to Plate ({{ record.price * quantity | currency }})</ion-text>
               </ion-button>
             </ion-col>
           </ion-row>
@@ -75,8 +75,8 @@
     </ion-card> 
   
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-      <ion-fab-button color="dark" (click)="openCart()">
-        <ion-icon name="disc"></ion-icon>
+      <ion-fab-button color="secondary" (click)="openCart()">
+        <ion-icon name="md-aperture"></ion-icon>
       </ion-fab-button>
     </ion-fab>
   

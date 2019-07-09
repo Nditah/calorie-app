@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse } from 'src/app/models';
+import { AlertService } from 'src/app/services';
+import { ApiResponse, Notification } from 'src/app/models';
 import { Notifications } from 'src/app/providers';
 
 @Component({
@@ -12,16 +12,20 @@ import { Notifications } from 'src/app/providers';
 })
 export class NotificationDetailPage implements OnInit {
 
-  record: any = {};
+  record: Notification = {};
+  recordId: Notification['id'] = '';
 
   constructor(public notifications: Notifications,
     private alertService: AlertService,
     public loadingCtrl: LoadingController,
     public route: ActivatedRoute,
-    public router: Router){ }
+    public router: Router) {
+      this.recordId = this.route.snapshot.paramMap.get('id');
+      this.record = notifications.query({ id: this.recordId })[0] || {};
+    }
 
   ngOnInit() {
-    this.getNotification();
+    // this.getNotification();
   }
 
   async getNotification() {

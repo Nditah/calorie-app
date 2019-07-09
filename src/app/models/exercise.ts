@@ -7,7 +7,7 @@ export class Exercise {
     name?: string;
     description?: string;
     calorie_rate?: number;
-    tasks: string;
+    tasks?: string;
     images?: Array<string>;
     created_by?: User;
     created_at?: Date;
@@ -31,7 +31,7 @@ export interface Exercise {
     name?: string;
     description?: string;
     calorie_rate?: number;
-    tasks: string;
+    tasks?: string;
     images?: Array<string>;
     created_by?: User;
     created_at?: Date;

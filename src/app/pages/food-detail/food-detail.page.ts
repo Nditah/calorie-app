@@ -3,8 +3,8 @@ import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, ModalController, ToastController } from '@ionic/angular';
 import { AlertService } from 'src/app/services';
-import { ApiResponse } from 'src/app/models';
-import { Foods, Logs, DishService } from 'src/app/providers';
+import { ApiResponse, Food } from 'src/app/models';
+import { Foods, Logs, DailyService } from 'src/app/providers';
 import { ImagePage } from './../modal/image/image.page';
 import { DishPage } from './../modal/dish/dish.page';
 
@@ -15,9 +15,9 @@ import { DishPage } from './../modal/dish/dish.page';
 })
 export class FoodDetailPage implements OnInit {
 
-  record: any = {};
-  recordId: any;
-  qtd = 1;
+  record: Food = {};
+  recordId: Food['id'];
+  quantity = 1;
 
   constructor(
     public toastCtrl: ToastController,
@@ -26,7 +26,7 @@ export class FoodDetailPage implements OnInit {
     public loadingCtrl: LoadingController,
     public activatedRoute: ActivatedRoute,
     public router: Router,
-    public logService: DishService,
+    public dailyService: DailyService,
     public foods: Foods) {
       this.recordId = this.activatedRoute.snapshot.paramMap.get('id');
       this.record = this.foods.query({ id: this.recordId })[0];
@@ -72,15 +72,15 @@ export class FoodDetailPage implements OnInit {
 
   // minus adult when click minus button
   minusQtd() {
-    this.qtd--;
+    this.quantity--;
   }
   // plus adult when click plus button
   plusQtd() {
-    this.qtd++;
+    this.quantity++;
   }
 
   addcart(dish, qtd) {
-    this.logService.addtoDish(dish, qtd).then(async () => {
+    this.dailyService.addtoDish(dish, qtd).then(async () => {
       const toast = await this.toastCtrl.create({
           message: 'Dish added to Dish',
           duration: 2000,

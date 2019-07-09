@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Location } from '@angular/common';
 import { ApiService, AlertService } from 'src/app/services';
@@ -24,10 +24,23 @@ export class SettingPage implements OnInit {
   };
   isReadyToSave = false;
 
+  // below unused
+  lang: any;
+  enableNotifications: any;
+  paymentMethod: any;
+  currency: any;
+  enablePromo: any;
+  enableHistory: any;
+
+  languages: any = ['English', 'Portuguese', 'French'];
+  paymentMethods: any = ['Paypal', 'Credit Card'];
+  currencies: any = ['USD', 'BRL', 'EUR'];
+
   constructor(
     private storage: NativeStorage,
     private alertService: AlertService,
     public loadingCtrl: LoadingController,
+    public navCtrl: NavController,
     private location: Location,
     private formBuilder: FormBuilder) {
       this.createForm();
@@ -92,5 +105,13 @@ export class SettingPage implements OnInit {
   }
   cancel() {
     this.location.back();
+  }
+
+  editProfile() {
+    this.navCtrl.navigateForward('edit-profile');
+  }
+
+  logout() {
+    this.navCtrl.navigateRoot('login');
   }
 }

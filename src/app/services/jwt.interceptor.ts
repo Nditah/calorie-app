@@ -65,7 +65,7 @@ export class JwtInterceptor  implements HttpInterceptor {
 
     async presentAlert(status, reason: string) {
         const alert = await this.alertController.create({
-            header: 'Login Error ' + status,
+            header: 'Error ' + status,
             subHeader: 'Subtitle',
             message: reason,
             buttons: ['OK']

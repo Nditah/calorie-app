@@ -17,50 +17,154 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content padding>
+  <ion-content>
+    <ion-list no-border>
+      <ion-item class="bg-profile">
+        <ion-avatar slot="start">
+          <img src="assets/img/avatar.jpeg" class="user-avatar">
+        </ion-avatar>
+        <ion-label>
+          <ion-text color="light">
+            <h2>
+              <strong>Nditah Samweld</strong>
+            </h2>
+          </ion-text>
+          <ion-text color="tertiary">
+            <h3>
+              nditah@gmail.com
+            </h3>
+          </ion-text>
+          <ion-button icon-left size="small" shape="round" color="dark" (click)="editProfile()">
+            <ion-icon name="contact"></ion-icon>
+            Edit Profile
+          </ion-button>
+          <ion-button icon-left size="small" shape="round" color="secondary" (click)="logout()">
+            <ion-icon name="log-out"></ion-icon>
+            Logout
+          </ion-button>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+      <ion-list no-border>
+        <ion-list-header>
+          <ion-text color="dark">
+            <h5>General</h5>
+          </ion-text>
+        </ion-list-header>
+        <ion-item>
+          <ion-icon name="settings" slot="start" color="primary"></ion-icon>
+          <ion-label color="primary">App Language</ion-label>
+          <ion-select [(ngModel)]="lang">
+            <ion-select-option *ngFor="let language of languages" [value]="language">{{language}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="notifications" slot="start" color="primary"></ion-icon>
+          <ion-label class="label" color="primary"> Enable notifications </ion-label>
+          <ion-toggle [(ngModel)]="enableNotifications"></ion-toggle>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          <ion-text color="dark">
+            <h5>Currency</h5>
+          </ion-text>
+        </ion-list-header>
+        <ion-item>
+          <ion-icon name="card" slot="start" color="primary"></ion-icon>
+          <ion-label color="primary">Payment Method</ion-label>
+          <ion-select [(ngModel)]="paymentMethod">
+            <ion-select-option *ngFor="let method of paymentMethods" [value]="method">{{method}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="logo-usd" slot="start" color="dark"></ion-icon>
+          <ion-label color="primary">Currency</ion-label>
+          <ion-select [(ngModel)]="currency">
+            <ion-select-option *ngFor="let currency of currencies" [value]="currency">{{currency}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          <ion-text color="dark">
+            <h5>Other</h5>
+          </ion-text>
+        </ion-list-header>
+        <ion-item>
+          <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+          <ion-label class="label" color="primary">Enable Promotions</ion-label>
+          <ion-toggle [(ngModel)]="enablePromo"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+          <ion-label class="label" color="primary">Enable History</ion-label>
+          <ion-toggle [(ngModel)]="enableHistory"></ion-toggle>
+        </ion-item>
+      </ion-list>
+
+<!-- //*  END DIMACATION //-->
+
       <ion-list>
           <ion-list-header>
-            <ion-label><h2>Conversions</h2></ion-label>
-          </ion-list-header>
-          <ion-item>Energy Calories: 1 Kcal = 4184 Joules</ion-item>
-          <ion-item>1 Pound = 16 Ounce = 453.5 Grams</ion-item>
-          <ion-item>1 Cup = 0.5 Pint = 8 ounce</ion-item>
-          <ion-item>1 Litre = 4.2 Cups = 33.8 ounce </ion-item>
-          <ion-item>1 Inch = 2.54 cm</ion-item>
-          <ion-item-divider>
-              <ion-label><h2>Preferences</h2></ion-label>
-           </ion-item-divider>      
+              <ion-text color="dark"><h5>Conversions</h5></ion-text>
+            </ion-list-header>
+          <ion-item>
+              <ion-label class="label" color="primary">Energy Calories</ion-label>
+              <span>1 Kcal = 4184 Joules</span>
+          </ion-item>
+          <ion-item>
+              <ion-label class="label" color="primary">Mass</ion-label>
+              <span>1 Pound = 16 Ounce = 453.5 Grams</span>
+          </ion-item>
+          <ion-item>
+              <ion-label class="label" color="primary">Volume</ion-label>
+              <span>1 Cup = 0.5 Pint = 8 ounce</span>
+          </ion-item>
+          <ion-item>
+              <ion-label class="label" color="primary">Volume</ion-label>
+              <span>1 Litre = 4.2 Cups = 33.8 ounce</span>
+          </ion-item>
+          <ion-item>
+              <ion-label class="label" color="primary">Length</ion-label>
+              <span>1 Inch = 2.54 cm</span>
+          </ion-item>
+          
+           <ion-list-header>
+              <ion-text color="dark"><h5>Preferences</h5></ion-text>
+            </ion-list-header>    
           <form [formGroup]="editForm">
         <ion-item>
-          <ion-label>Theme</ion-label>
+          <ion-label class="label" color="primary">Theme</ion-label>
           <ion-select formControlName="theme" id="theme" multiple="false">
               <ion-select-option value="dark">Dark</ion-select-option>
               <ion-select-option value="light">Light</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Body Mass (Weight)</ion-label>
+          <ion-label class="label" color="primary">Body Mass (Weight)</ion-label>
           <ion-select formControlName="weight" id="weight" multiple="false">
               <ion-select-option value="kg">kilograms</ion-select-option>
               <ion-select-option value="lb">Pounds</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Height</ion-label>
+          <ion-label class="label" color="primary">Height</ion-label>
           <ion-select formControlName="height" id="height" multiple="false">
               <ion-select-option value="cm">cm</ion-select-option>
               <ion-select-option value="in">inches</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Food Quantity</ion-label>
+          <ion-label class="label" color="primary">Food Quantity</ion-label>
           <ion-select formControlName="food_quantity" id="food_quantity" multiple="false">
               <ion-select-option value="g">grams</ion-select-option>
               <ion-select-option value="lb">pounds</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Drink Quantity</ion-label>
+          <ion-label class="label" color="primary">Drink Quantity</ion-label>
           <ion-select formControlName="drink_quantity" id="drink_quantity" multiple="false">
             <ion-select-option value="g">grams</ion-select-option>
             <ion-select-option value="ml">milliliters</ion-select-option>

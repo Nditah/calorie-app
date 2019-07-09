@@ -4,34 +4,83 @@
           <ion-back-button defaultHref="/exercise"></ion-back-button>
         </ion-buttons>
       <ion-title>Exercise Details</ion-title>
-      <ion-buttons slot="end">
-        <ion-button color="danger" *ngIf="record.type === 'CUSTOM'"  routerLink="/exercise-edit/{{record.id}}">
+      <ion-buttons *ngIf="record" slot="end">
+        <ion-button color="danger" *ngIf="record?.type === 'CUSTOM'"  routerLink="/exercise-edit/{{record?.id}}">
           <ion-icon slot="icon-only" name="create"></ion-icon>
         </ion-button>
-        <ion-button color="danger" *ngIf="record.type === 'CUSTOM'" (click)="deleteRecord(record)">
+        <ion-button color="danger" *ngIf="record?.type === 'CUSTOM'" (click)="deleteRecord(record)">
           <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
   
-  <ion-content *ngIf="record">
-      <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + record.image + ')'">
-        </div>
-    <ion-list>
-        <ion-list-header padding>
-            <ion-label><h2>{{ record.name }} {{ record.calorie_rate }} KcPH </h2></ion-label>
-            <ion-badge >{{ record.type | lowercase }} {{ record.category | lowercase }}</ion-badge>
-          </ion-list-header>
-        <ion-item>
-          <ion-label text-wrap>
-              Description: <br/>
-              {{ record.name }} consumes {{ record.calorie_rate }} 
-              Kilo calorie per hour of activity for a body mass of 70Kg on average.<br/>
-              {{ record.description }}
-          </ion-label>
-        </ion-item>
-          <ion-item><ion-label>Name {{ record.name }}</ion-label></ion-item>
-          <ion-item><ion-label text-wrap>Description {{ record.description }}</ion-label></ion-item>
-      </ion-list>
-    </ion-content>
+
+<ion-content>
+    <span class="card-img-price text-white">
+      <strong>{{ record.name }} {{ record.calorie_rate }}</strong> KcPH
+    </span>
+  
+    <ion-slides pager="true">
+      <ion-slide *ngFor="let image of record.images" (click)="presentImage(image)">
+        <img [src]="image">
+        <div class="shadow"></div>
+      </ion-slide>
+    </ion-slides>
+  
+    <ion-card no-margin color="primary" class="dotted">
+      <ion-card-content>
+        <ion-grid no-padding>
+  
+          <ion-row margin-bottom>
+            <ion-col text-center>
+              <ion-icon name="remove-circle" class="text25" tappable (click)="minusQtd()" [hidden]="qtd < 2"
+                        color="secondary"></ion-icon>
+            </ion-col>
+            <ion-col width-10 text-center>
+              <h4 ion-text color="light">Duration:</h4>
+              <h2 ion-text>{{ duration }}</h2>
+            </ion-col>
+            <ion-col width-10 text-center>
+              <ion-icon name="add-circle" class="text25" tappable (click)="plusQtd()" color="secondary"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col text-center>
+              <ion-button color="secondary" (click)="addcart(record, qtd)">
+                <ion-icon slot="start" name="md-bicycle" color="light"></ion-icon>
+                <ion-text color="light">Add to Activity ({{ record.calorie_rate * duration | number }})Kcal</ion-text>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+  
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card no-margin class="spacerFab bg-white dotted">
+      <ion-card-content>
+        <h2>
+          <ion-text color="primary">Type</ion-text>
+        </h2>
+        <p>{{ record.name }} is a {{ record.type | lowercase }} {{ record.category | lowercase }}</p>
+  
+        <hr class="bg-light">
+  
+        <h2>
+          <ion-text color="primary">Description</ion-text>
+        </h2>
+        <p>{{ record.name }} consumes {{ record.calorie_rate }} 
+            Kilo calorie per hour of activity for a body mass of 70Kg on average.<br/>
+            {{ record.description }}
+          </p>
+      </ion-card-content>
+    </ion-card> 
+  
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+      <ion-fab-button color="secondary" (click)="openCart()">
+        <ion-icon name="body"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+  </ion-content>
