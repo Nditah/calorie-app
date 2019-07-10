@@ -5,7 +5,7 @@ import { NavController, ToastController, AlertController } from '@ionic/angular'
 import { tap } from 'rxjs/operators';
 import { LoginResponse, ApiResponse, User } from '../models';
 import { EnvService } from './env.service';
-import { hasProp, cleanObject } from '../helpers';
+import { cleanObject } from '../helpers';
 import { throwError } from 'rxjs';
 
 @Injectable()
