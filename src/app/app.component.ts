@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Admob } from '@ionic-native/admob/ngx';
+// import { Admob } from '@ionic-native/admob/ngx';
 
 import { AuthService, AlertService, EnvService } from './services';
 
@@ -40,7 +40,7 @@ export class AppComponent {
     private navCtrl: NavController,
     private alertService: AlertService,
     private envService: EnvService,
-    private adMob: Admob,
+    // private adMob: Admob,
   ) {
     this.initializeApp();
   }

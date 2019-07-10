@@ -19,7 +19,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
-import { Admob } from '@ionic-native/admob/ngx';
+// import { Admob } from '@ionic-native/admob/ngx';
 
 import { IonicSelectableModule } from 'ionic-selectable';
 
@@ -75,7 +75,7 @@ export function provideSettings(storage: Storage) {
     StatusBar, SplashScreen, Camera, Vibration,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    NativeStorage, Network, File, WebView, FilePath, Admob,
+    NativeStorage, Network, File, WebView, FilePath,
   ],
   bootstrap: [AppComponent]
 })

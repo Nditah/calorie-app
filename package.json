@@ -7,20 +7,20 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "serve": "ionic cordova run browser",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "sudo rm -rf node_modules && npm rebuild node-sass && npm i",
-    "apk": "cordova build android --prod --release  --stacktrace",
-    "ionic:serve:dev": "ionic serve",
-    "ionic:lab": "ionic serve --lab --debug",
-    "ionic:android": "ionic cordova run android",
-    "ionic:build:android": "ionic cordova build --release android",
-    "sign:app": "jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore yafAdmin.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk yafAdmin && mv platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk afro-calorie-app.apk",
-    "create:key": "keytool -genkey -v -keystore yafAdmin.keystore -alias yafAdmin -keyalg RSA -keysize 2048 -validity 1000",
-    "deploy:apk": "npm run ionic:build:android && npm run sign:app"
+    "serve": "ionic serve --lab --debug",
+    "ionic:android": "ionic cordova platform add android",
+    "ionic:build:android": "cordova build android --prod --release  --stacktrace",
+    "create:key": "keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias",
+    "sign:app": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.jks  platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk my-alias",
+    "zipalign:app": "cd ./platforms/android/app/build/outputs/apk/release && ~/Library/Android/sdk/build-tools/28.0.3/zipalign  -v 4 app-release-unsigned.apk AfroCalorie.apk",
+    "deploy:apk": "npm run ionic:build:android && npm run sign:app",
+    "verify:app": "npm run zipalign:app && cd ./platforms/android/app/build/outputs/apk/release && ~/Library/Android/sdk/build-tools/28.0.3/apksigner verify  AfroCalorie.apk",
+    "move:apk": "mv ./platforms/android/app/build/outputs/apk/release/AfroCalorie.apk ~/Desktop"
   },
   "private": true,
   "dependencies": {
@@ -32,7 +32,6 @@
     "@angular/platform-browser": "^7.2.2",
     "@angular/platform-browser-dynamic": "^7.2.2",
     "@angular/router": "^7.2.2",
-    "@ionic-native/admob": "^5.6.0",
     "@ionic-native/camera": "^5.0.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/file": "^5.0.0",
@@ -51,7 +50,6 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "chart.js": "^2.8.0",
-    "cordova-admob": "5.1.0",
     "cordova-android": "8.0.0",
     "cordova-browser": "6.0.0",
     "cordova-connectivity-monitor": "1.2.2",
@@ -120,8 +118,7 @@
       "cordova-plugin-vibration": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-filepath": {},
-      "cordova-admob": {}
+      "cordova-plugin-filepath": {}
     },
     "platforms": [
       "ios",
