@@ -3,6 +3,7 @@ import { LoadingController, AlertController, ToastController } from '@ionic/angu
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiResponse, Exercise } from 'src/app/models';
 import { Exercises, DailyService } from 'src/app/providers';
+import { AlertService } from 'src/app/services';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -18,6 +19,7 @@ export class ExerciseDetailPage implements OnInit {
   constructor(
     public exercises: Exercises,
     public dailyService: DailyService,
+    private alertService: AlertService,
     private alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
@@ -35,19 +37,21 @@ export class ExerciseDetailPage implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     const loading = await this.loadingCtrl.create({message: 'Loading...'});
     await loading.present();
-    await this.exercises.recordRetrieve(`?_id=${id}`).then((res: ApiResponse) => {
+    try {
+     const res: ApiResponse = await this.exercises.recordRetrieve(`?_id=${id}`);
       console.log(res);
-      if (res.success) {
+      if (res.success && res.payload.length > 0) {
           this.record = res.payload[0];
+        } else {
+          this.alertService.presentToast(res.message);
         }
         loading.dismiss();
-        // this.alertCtrl.presentToast(res.message);
-      }, err => {
-        console.log(err);
-        loading.dismiss();
-        // this.alertCtrl.presentToast(err.message);
-      });
+      } catch (err) {
+          console.log(err);
+          // this.alertService.presentToast(err.message);
+        }
   }
+
   async delete(record) {
     const loading = await this.loadingCtrl.create({message: 'Deleting'});
     await loading.present();

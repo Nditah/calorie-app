@@ -47,15 +47,17 @@ export class NotificationPage implements OnInit {
       duration: 5000
     });
     await loading.present();
-    await this.notifications.recordRetrieve('').then((res: ApiResponse) => {
-        console.log(res);
-        this.records = res.payload;
-        loading.dismiss();
+    try {
+      const res: ApiResponse = await this.notifications.recordRetrieve('');
+      if (res.success && res.payload.length > 0) {
+          this.records = res.payload;
+      } else {
         this.alertService.presentToast(res.message);
-      }).catch (err => {
+      }
+      loading.dismiss();
+    } catch (err) {
         console.log(err);
-        loading.dismiss();
-        this.alertService.presentToast(err.message);
-      });
+        // this.alertService.presentToast(err.message);
+      }
   }
 }

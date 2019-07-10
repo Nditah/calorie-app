@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController, ToastController, LoadingController} from '@ionic/angular';
 import { FormBuilder, FormGroup} from '@angular/forms';
 import { Location } from '@angular/common';
-import { AuthService, ApiService } from 'src/app/services';
+import { AuthService } from 'src/app/services';
 import { User, ApiResponse } from 'src/app/models';
 
 @Component({
@@ -20,12 +20,10 @@ export class UserPage implements OnInit {
 
   constructor(private menu: MenuController,
       private authService: AuthService,
-      private apiService: ApiService,
       private formBuilder: FormBuilder,
       private location: Location,
       public toastCtrl: ToastController,
       public loadingCtrl: LoadingController) {
-
     this.menu.enable(true);
     this.authService.isAuthenticated().then(user => {
       this.user = user;
@@ -45,6 +43,9 @@ export class UserPage implements OnInit {
       lifestyle: [null],
     });
 
+    if (this.user) {
+      this.createEditForm();
+    }
 }
 
   ngOnInit() {
@@ -52,6 +53,10 @@ export class UserPage implements OnInit {
    }
 
   ionViewWillEnter() {
+
+  }
+
+  createEditForm() {
     this.editForm.get('username').setValue(this.user.username || '');
     this.editForm.get('gender').setValue(this.user.gender || '');
     this.editForm.get('email').setValue(this.user.email || '');

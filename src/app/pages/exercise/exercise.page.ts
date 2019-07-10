@@ -79,17 +79,18 @@ export class ExercisePage implements OnInit {
       duration: 5000
     });
     await loading.present();
-    await this.exercises.recordRetrieve('').then((res: ApiResponse) => {
+    try {
+      const res: ApiResponse = await this.exercises.recordRetrieve('');
       if (res.success && res.payload.length > 0) {
-        this.records = res.payload;
-        }
-        loading.dismiss();
+          this.records = res.payload;
+      } else {
         this.alertService.presentToast(res.message);
-      }).catch (err => {
+      }
+      loading.dismiss();
+    } catch (err) {
         console.log(err);
-        loading.dismiss();
-        this.alertService.presentToast(err.message);
-      });
+        // this.alertService.presentToast(err.message);
+      }
   }
 
 

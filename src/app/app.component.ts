@@ -49,7 +49,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.InitAds();
+      // this.InitAds();
       timer(3000).subscribe(() => this.showSplash = false );
     });
   }
@@ -63,7 +63,7 @@ export class AppComponent {
       });
       return this.navCtrl.navigateRoot('/home');
   }
-
+/*
   showBannerAds() {
     this.adMob.createBannerView()
       .then(
@@ -104,4 +104,6 @@ export class AppComponent {
       })
       .catch(console.log);
   }
+
+  */
 }

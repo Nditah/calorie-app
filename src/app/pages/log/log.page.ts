@@ -23,6 +23,7 @@ export class LogPage implements OnInit {
   records: Array<Log>;
 
   constructor(public api: ApiService,
+    private alertService: AlertService,
     public logs: Logs,
     public loadingCtrl: LoadingController) {
       this.records = this.logs.query();
@@ -40,10 +41,17 @@ export class LogPage implements OnInit {
       duration: 5000
     });
     await loading.present();
-    await this.logs.recordRetrieve('').then((res: ApiResponse) => {
-        console.log(res);
-        this.records = res.payload;
-        loading.dismiss();
-      });
+    try {
+      const res: ApiResponse = await this.logs.recordRetrieve('');
+      if (res.success && res.payload.length > 0) {
+          this.records = res.payload;
+      } else {
+        this.alertService.presentToast(res.message);
+      }
+      loading.dismiss();
+    } catch (err) {
+        console.log(err);
+        // this.alertService.presentToast(err.message);
+      }
   }
 }

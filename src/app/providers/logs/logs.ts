@@ -37,7 +37,7 @@ export class Logs {
     description: 'Run and hide while another searches for you.',
     calorie_rate: 234,
     tasks: 'Run, Squart',
-    images: ['assets/img/dishes/dish03.jpg', 'assets/img/dishes/dish04.jpg'],
+    images: ['assets/img/exercises/exercise01.jpg', 'assets/img/exercises/exercise02jpg'],
 };
 
   logData: Array<Log> = [{

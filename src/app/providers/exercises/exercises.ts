@@ -18,7 +18,7 @@ export class Exercises {
     description: 'Short distance fast running',
     calorie_rate: 234,
     tasks: 'Running',
-    images: ['assets/img/dishes/dish01.jpg', 'assets/img/dishes/dish02.jpg'],
+    images: ['assets/img/exercises/exercise01.jpg', 'assets/img/exercises/exercise02.jpg'],
   },
   {
       id: '2',
@@ -28,7 +28,7 @@ export class Exercises {
       description: 'Run and hide while another searches for you.',
       calorie_rate: 234,
       tasks: 'Run, Squart',
-      images: ['assets/img/dishes/dish03.jpg', 'assets/img/dishes/dish04.jpg'],
+      images: ['assets/img/exercises/exercise02.jpg', 'assets/img/exercises/exercise01.jpg'],
   }];
   user: User;
 

@@ -36,9 +36,12 @@ ion-avatar {
     border: none;
   }
 
-  ion-input{
+  .inputFields{
     font-size: 16px !important;
+    text-align: right;
+    // .text-input { text-align: center; }
   }
+
   .list-md {
     margin: 15px 0 16px;
   }

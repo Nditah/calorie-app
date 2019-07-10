@@ -11,7 +11,7 @@
   </ion-header>
   
   <ion-content>
-    <ion-list no-border>
+    <ion-list>
       <ion-item class="bg-profile">
         <ion-avatar slot="start">
           <img src="assets/img/avatar.jpeg" class="user-avatar">
@@ -33,10 +33,10 @@
       </ion-item>
     </ion-list>
 
-    <div class="fixed-content">
+    <div padding>
       <form *ngIf="editForm" [formGroup]="editForm" (ngSubmit)="saveProfile()">
-        <ion-list class="my-list">
-          <ion-item class="my-item">
+        <ion-list>
+          <ion-item>
             <ion-label class="label" color="primary">User Name :</ion-label>
             <ion-input class="inputFields" type="text" formControlName="username" (keyup)="changedSmtng()"></ion-input>
           </ion-item>
@@ -95,6 +95,12 @@
               <ion-select-option value="O">Others</ion-select-option>
             </ion-select>
           </ion-item>
+
+          <ion-row center>  
+            <ion-col text-center>  
+            <ion-button shape="round" color="primary" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>
+            </ion-col>
+          </ion-row>
 
         </ion-list>
       </form>

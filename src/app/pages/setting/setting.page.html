@@ -25,14 +25,10 @@
         </ion-avatar>
         <ion-label>
           <ion-text color="light">
-            <h2>
-              <strong>Nditah Samweld</strong>
-            </h2>
+            <h2><strong>Nditah Samweld</strong></h2>
           </ion-text>
           <ion-text color="tertiary">
-            <h3>
-              nditah@gmail.com
-            </h3>
+            <h3>nditah@gmail.com</h3>
           </ion-text>
           <ion-button icon-left size="small" shape="round" color="dark" (click)="editProfile()">
             <ion-icon name="contact"></ion-icon>
@@ -172,7 +168,11 @@
             <ion-select-option value="oz">ounce</ion-select-option>
           </ion-select>
         </ion-item>
-      <ion-button shape="round" color="primary" expand="block" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>
+        <ion-row center>  
+            <ion-col text-center>  
+            <ion-button shape="round" color="primary" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>
+            </ion-col>
+          </ion-row>
     </form>
   </ion-list>
   </ion-content>
