@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import messages from './mock-messages';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
   messageCounter: number = 0;
-  messages: Array<any> = messages;
+  messages: Array<any>;
 
   constructor() {}
 

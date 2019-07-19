@@ -2,10 +2,12 @@ import { User } from './user';
 
 export class Notification {
     id?: string;
-    type?: 'danger' | 'warning' | 'success' | 'info' | 'secondary' | 'primary';
+    type?: 'danger' | 'warning' | 'success' | 'info';
     user?: User;
+    title?: string;
     message?: string;
-    status?: 'read' | 'unread' | 'deleted';
+    status?: 'read' | 'unread';
+    deleted: boolean;
     created_by?: User;
     created_at?: Date;
     updated_by?: User;
@@ -21,10 +23,12 @@ export class Notification {
 export interface Notification {
    // [prop?: string]?: any;
    id?: string;
-   type?: 'danger' | 'warning' | 'success' | 'info' | 'secondary' | 'primary';
+   type?: 'danger' | 'warning' | 'success' | 'info';
    user?: User;
+   title?: string;
    message?: string;
-   status?: 'read' | 'unread' | 'deleted';
+   status?: 'read' | 'unread';
+   deleted: boolean;
    created_by?: User;
    created_at?: Date;
    updated_by?: User;

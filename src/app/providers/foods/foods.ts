@@ -9,39 +9,7 @@ import { hasProp } from 'src/app/helpers';
 @Injectable()
 export class Foods {
 
-  foods: Food[] = [
-    {
-    id: '1',
-    type: 'DEFAULT',
-    category: 'FOOD',
-    name: 'Chicken',
-    description: 'Roasted rice',
-    water: 0.4,
-    calories: 234,
-    carbohydrate: 2345,
-    protein: 4950,
-    fats: 23.0,
-    fibre: 3570,
-    ingredients: 'Spices, Vegetable',
-    nutrients: [{ nutrient_id: '5cc74ee9b27a5b01bd016185', nutrient_value: 120 }],
-    images: ['assets/img/dishes/dish01.jpg', 'assets/img/dishes/dish02.jpg'],
-},
-{
-    id: '2',
-    type: 'CUSTOM',
-    category: 'FOOD',
-    name: 'Rice and Beans',
-    description: 'Fried rice and green beans',
-    water: 0.4,
-    calories: 234,
-    carbohydrate: 2345,
-    protein: 4950,
-    fats: 23.0,
-    fibre: 3570,
-    ingredients: 'Rice, Beans, fish, meat',
-    nutrients: [{ nutrient_id: '5cc74ee9b27a5b01bd016185', nutrient_value: 120 }],
-    images: ['assets/img/dishes/dish03.jpg', 'assets/img/dishes/dish04.jpg'],
-}];
+  foods: Food[];
   user: User;
 
   constructor(private env: EnvService,
@@ -90,7 +58,7 @@ export class Foods {
               console.log(res);
               if (res.success && res.payload.length > 0) {
                   res.payload.forEach(element => {
-                      this.add(element);
+                    this.foods = res.payload;
                   });
               } else {
                   throwError(res.message);
@@ -106,6 +74,7 @@ export class Foods {
           map((res: ApiResponse) => {
               if (res.success && res.payload) {
                   console.log('recordCreate() successful');
+                  this.add(res.payload);
               } else {
                   throwError(res.message);
               }
@@ -120,6 +89,7 @@ export class Foods {
           map((res: ApiResponse) => {
               if (res.success) {
                   this.delete(record);
+                  this.add(res.payload);
               } else {
                   throwError(res.message);
               }

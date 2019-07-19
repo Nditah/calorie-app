@@ -4,13 +4,12 @@ import { throwError } from 'rxjs';
 import { Nutrient, ApiResponse, User } from '../../models';
 import { ApiService, EnvService, AuthService } from '../../services';
 import { hasProp } from 'src/app/helpers';
-import nutrientData from './nutrients-data';
 
 
 @Injectable()
 export class Nutrients {
 
-  nutrients: any[] = nutrientData;
+  nutrients: Array<Nutrient>;
   user: User;
 
 
@@ -20,8 +19,7 @@ export class Nutrients {
     this.authService.isAuthenticated().then((user) => {
       if (user && hasProp(user, 'id')) {
         this.user = new User(user);
-        const queryString = `?filter={"$or":[{"created_by":"${this.user.id}"},{"type":"DEFAULT"}]}`;
-        this.recordRetrieve(queryString).then().catch(err => console.log(err));
+        this.recordRetrieve().then().catch(err => console.log(err));
       }
     }).catch(err => console.log(err.message));
   }
@@ -45,66 +43,13 @@ export class Nutrients {
     });
   }
 
-  add(record: Nutrient) {
-    this.nutrients.push(new Nutrient(record));
-  }
-
-  delete(record: Nutrient) {
-    this.nutrients.splice(this.nutrients.indexOf(record), 1);
-  }
-
   async recordRetrieve(queryString = ''): Promise<ApiResponse> {
-      const query = queryString || `${this.user.id}`;
-      const url = `${this.env.API_URL}/nutrients?${query}`;
+      const url = `${this.env.API_URL}/nutrients?${queryString}`;
       const proRes = this.apiService.getApi(url).pipe(
           map((res: ApiResponse) => {
               console.log(res);
               if (res.success && res.payload.length > 0) {
-                  res.payload.forEach(element => {
-                      this.add(element);
-                  });
-              } else {
-                  throwError(res.message);
-              }
-              return res;
-          }));
-      return await proRes.toPromise();
-  }
-
-  async recordCreate(record: Nutrient): Promise<ApiResponse> {
-      const url = `${this.env.API_URL}/nutrients`;
-      const proRes = this.apiService.postApi(url, record).pipe(
-          map((res: ApiResponse) => {
-              if (res.success && res.payload) {
-                  console.log('recordCreate() successful');
-              } else {
-                  throwError(res.message);
-              }
-              return res;
-          }));
-      return await proRes.toPromise();
-  }
-
-  async recordUpdate(record: Nutrient, payload): Promise<ApiResponse> {
-      const url = `${this.env.API_URL}/nutrients/${record.id}`;
-      const proRes = this.apiService.updateApi(url, payload).pipe(
-          map((res: ApiResponse) => {
-              if (res.success) {
-                  this.delete(record);
-              } else {
-                  throwError(res.message);
-              }
-              return res;
-          }));
-      return await proRes.toPromise();
-  }
-
-  async recordDelete(record: Nutrient): Promise<ApiResponse> {
-      const url = `${this.env.API_URL}/nutrients/${record.id}`;
-      const proRes = this.apiService.deleteApi(url).pipe(
-          map((res: ApiResponse) => {
-              if (res.success) {
-                  this.delete(record);
+                  this.nutrients = res.payload;
               } else {
                   throwError(res.message);
               }

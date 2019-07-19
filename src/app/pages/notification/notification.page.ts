@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
-import { ApiService, AlertService } from 'src/app/services';
+import { AlertService } from 'src/app/services';
 import { ApiResponse, Notification } from 'src/app/models';
 import { Notifications } from 'src/app/providers';
 
@@ -32,11 +32,11 @@ export class NotificationPage implements OnInit {
   constructor(public notifications: Notifications,
     private alertService: AlertService,
     public loadingCtrl: LoadingController) {
-      this.records = this.notifications.query();
+      // this.records = this.notifications.query();
     }
 
   ngOnInit() {
-    // this.getNotifications();
+    this.getNotifications();
   }
 
   async getNotifications() {
@@ -52,7 +52,7 @@ export class NotificationPage implements OnInit {
       if (res.success && res.payload.length > 0) {
           this.records = res.payload;
       } else {
-        this.alertService.presentToast(res.message);
+        console.log(res.message);
       }
       loading.dismiss();
     } catch (err) {

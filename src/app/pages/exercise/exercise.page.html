@@ -28,7 +28,7 @@
           <ion-text color="dark">{{ record.name }}</ion-text>
         </h2>
         <p>
-          <ion-text color="primary">{{ record.tasks }}</ion-text>
+          <ion-text color="primary">{{ record.tasks?.join() }}</ion-text>
         </p>
       </ion-label>
       <ion-badge color="success">

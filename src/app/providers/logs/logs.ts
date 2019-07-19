@@ -24,7 +24,7 @@ export class Logs {
     protein: 4950,
     fats: 23.0,
     fibre: 3570,
-    ingredients: 'Spices, Vegetable',
+    ingredients: ['Spices', 'Vegetable'],
     nutrients: [{ nutrient_id: '5cc74ee9b27a5b01bd016185', nutrient_value: 120 }],
     images: ['assets/img/dishes/dish01.jpg', 'assets/img/dishes/dish02.jpg'],
 };
@@ -36,7 +36,7 @@ export class Logs {
     name: 'Hide and Seek',
     description: 'Run and hide while another searches for you.',
     calorie_rate: 234,
-    tasks: 'Run, Squart',
+    tasks: ['Run', 'Squart'],
     images: ['assets/img/exercises/exercise01.jpg', 'assets/img/exercises/exercise02jpg'],
 };
 
@@ -101,7 +101,7 @@ add(record: Log) {
             console.log(res);
             if (res.success && res.payload.length > 0) {
                 res.payload.forEach(element => {
-                    this.add(element);
+                    this.logs = res.payload;
                 });
             } else {
                 throwError(res.message);
@@ -117,6 +117,7 @@ add(record: Log) {
         map((res: ApiResponse) => {
             if (res.success && res.payload) {
                 console.log('recordCreate() successful');
+                this.add(res.payload);
             } else {
                 throwError(res.message);
             }

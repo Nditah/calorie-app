@@ -26,11 +26,11 @@ export class LogPage implements OnInit {
     private alertService: AlertService,
     public logs: Logs,
     public loadingCtrl: LoadingController) {
-      this.records = this.logs.query();
+      // this.records = this.logs.query();
     }
 
   ngOnInit() {
-    // this.getLogs();
+    this.getLogs();
   }
 
   async getLogs() {

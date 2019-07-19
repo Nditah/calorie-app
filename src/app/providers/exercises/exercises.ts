@@ -9,27 +9,7 @@ import { hasProp } from 'src/app/helpers';
 @Injectable()
 export class Exercises {
 
-  exercises: Exercise[] = [
-    {
-    id: '1',
-    type: 'DEFAULT',
-    category: 'SPORT',
-    name: '400M Sprint',
-    description: 'Short distance fast running',
-    calorie_rate: 234,
-    tasks: 'Running',
-    images: ['assets/img/exercises/exercise01.jpg', 'assets/img/exercises/exercise02.jpg'],
-  },
-  {
-      id: '2',
-      type: 'CUSTOM',
-      category: 'WORKOUT',
-      name: 'Hide and Seek',
-      description: 'Run and hide while another searches for you.',
-      calorie_rate: 234,
-      tasks: 'Run, Squart',
-      images: ['assets/img/exercises/exercise02.jpg', 'assets/img/exercises/exercise01.jpg'],
-  }];
+  exercises: Exercise[];
   user: User;
 
 
@@ -80,9 +60,7 @@ export class Exercises {
           map((res: ApiResponse) => {
               console.log(res);
               if (res.success && res.payload.length > 0) {
-                  res.payload.forEach(element => {
-                      this.add(element);
-                  });
+                this.exercises = res.payload;
               } else {
                   throwError(res.message);
               }
@@ -97,6 +75,7 @@ export class Exercises {
           map((res: ApiResponse) => {
               if (res.success && res.payload) {
                   console.log('recordCreate() successful');
+                  this.add(res.payload);
               } else {
                   throwError(res.message);
               }
@@ -111,6 +90,7 @@ export class Exercises {
           map((res: ApiResponse) => {
               if (res.success) {
                   this.delete(record);
+                  this.add(res.payload);
               } else {
                   throwError(res.message);
               }

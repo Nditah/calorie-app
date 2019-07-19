@@ -23,7 +23,7 @@
           <ion-text color="dark">{{record.name}}</ion-text>
         </h2>
         <p>
-          <ion-text color="primary">{{ record.ingredients }}</ion-text>
+          <ion-text color="primary">{{ record.ingredients?.join() }}</ion-text>
         </p>
       </ion-label>
       <ion-badge color="success">

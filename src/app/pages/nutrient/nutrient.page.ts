@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
-import { Nutrient } from 'src/app/models';
+import { Nutrient, ApiResponse } from 'src/app/models';
 import { Nutrients } from 'src/app/providers';
+import { AlertService } from 'src/app/services';
 
 
 @Component({
@@ -28,8 +29,9 @@ export class NutrientPage implements OnInit {
 
   constructor(
     public nutrients: Nutrients,
+    private alertService: AlertService,
     public loadingCtrl: LoadingController) {
-    this.records = this.nutrients.query();
+    // this.records = this.nutrients.query();
   }
 
   searchRecord(ev) {
@@ -44,7 +46,31 @@ export class NutrientPage implements OnInit {
   }
 
   ngOnInit() {
-    //
+    this.getNutrients();
   }
+
+
+  async getNutrients() {
+    const loading = await this.loadingCtrl.create({
+      translucent: true,
+      animated: true,
+      message: 'Loading records...',
+      duration: 5000
+    });
+    await loading.present();
+    try {
+      const res: ApiResponse = await this.nutrients.recordRetrieve('');
+      if (res.success && res.payload.length > 0) {
+          this.records = res.payload;
+      } else {
+        console.log(res.message);
+      }
+      loading.dismiss();
+    } catch (err) {
+        console.log(err);
+        // this.alertService.presentToast(err.message);
+      }
+  }
+
 
 }

@@ -12,7 +12,7 @@ import { Notifications } from 'src/app/providers';
 })
 export class NotificationDetailPage implements OnInit {
 
-  record: Notification = {};
+  record: Notification;
   recordId: Notification['id'] = '';
 
   constructor(public notifications: Notifications,
@@ -21,7 +21,7 @@ export class NotificationDetailPage implements OnInit {
     public route: ActivatedRoute,
     public router: Router) {
       this.recordId = this.route.snapshot.paramMap.get('id');
-      this.record = notifications.query({ id: this.recordId })[0] || {};
+      this.record = notifications.query({ id: this.recordId })[0];
     }
 
   ngOnInit() {
@@ -44,6 +44,7 @@ export class NotificationDetailPage implements OnInit {
         this.alertService.presentToast(err.message);
       });
   }
+
   async delete(id) {
     const loading = await this.loadingCtrl.create({message: 'Deleting'});
     await loading.present();

@@ -14,7 +14,7 @@ export class Food {
     fats?: number;
     fibre?: number;
     nutrients?: Array<{ nutrient_id?: string, nutrient_value?: number }>;
-    ingredients?: string;
+    ingredients?: Array<string>;
     images?: Array<string>;
     created_by?: User;
     created_at?: Date;
@@ -46,7 +46,7 @@ export interface Food {
     fats?: number;
     fibre?: number;
     nutrients?: Array<{ nutrient_id?: string, nutrient_value?: number }>;
-    ingredients?: string;
+    ingredients?: Array<string>;
     images?: Array<string>;
     created_by?: User;
     created_at?: Date;

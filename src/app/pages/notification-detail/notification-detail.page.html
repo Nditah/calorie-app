@@ -6,48 +6,25 @@
       <ion-title>Feedback Notification</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-content padding class="animated fadeIn">
+
+      <ion-card class="bg-white" no-margin>
+        <ion-card-header>
+            <ion-card-subtitle>{{ record.date | date: 'MM/dd/yyyy'}} | <strong>{{ record.type }}</strong></ion-card-subtitle>
+            <ion-card-title>
+              <ion-text color="primary">
+                {{ record.title}}
+              </ion-text>
+            </ion-card-title>
+        </ion-card-header>
+          <ion-card-content>
+            <p margin-top>
+              <ion-text color="primary">
+                {{ record.message}}
+              </ion-text>
+            </p>
+          </ion-card-content>
+        </ion-card>
   
-  <ion-content padding>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{ record.status }}</ion-card-title>
-      </ion-card-header>
-  
-      <ion-card-content>
-        <ion-card-subtitle>Message:</ion-card-subtitle>
-        {{ record.message }}
-        <ion-buttons slot="primary">
-          <ion-button routerLink="/notification-edit/{{record.id}}">
-            <ion-icon slot="icon-only" name="create"></ion-icon>
-          </ion-button>
-          <ion-button (click)="delete(record.id)">
-            <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-card-content>
-    </ion-card>
   </ion-content>
-  
-    <!--
-    <ion-content padding class="animated fadeIn">
-  
-        <ion-card class="bg-white" no-margin>
-          <ion-card-header>
-              <ion-card-subtitle>{{ record.date | date: 'MM/dd/yyyy'}} ∙ by <strong>{{message.senderName}}</strong></ion-card-subtitle>
-              <ion-card-title>
-                <ion-text color="primary">
-                  {{ record.title}}
-                </ion-text>
-              </ion-card-title>
-          </ion-card-header>
-            <ion-card-content>
-              <p margin-top>
-                <ion-text color="primary">
-                  {{ record.message}}
-                </ion-text>
-              </p>
-            </ion-card-content>
-          </ion-card>
-    
-    </ion-content>
-  -->
