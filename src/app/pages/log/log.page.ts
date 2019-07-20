@@ -46,7 +46,7 @@ export class LogPage implements OnInit {
       if (res.success && res.payload.length > 0) {
           this.records = res.payload;
       } else {
-        this.alertService.presentToast(res.message);
+        console.log(res.message);
       }
       loading.dismiss();
     } catch (err) {

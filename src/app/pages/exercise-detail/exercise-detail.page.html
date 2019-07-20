@@ -5,11 +5,8 @@
         </ion-buttons>
       <ion-title>Exercise Details</ion-title>
       <ion-buttons *ngIf="record" slot="end">
-        <ion-button color="danger" *ngIf="record?.type === 'CUSTOM'"  routerLink="/exercise-edit/{{record?.id}}">
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-button>
         <ion-button color="danger" *ngIf="record?.type === 'CUSTOM'" (click)="deleteRecord(record)">
-          <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
@@ -79,7 +76,7 @@
   
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
       <ion-fab-button color="secondary" (click)="openCart()">
-        <ion-icon name="body"></ion-icon>
+        <ion-icon name="cart"></ion-icon>
       </ion-fab-button>
     </ion-fab>
   

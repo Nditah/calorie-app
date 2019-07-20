@@ -14,7 +14,8 @@ export class HomePage implements OnInit {
   }
 
   goToPage(urlString: string) {
-    this.navCtrl.navigateRoot(`/${urlString}`)
+    // this.router.navigate([`/${urlString}`]);
+    this.navCtrl.navigateRoot(`/${urlString}`) // navigateForward
     .then(data => console.log(data))
     .catch(err => console.log(err));
   }

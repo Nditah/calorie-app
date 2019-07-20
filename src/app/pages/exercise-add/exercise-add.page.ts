@@ -30,17 +30,18 @@ export class ExerciseAddPage implements OnInit {
     private formBuilder: FormBuilder) {
       this.addForm = this.formBuilder.group({
         name : [null, Validators.required],
-        // 'type': [null, Validators.required], // enum: ["DEFAULT", "CUSTOM"]
         category: [null, Validators.required], // enum: ["SPORT", "WORKOUT"]
         description: [null, Validators.required],
         calorie_rate: [null, Validators.required],
-        image: [null],
+        // image: [null],
       });
 
       // Watch the form for changes, and
+      /*
       this.addForm.valueChanges.subscribe((v) => {
         this.isReadyToSave = this.addForm.valid;
       });
+      */
     }
 
   ngOnInit() {
@@ -53,7 +54,7 @@ export class ExerciseAddPage implements OnInit {
     await this.exercises.recordCreate(payload)
     .then((res: ApiResponse) => {
       if (res.success) {
-        const id = res['id'];
+        const id = res.payload['id'];
         this.router.navigate(['/exercise-detail/' + id]);
       } else {
         this.alertService.presentToast(res.message);

@@ -26,7 +26,7 @@ export class ExerciseDetailPage implements OnInit {
     public route: ActivatedRoute,
     public router: Router) {
       this.recordId = this.route.snapshot.paramMap.get('id');
-      this.record = exercises.query({ id: this.recordId })[0] || {};
+      this.record = exercises.query({ id: this.recordId })[0];
     }
 
   ngOnInit() {
@@ -53,11 +53,11 @@ export class ExerciseDetailPage implements OnInit {
   }
 
   async delete(record) {
-    const loading = await this.loadingCtrl.create({message: 'Deleting'});
+    const loading = await this.loadingCtrl.create({message: 'Deleting...'});
     await loading.present();
     await this.exercises.recordDelete(record).then((res: ApiResponse) => {
       if (res.success) {
-        // this.alertCtrl.presentToast('Operation successful');
+        this.alertService.presentToast('Operation successful');
       }
       loading.dismiss();
         // this.location.back();
@@ -125,5 +125,9 @@ export class ExerciseDetailPage implements OnInit {
       });
       toast.present();
     });
+  }
+
+  openCart(){
+    console.log('openCart clicked!');
   }
 }

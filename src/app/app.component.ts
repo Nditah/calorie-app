@@ -22,11 +22,11 @@ export class AppComponent {
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'Dashboard', url: '/dashboard', icon: 'pulse' },
-    { title: 'Record', url: '/log', icon: 'list' },
+    { title: 'Record', url: '/log', icon: 'calendar' },
     { title: 'Notification', url: '/notification', icon: 'checkmark-circle' },
-    { title: 'Food & Drink', url: '/food', icon: 'ice-cream' },
+    { title: 'Food & Drink', url: '/food', icon: 'restaurant' },
     { title: 'Exercise', url: '/exercise', icon: 'bicycle' },
-    { title: 'Nutrient', url: '/nutrient', icon: 'image' },
+    { title: 'Nutrient', url: '/nutrient', icon: 'beaker' },
     { title: 'Profile', url: '/user', icon: 'person' },
     { title: 'Setting', url: '/setting', icon: 'settings' },
   ];

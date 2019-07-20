@@ -16,7 +16,7 @@
   
   <ion-content padding>
     <form *ngIf="addForm" [formGroup]="addForm">
-
+      <!--
         <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
         <div class="profile-image-wrapper" (click)="getPicture()">
           <div class="profile-image-placeholder" *ngIf="!this.addForm.controls.image.value">
@@ -25,7 +25,7 @@
           </div>
           <div class="profile-image" [style.backgroundImage]="getImageStyle()" *ngIf="this.addForm.controls.image.value"></div>
         </div>
-
+  -->
     <ion-list>
       <ion-item>
         <ion-label position="floating">Exercise Name</ion-label>
@@ -43,7 +43,7 @@
         <ion-input type="text" formControlName="description" id="description"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Calorie Rate</ion-label>
+        <ion-label position="floating">Calorie Rate (Kcal/h)</ion-label>
         <ion-input type="number" formControlName="calorie_rate" id="calorie_rate"></ion-input>
       </ion-item>
     </ion-list>
