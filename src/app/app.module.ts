@@ -13,7 +13,7 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 import { Network } from '@ionic-native/network/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
-import { File } from '@ionic-native/File/ngx';
+import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 

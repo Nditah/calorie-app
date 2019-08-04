@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
 
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -35,7 +36,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private authService: AuthService,
     private navCtrl: NavController,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public router: Router,
   ) {
     this.initializeApp();
   }
@@ -45,11 +47,34 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.authService.getToken();
+      this.backEvent();
 
-      timer(3000).subscribe(() => this.showSplash = false );
+      setTimeout(() => {
+        console.log(this);
+        this.splashScreen.hide();
+        this.showSplash = false;
+      }, 3000);
     });
   }
 
+  backEvent() {
+    this.platform.backButton.subscribe(() => {
+      if (this.router.url.includes('home')) {
+        this.alertService.alert(
+          'Exit Application!',
+          'Press okay to <strong>Exit</strong> this App.',
+          () => {
+            console.log('Confirm Exit Cancel');
+          },
+          () => {
+            console.log('Confirm Exit Okay');
+            navigator['app'].exitApp();
+          });
+      } else {
+        window.history.back();
+      }
+    });
+  }
 
   logout() {
     this.authService.logout().then(data => {
