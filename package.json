@@ -15,6 +15,7 @@
         "clean": "sudo rm -rf node_modules && npm rebuild node-sass && npm i",
         "apk": "cordova build android --prod --release  --stacktrace",
         "build:android": "ionic cordova build --release android",
+        "build:browser": "ionic cordova build --release browser",
         "sign:app": "jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore calorie-app.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk calorie-app && mv platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk calorie-app.apk",
         "create:key": "keytool -genkey -v -keystore calorie-app.keystore -alias calorie-app -keyalg RSA -keysize 2048 -validity 1000",
         "deploy:apk": "npm run build:android && npm run sign:app"
@@ -102,7 +103,9 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
-            "cordova-plugin-ionic-webview": {},
+            "cordova-plugin-ionic-webview": {
+                "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+            },
             "cordova-plugin-ionic-keyboard": {},
             "cordova-plugin-nativestorage": {},
             "cordova-sqlite-storage": {},

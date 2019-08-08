@@ -1,9 +1,23 @@
-
-h1 { 
-  font-size:1.8em;
+h1 {
+    font-size: 1.8em;
 }
 
+ion-icon {
+    font-size: 60px;
+}
 
-ion-icon { 
-  font-size: 60px;
+.cards {
+    margin: 0px !important;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    &:hover {
+        background-color: #2BAE66FF;
+        ion-icon {
+            color: white;
+        }
+    }
+}
+
+ion-col {
+    margin: 0px !important;
 }
