@@ -1,11 +1,29 @@
-ion-item{
-    --background: #3880ff;
-    --color: #fff;
-}
-ion-button{
-    --background: #062f77;
-}
-
-a{
-    color: #fff;
+.con {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .top-con {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: center;
+        height: 30%;
+        padding: 3em 1em 1em;
+        background-color: white;
+        ion-img {
+            height: 50%;
+            margin: 0px;
+        }
+    }
+    .bottom-con {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        height: 70%;
+        background: transparent;
+        justify-content: flex-start;
+        padding: 0px 1em 1em;
+        color: white;
+    }
 }
