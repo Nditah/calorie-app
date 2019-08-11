@@ -1,55 +1,88 @@
 <ion-header>
-  <ion-toolbar color="success">
+  <ion-toolbar class="green-dark">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Dashboard</ion-title>
+    <ion-title color="light">{{ (user ? user.username : "") | uppercase }} Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-  <ion-row>
-      <ion-col>
-          <p *ngIf="user != undefined">
-              {{ user.username | uppercase  }} Calorie - Weight - Exercise Monitor
-          </p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-          <div style="display: block;">
-              <canvas baseChart
-                    [datasets]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
-                    [colors]="lineChartColors"
-                    [legend]="lineChartLegend"
-                    [chartType]="lineChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)">
-              </canvas>
-          </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col>
-            <p>Actual - Expected Calorie intake (estimated)</p>
-        </ion-col>
-      </ion-row>
-    <ion-row>
-      <ion-col>
-          <div style="display: block;">
-              <canvas baseChart 
-                [datasets]="barChartData"
-                [labels]="barChartLabels"
-                [options]="barChartOptions"
-                [plugins]="barChartPlugins"
-                [legend]="barChartLegend"
-                [chartType]="barChartType">
-              </canvas>
-          </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  </ion-content>
+  <h1 class="header">Overview</h1>
+  <ion-slides pager="false" #slides>
+    <ion-slide>
+      <ion-card class="slide1">
+        <div>
+          <ion-card-header>
+            <ion-card-subtitle color="dark">Weight Monitor</ion-card-subtitle>
+          </ion-card-header>
+          <canvas baseChart id="myChart"
+            [datasets]="lineChartData[0]"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors[0]"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card class="slide2">
+        <div>
+          <ion-card-header>
+            <ion-card-subtitle color="dark">Calorie Monitor</ion-card-subtitle>
+          </ion-card-header>
+          <canvas baseChart id="myChart"
+            [datasets]="lineChartData[1]"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors[1]"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card class="slide3">
+        <div>
+          <ion-card-header>
+            <ion-card-subtitle color="dark">Exercise Monitor</ion-card-subtitle>
+          </ion-card-header>
+          <canvas baseChart id="myChart"
+            [datasets]="lineChartData[2]"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors[2]"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  <br/>
+  <ion-card style="box-shadow: none;">
+    <div>
+      <canvas baseChart 
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+    </div>
+    <ion-card-header>
+      <ion-card-title style="text-align: center;">Calorie intake (estimated)</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <br/>
+</ion-content>

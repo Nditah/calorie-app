@@ -1,0 +1,23 @@
+ion-slides {
+    --bullet-background-active: #2BAE66FF !important;
+}
+
+.header {
+    border-bottom: 1px solid #0002;
+    padding-bottom: 10px;
+}
+
+.slide1 {
+    background-image: linear-gradient(45deg, #2AE07CFF, #2BAE6688);
+    width: 100%;
+}
+
+.slide2 {
+    background-image: linear-gradient(45deg, #fffb00, #ff3c0088);
+    width: 100%;
+}
+
+.slide3 {
+    background-image: linear-gradient(45deg, #35e2f1, #6f1ab488);
+    width: 100%;
+}
