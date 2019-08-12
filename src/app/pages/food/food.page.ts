@@ -14,6 +14,7 @@ import { Foods } from 'src/app/providers';
 export class FoodPage implements OnInit {
 
   currentRecords: Array<Food>;
+  currentTab = 'FOOD';
 
   constructor(private router: Router,
     public api: ApiService,
@@ -23,22 +24,29 @@ export class FoodPage implements OnInit {
     public loadingCtrl: LoadingController) {
 
     this.currentRecords = this.foods.query();
-    console.log(this.currentRecords );
   }
 
   ngOnInit() {
-    // this.getFoods();
+    setTimeout(() => this.segmentChanged.call(this), 3000);
   }
 
   searchRecord(ev) {
-    const val = ev.target.value;
+    const val = ev ? ev.target.value : null;
     if (!val || !val.trim()) {
-      this.currentRecords = this.foods.query();
+      this.currentRecords = this.foods.query({
+        category: this.currentTab,
+      });
       return;
     }
     this.currentRecords = this.foods.query({
-      name: val
+      name: val,
     });
+    this.currentRecords = this.currentRecords.filter(rec => rec.category === this.currentTab);
+  }
+
+  segmentChanged(ev: CustomEvent) {
+    this.currentTab = ev ? ev.detail.value : this.currentTab;
+    this.searchRecord.call(this);
   }
 
 }

@@ -1,29 +1,50 @@
 <ion-header>
-    <ion-toolbar color="success">
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title> Foods & Drinks</ion-title>
-        <ion-buttons slot="end">
-          <ion-button routerLink="/food-add"><ion-icon name="add-circle"></ion-icon></ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-  </ion-header>
+  <ion-toolbar class="green-dark">
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="light">Foods & Drinks</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+  <ion-segment mode="md" (ionChange)="segmentChanged($event)" color="success">
+    <ion-segment-button mode="md" value="FOOD" checked layout="icon-start">
+      <ion-icon name="restaurant"></ion-icon>
+      <ion-label>FOOD</ion-label>
+    </ion-segment-button>
+    <ion-segment-button mode="md" value="DRINK" layout="icon-start">
+      <ion-icon name="wine"></ion-icon>
+      <ion-label>DRINK</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+</ion-header>
 
 <ion-content>
-    <ion-searchbar animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Food"></ion-searchbar>
+  <ion-searchbar mode="ios" animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Food"></ion-searchbar>
     <ion-list *ngFor="let record of currentRecords">
-      <ion-item routerLink="/food-detail/{{record.id}}"  routerDirection="forward">
+      <ion-item routerLink="/food-detail/{{record.id}}" lines="none" routerDirection="forward">
         <ion-avatar item-start slot="start">
-          <img [src]="record.image" />
+          <img [src]="record.image" alt=" "/>
         </ion-avatar>
-        <h2> {{ record.name }} </h2>
+        <ion-label>
+          <h2>{{ record.name }}</h2>
+          <p>{{ record.calories }} Kacl</p>
+        </ion-label>
         <!--
       <div *ngIf="selectedItem" padding>
         You navigated here from <b>{{selectedItem.title }}</b>
       </div>
     -->
-        <ion-badge item-start slot="end"> {{ record.calories }} Kacl</ion-badge>
       </ion-item>
     </ion-list>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button routerLink="/food-add" color="success">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <div class="bottom-shadow"></div>
   </ion-content>

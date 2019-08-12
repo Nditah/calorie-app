@@ -1,12 +1,9 @@
 <ion-header>
-    <ion-toolbar color="success">
+    <ion-toolbar class="green-dark">
         <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
+          <ion-menu-button color="light"></ion-menu-button>
         </ion-buttons>
-        <ion-title> Activity Log </ion-title>
-        <ion-buttons slot="end">
-          <ion-button routerLink="/log-add"><ion-icon name="add-circle"></ion-icon></ion-button>
-        </ion-buttons>
+        <ion-title color="light">Activity Log</ion-title>
       </ion-toolbar>
   </ion-header>
 
@@ -27,4 +24,14 @@
       You navigated here from <b>{{selectedItem.title }}</b>
     </div>
   -->
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/log-add" color="success">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div class="bottom-shadow"></div>
 </ion-content>
