@@ -4,7 +4,6 @@ import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/services';
 import {ApiResponse, Food} from 'src/app/models';
-import {Foods} from '../../providers';
 import {Location} from '@angular/common';
 
 @Component({
@@ -73,36 +72,39 @@ export class FoodEditPage implements OnInit {
   async getFoom(id) {
     const loading = await this.loadingController.create({ message: 'Loading' });
     await loading.present();
-    await this.api.getFood(`?_id=${id}`).subscribe((res: ApiResponse) => {
+    this.api.getFood(`?_id=${id}`).subscribe((res: ApiResponse) => {
       console.log(res);
       if (res.success) {
-      const record = res.payload[0];
-      this.editForm.controls['name'].setValue(record.name);
-      this.editForm.controls['category'].setValue(record.name);
-      this.editForm.controls['description'].setValue(record.name);
-      this.editForm.controls['quantity'].setValue(record.name);
-      this.editForm.controls['water'].setValue(record.name);
-      this.editForm.controls['calories'].setValue(record.name);
-      this.editForm.controls['carbohydrate'].setValue(record.name);
-      this.editForm.controls['protein'].setValue(record.name);
-      this.editForm.controls['fats'].setValue(record.name);
-      this.editForm.controls['fibre'].setValue(record.name);
+        const record: Food|any = res.payload[0];
+        this.editForm.controls['name'].setValue(record.name);
+        this.editForm.controls['category'].setValue(record.category);
+        this.editForm.controls['description'].setValue(record.description);
+        this.editForm.controls['quantity'].setValue(record.quantity);
+        this.editForm.controls['water'].setValue(record.water);
+        this.editForm.controls['calories'].setValue(record.calories);
+        this.editForm.controls['carbohydrate'].setValue(record.carbohydrate);
+        this.editForm.controls['protein'].setValue(record.protein);
+        this.editForm.controls['fats'].setValue(record.fats);
+        this.editForm.controls['fibre'].setValue(record.fibre);
 
-      const controlArray = <FormArray>this.editForm.controls['minivites'];
-      record.minivites.forEach(item => {
-        controlArray.push(this.formBuilder.group({
-          minivite_name: '',
-          minivite_value: '',
-        }));
-      });
-      for (let i = 0; i < record.minivites.length; i++) {
-        controlArray.controls[i].get('minivite_name').setValue(record.minivites[i].minivite_name);
-        controlArray.controls[i].get('minivite_value').setValue(record.minivites[i].minivite_value);
+        const controlArray = <FormArray> this.editForm.controls['minivites'];
+        if (record.minivites) {
+          record.minivites.forEach(item => {
+            controlArray.push(this.formBuilder.group({
+              minivite_name: item.minivite_name,
+              minivite_value: item.minivite_value,
+            }));
+          });
+
+          // for (let i = 0; i < record.minivites.length; i++) {
+          //   controlArray.controls[i].get('minivite_name').setValue(record.minivites[i].minivite_name);
+          //   controlArray.controls[i].get('minivite_value').setValue(record.minivites[i].minivite_value);
+          // }
+        }
+
+        console.log(this.editForm);
+        loading.dismiss();
       }
-
-      console.log(this.editForm);
-      loading.dismiss();
-    }
     }, err => {
       console.log(err);
       loading.dismiss();
