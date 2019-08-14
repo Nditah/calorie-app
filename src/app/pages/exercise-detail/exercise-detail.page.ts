@@ -14,13 +14,16 @@ export class ExerciseDetailPage implements OnInit {
 
   record: Exercise;
 
-  constructor(public api: ApiService,
+  constructor(
+    public api: ApiService,
     public exercises: Exercises,
     private alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
+    private alertService: AlertService,
     public activatedRoute: ActivatedRoute,
-    public router: Router) {
+    public router: Router
+  ) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
       const record = this.exercises.query({ id })[0];
       this.record = record || exercises.defaultRecord;
@@ -50,22 +53,30 @@ export class ExerciseDetailPage implements OnInit {
       });
   }
   async delete(id) {
-    const loading = await this.loadingCtrl.create({message: 'Deleting'});
-    await loading.present();
-    await this.api.deleteExercise(id).subscribe((res: ApiResponse) => {
-      if (res.success) {
-        // this.alertCtrl.presentToast('Operation successful');
-      }
-      loading.dismiss();
-        // this.location.back();
-      }, err => {
-        console.log(err);
+    this.alertService.alert(
+      'Delete!',
+      'Press <strong>okay</strong> to delete.',
+      () => {
+        console.log('Delete Canceled!');
+      },
+      async () => {
+        const loading = await this.loadingCtrl.create({message: 'Deleting'});
+        await loading.present();
+        await this.api.deleteExercise(id).subscribe((res: ApiResponse) => {
+        if (res.success) {
+          this.alertService.presentToast('Operation successful');
+        }
         loading.dismiss();
+        // this.location.back();
+        }, err => {
+          console.log(err);
+          loading.dismiss();
+        });
       });
   }
 
 
- async deleteRecord(record) {
+  async deleteRecord(record) {
 
   const alert = await this.alertCtrl.create({
     message: `Do you want to delete this ${record.name} record?`,

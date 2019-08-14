@@ -1,39 +1,53 @@
     .profile-image-wrapper {
-      text-align: center;
-      margin: 20px 0;
-  
-      .profile-image {
-        width: 96px;
-        height: 96px;
-        border-radius: 50%;
-  
-        display: inline-block;
-  
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-      }
-  
-      .profile-image-placeholder {
-        display: inline-block;
-  
-        background-color: #eee;
-        width: 96px;
-        height: 96px;
-        border-radius: 50%;
-  
-        font-size: 12px;
-  
-        ion-icon {
-          font-size: 44px;
-          margin-bottom: -10px;
-          margin-top: 10px;
+        text-align: center;
+        margin: 20px 0;
+        position: relative;
+        .profile-image {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
         }
-      }
+        .profile-image-placeholder {
+            display: inline-block;
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            font-size: 12px;
+            ion-icon {
+                font-size: 44px;
+                margin-bottom: -10px;
+                margin-top: 10px;
+            }
+            div {
+                color: white;
+            }
+        }
     }
-  
-  
-    .toolbar-background {
-      background-color:  var(--ion-color-success-theme) !important;
+    
+    .header {
+        height: 35vh;
+        margin-bottom: -225px;
+        background-repeat: no-repeat;
+        background-position: bottom center;
+        background-image: url('../../../assets/images/pushup.jpg');
+        background-size: cover;
+        filter: opacity(0.3);
+        -webkit-filter: opacity(0.3);
     }
-  
+    
+    .card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    ion-card {
+        background-color: white;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        min-height: 65vh;
+    }
