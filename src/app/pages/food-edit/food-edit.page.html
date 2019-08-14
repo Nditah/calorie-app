@@ -1,76 +1,174 @@
 <ion-header>
-  <ion-toolbar color="success">
+  <ion-toolbar class="green-dark">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button color="light" defaultHref="/food"></ion-back-button>
     </ion-buttons>
-    <ion-title>Edit Food</ion-title>
+    <ion-title color="light">Edit Food</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <div class="green-dark header"></div>
   <form [formGroup]="editForm">
-    <ion-item>
-      <ion-label>Food Name</ion-label>
-      <ion-input type="text" formControlName="name" id="name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Category</ion-label>
-      <ion-select formControlName="category" id="category">
-        <ion-select-option value="FOOD">FOOD</ion-select-option>
-        <ion-select-option value="DRINK">DRINK</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>Description</ion-label>
-      <ion-input type="text" formControlName="description" id="description"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Food Quantity</ion-label>
-      <ion-input type="number" formControlName="quantity" id="quantity"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Water Content</ion-label>
-      <ion-input type="number" formControlName="water" id="water"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Calories</ion-label>
-      <ion-input type="number" formControlName="calories" id="calories"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Carbohydrate</ion-label>
-      <ion-input type="number" formControlName="carbohydrate" id="carbs"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Protein</ion-label>
-      <ion-input type="number" formControlName="protein" id="protein"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Fats</ion-label>
-      <ion-input type="number" formControlName="fats" id="fats"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Fiber</ion-label>
-      <ion-input type="number" formControlName="fibre" id="fibre"></ion-input>
-    </ion-item>
-    
-    <ion-item-divider>
-      <ion-label>
-        Nutrients <ion-button shape="round" (click)="addBlankMinivite()"><ion-icon name="add-circle"></ion-icon></ion-button>
-      </ion-label>
-    </ion-item-divider>
-    <div formArrayName="minivites">
-      <ion-item *ngFor="let nutrient of editForm.get('minivites')['controls']; let i=index" [formGroupName]="i">
-        <ion-label position="floating">Nutrient Name</ion-label>
-        <ion-row>
-          <ion-col size="10">
-            <ion-input type="text" formControlName="minivite_name" item-start></ion-input>
-          </ion-col>
-          <ion-col size="2">
-            <ion-button shape="round" color="dark" (click)="deleteInput(editForm.get('minivites')['controls'], i)"><ion-icon name="trash"></ion-icon></ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-    </div>
-    <ion-button shape="round" color="primary" expand="block" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>
+    <ion-card-title class="create-food" color="dark">
+      Edit Food
+    </ion-card-title>
+    <br/>
+    <ion-card padding>
+      <ion-card-header class="card-head">
+        <ion-card-subtitle>Step: {{currentSLide}} or 4</ion-card-subtitle>
+        <ion-button color="danger" fill="clear" (click)="cancel()">
+          <ion-label>Cancel</ion-label>
+        </ion-button>
+      </ion-card-header>
+      <ion-slides pager="false" #slides>
+
+        <ion-slide>
+          <div style="width: 100%;">
+            <ion-card-content>
+              <ion-list lines="full">
+                <ion-item>
+                  <ion-icon name="ice-cream" slot="start"></ion-icon>
+                  <ion-input type="text" placeholder="Name" formControlName="name" id="name"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="apps" slot="start"></ion-icon>
+                  <ion-label>Category</ion-label>
+                  <ion-select formControlName="category" id="category">
+                    <ion-select-option value="FOOD">FOOD</ion-select-option>
+                    <ion-select-option value="DRINK">DRINK</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="list" slot="start"></ion-icon>
+                  <ion-input type="text" placeholder="Description" formControlName="description" id="description"></ion-input>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+            <ion-card-header class="card-head">
+              <div></div>
+              <ion-button type="button" color="success" fill="clear" (click)="next()">
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+                <ion-label>Next</ion-label>
+              </ion-button>
+            </ion-card-header>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="width: 100%;">
+            <ion-card-content>
+              <ion-list lines="full">
+                <ion-item>
+                  <ion-icon name="pie" slot="start"></ion-icon>
+                  <ion-input type="number" placeholder="Food Quantity" formControlName="quantity" id="quantity"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="water" slot="start"></ion-icon>
+                  <ion-input placeholder="Water Content" type="number" formControlName="water" id="water"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="nutrition" slot="start"></ion-icon>
+                  <ion-input placeholder="Calories" type="number" formControlName="calories" id="calories"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="nutrition" slot="start"></ion-icon>
+                  <ion-input placeholder="Carbohydrate" type="number" formControlName="carbohydrate" id="carbs"></ion-input>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+            <ion-card-header class="card-head">
+              <ion-button color="success" fill="clear" shape="round" (click)="prev()">
+                <ion-icon name="arrow-back" slot="start"></ion-icon>
+                <ion-label>Prev</ion-label>
+              </ion-button>
+              <ion-button color="success" fill="clear" shape="round" (click)="next()">
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+                <ion-label>Next</ion-label>
+              </ion-button>
+            </ion-card-header>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="width: 100%;">
+            <ion-card-content>
+              <ion-list lines="full">
+                <ion-item>
+                  <ion-icon name="nutrition" slot="start"></ion-icon>
+                  <ion-input placeholder="Protein" type="number" formControlName="protein" id="protein"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="nutrition" slot="start"></ion-icon>
+                  <ion-input type="number" placeholder="Fats" formControlName="fats" id="fats"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="nutrition" slot="start"></ion-icon>
+                  <ion-input type="number" placeholder="Fiber" formControlName="fibre" id="fibre"></ion-input>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+            <ion-card-header class="card-head">
+              <ion-button color="success" fill="clear" shape="round" (click)="prev()">
+                <ion-icon name="arrow-back" slot="start"></ion-icon>
+                <ion-label>Prev</ion-label>
+              </ion-button>
+              <ion-button color="success" fill="clear" shape="round" (click)="next()">
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+                <ion-label>Next</ion-label>
+              </ion-button>
+            </ion-card-header>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="width: 100%">
+            <ion-card-header class="card-head">
+              <ion-card-title>Nutrients</ion-card-title>
+              <ion-button fill="clear" color="success" (click)="addBlankMinivite()">
+                <ion-icon name="add" slot="start"></ion-icon>
+                <ion-label>Add</ion-label>
+              </ion-button>
+            </ion-card-header>
+            <ion-card-content no-padding>
+              <div formArrayName="minivites" style="width: 100%">
+                <ion-grid>
+                  <ion-row class="nuts" *ngFor="let minivite of editForm.get('minivites')['controls']; let i=index" [formGroupName]="i">
+                    <ion-col size="1">
+                      <ion-icon name="arrow-dropright" mode="md"></ion-icon>
+                    </ion-col>
+                    <ion-col size="5">
+                      <ion-item lines="full">
+                        <ion-input type="text" placeholder="Name" formControlName="minivite_name" item-start></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="4">
+                      <ion-item lines="full">
+                        <ion-input type="number" placeholder="Value" formControlName="minivite_value" item-start></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="2">
+                      <ion-button size="small" fill="clear" color="danger" (click)="deleteInput(editForm.get('minivites'), i)">
+                        <ion-icon name="close" mode="md"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </ion-card-content>
+            <ion-card-header class="card-head">
+              <ion-button color="success" fill="clear" shape="round" (click)="prev()">
+                <ion-icon name="arrow-back" slot="start"></ion-icon>
+                <ion-label>Prev</ion-label>
+              </ion-button>
+              <ion-button color="success" [disabled]="!editForm.valid" (click)="submitRecord()">
+                <ion-label>Submit</ion-label>
+              </ion-button>
+            </ion-card-header>
+          </div>
+        </ion-slide>
+
+      </ion-slides>
+    </ion-card>
   </form>
 </ion-content>

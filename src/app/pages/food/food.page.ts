@@ -27,7 +27,16 @@ export class FoodPage implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => this.segmentChanged.call(this), 3000);
+    this.reloadRecords();
+  }
+
+  reloadRecords() {
+    setTimeout(() => {
+      if (this.currentRecords.length <= 1) {
+        this.segmentChanged.call(this);
+        this.reloadRecords();
+      }
+    }, 1000);
   }
 
   searchRecord(ev) {

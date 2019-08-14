@@ -32,7 +32,6 @@ export class MinivitePage implements OnInit {
   }
 
   ngOnInit() {
-    //
   }
 
 }

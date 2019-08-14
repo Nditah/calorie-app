@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {IonSlides, LoadingController} from '@ionic/angular';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse } from 'src/app/models';
+import {ApiResponse, Food} from 'src/app/models';
+import {Foods} from '../../providers';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-food-edit',
@@ -12,17 +14,21 @@ import { ApiResponse } from 'src/app/models';
 })
 export class FoodEditPage implements OnInit {
 
+  @ViewChild('slides') slides: IonSlides;
   editForm: FormGroup;
   minivites: FormArray;
   vitamins: FormArray;
   isReadyToSave = false;
+  currentSLide = 1;
 
   constructor(public api: ApiService,
     private alertService: AlertService,
     public loadingController: LoadingController,
     private route: ActivatedRoute,
+    private location: Location,
     public router: Router,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+  ) {
       this.getFoom(this.route.snapshot.paramMap.get('id'));
       this.editForm = this.formBuilder.group({
         'name' : [null, Validators.required],
@@ -41,6 +47,27 @@ export class FoodEditPage implements OnInit {
     }
 
   ngOnInit() {
+    this.slides.lockSwipes(true);
+  }
+
+  prev() {
+    this.slides.lockSwipes(false).then(() => {
+      this.slides.slidePrev().then(() => {
+        this.slides.lockSwipes(true).then(() => {
+          this.currentSLide -= 1;
+        });
+      });
+    });
+  }
+
+  next() {
+    this.slides.lockSwipes(false).then(() => {
+      this.slides.slideNext().then(() => {
+        this.slides.lockSwipes(true).then(() => {
+          this.currentSLide += 1;
+        });
+      });
+    });
   }
 
   async getFoom(id) {
@@ -110,6 +137,10 @@ export class FoodEditPage implements OnInit {
 
   deleteInput(control, index) {
     control.removeAt(index);
+  }
+
+  cancel() {
+    this.location.back();
   }
 
 }

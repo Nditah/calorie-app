@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LoadingController, IonSlides } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
@@ -13,9 +13,11 @@ import { ApiResponse } from 'src/app/models';
 })
 export class FoodAddPage implements OnInit {
 
+  @ViewChild('slides') slides: IonSlides;
   addForm: FormGroup;
   minivites: FormArray;
   isReadyToSave = false;
+  currentSLide = 1;
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -35,11 +37,37 @@ export class FoodAddPage implements OnInit {
         'protein': [null, Validators.required],
         'fats': [null, Validators.required],
         'fibre': [null, Validators.required],
-        'minivites' : this.formBuilder.array([]),
+        'minivites' : this.formBuilder.array([
+          this.formBuilder.group({
+            minivite_name: [null, Validators.required],
+            minivite_value: [null, Validators.required],
+          })
+        ]),
       });
     }
 
   ngOnInit() {
+    this.slides.lockSwipes(true);
+  }
+
+  prev() {
+    this.slides.lockSwipes(false).then(() => {
+      this.slides.slidePrev().then(() => {
+        this.slides.lockSwipes(true).then(() => {
+          this.currentSLide -= 1;
+        });
+      });
+    });
+  }
+
+  next() {
+    this.slides.lockSwipes(false).then(() => {
+      this.slides.slideNext().then(() => {
+        this.slides.lockSwipes(true).then(() => {
+          this.currentSLide += 1;
+        });
+      });
+    });
   }
 
   // * Minivites

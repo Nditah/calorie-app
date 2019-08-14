@@ -21,8 +21,8 @@
 
 <ion-content>
   <ion-searchbar mode="ios" animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Food"></ion-searchbar>
-    <ion-list *ngFor="let record of currentRecords">
-      <ion-item routerLink="/food-detail/{{record.id}}" lines="none" routerDirection="forward">
+    <ion-list lines="none">
+      <ion-item *ngFor="let record of currentRecords" routerLink="/food-detail/{{record.id}}" routerDirection="forward">
         <ion-avatar item-start slot="start">
           <img [src]="record.image" alt=" "/>
         </ion-avatar>

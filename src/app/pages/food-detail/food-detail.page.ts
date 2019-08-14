@@ -14,12 +14,14 @@ export class FoodDetailPage implements OnInit {
 
   record: any = {};
 
-  constructor(public api: ApiService,
+  constructor(
+    public api: ApiService,
     public foods: Foods,
     private alertService: AlertService,
     public loadingCtrl: LoadingController,
     public activatedRoute: ActivatedRoute,
-    public router: Router) {
+    public router: Router,
+  ) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
       const record = this.foods.query({ id })[0];
       this.record = record || foods.defaultRecord;
@@ -48,18 +50,27 @@ export class FoodDetailPage implements OnInit {
         this.alertService.presentToast(err.message);
       });
   }
+
   async delete(id) {
-    const loading = await this.loadingCtrl.create({message: 'Deleting'});
-    await loading.present();
-    await this.api.deleteFood(id).subscribe((res: ApiResponse) => {
-      if (res.success) {
-        this.alertService.presentToast('Operation successful');
-      }
-      loading.dismiss();
-        // this.location.back();
-      }, err => {
-        console.log(err);
-        loading.dismiss();
-      });
+    this.alertService.alert(
+        'Delete!',
+        'Press <strong>okay</strong> to delete.',
+        () => {
+          console.log('Delete Canceled!');
+        },
+        async () => {
+          const loading = await this.loadingCtrl.create({message: 'Deleting'});
+          await loading.present();
+          await this.api.deleteFood(id).subscribe((res: ApiResponse) => {
+            if (res.success) {
+              this.alertService.presentToast('Operation successful');
+            }
+            loading.dismiss();
+            // this.location.back();
+          }, err => {
+            console.log(err);
+            loading.dismiss();
+          });
+        });
   }
 }

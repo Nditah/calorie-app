@@ -1,28 +1,47 @@
 <ion-header>
-  <ion-toolbar color="success">
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-        <ion-title>Nutrition</ion-title>
-    </ion-toolbar>
+  <ion-toolbar class="green-dark">
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+      <ion-title color="light">Nutrition</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar mode="ios" animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Class"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-searchbar padding animated autocomplete="on" shape="round" (ionInput)="searchRecord($event)" placeholder="Search Class"></ion-searchbar>
-<div padding>
-  <p>Most of the foods that you consume are made up of several of the classes of nutrients. 
-  Some of the nutrients are needed by the body all the time while the others are needed once in awhile. 
-  People’s health deteriorates because of the imbalance of nutrients. 
-  There can be too much of a nutrient or a deficiency in it.
-</p>
-</div>
-<ion-list *ngFor="let record of currentRecords">
-  <ion-item routerLink="/minivite-detail/{{record.id}}"  routerDirection="forward">
-    <ion-avatar item-start slot="start">
-      <img [src]="record.image" />
-    </ion-avatar>
-    <h2> {{ record.name }} </h2>
-    <ion-badge item-start slot="end"> {{ record.symbol }}</ion-badge>
-  </ion-item>
-</ion-list>
+  <div class="item-profile">
+    <ion-label color="light" class="green-dark" text-center padding>
+      <h2>Most of the foods that you consume are made up of several of the classes of nutrients.<br/>
+        Some of the nutrients are needed by the body all the time while the others are needed once in awhile.<br/>
+        People’s health deteriorates because of the imbalance of nutrients.<br/>
+        There can be too much of a nutrient or a deficiency in it.
+      </h2>
+    </ion-label>
+  </div>
+  <ion-card padding-horizontal class="body-card">
+    <ion-card-header>
+      <ion-card-subtitle>List of Nutrients</ion-card-subtitle>
+      <ion-card-title>
+        <ion-icon name="funnel" mode="md"></ion-icon> Nutrients
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item *ngFor="let record of currentRecords" routerLink="/minivite-detail/{{record.id}}" routerDirection="forward">
+          <ion-avatar item-start slot="start">
+            <img [src]="record.image" alt=" "/>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{ record.name }}</h2>
+            <p>{{ record.symbol }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <br/>
+  <br/>
+  <div class="bottom-shadow"></div>
 </ion-content>
