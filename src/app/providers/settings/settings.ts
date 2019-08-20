@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
  */
 @Injectable()
 export class Settings {
-  private SETTINGS_KEY: string = '_settings';
+  private SETTINGS_KEY = '_settings';
 
   settings: any;
 
@@ -25,7 +25,7 @@ export class Settings {
       } else {
         return this.setAll(this._defaults).then((val) => {
           this.settings = val;
-        })
+        });
       }
     });
   }

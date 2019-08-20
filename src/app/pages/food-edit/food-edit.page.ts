@@ -123,6 +123,7 @@ export class FoodEditPage implements OnInit {
       }}, (err) => {
         console.log(err);
       });
+
   }
 
   createMinivite(): FormGroup {

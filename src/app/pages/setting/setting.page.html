@@ -1,74 +1,38 @@
 <ion-header>
-    <ion-toolbar color="success">
+    <ion-toolbar class="green-dark">
         <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
+            <ion-menu-button color="light"></ion-menu-button>
         </ion-buttons>
-      <ion-title> Settings </ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="cancel()">
-          <span color="primary" showWhen="ios">Cancel</span>
-          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-        </ion-button>
-        <ion-button (click)="submitRecord()" [disabled]="!isReadyToSave" strong>
-          <span color="primary" showWhen="ios">Done</span>
-          <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+        <ion-title color="light">Settings</ion-title>
     </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
-      <ion-list>
-          <ion-list-header>
-            <ion-label><h2>Conversions</h2></ion-label>
-          </ion-list-header>
-          <ion-item>Energy Calories: 1 Kcal = 4184 Joules</ion-item>
-          <ion-item>1 Pound = 16 Ounce = 453.5 Grams</ion-item>
-          <ion-item>1 Cup = 0.5 Pint = 8 ounce</ion-item>
-          <ion-item>1 Litre = 4.2 Cups = 33.8 ounce </ion-item>
-          <ion-item>1 Inch = 2.54 cm</ion-item>
-          <ion-item-divider>
-              <ion-label><h2>Preferences</h2></ion-label>
-           </ion-item-divider>      
-          <form [formGroup]="editForm">
-        <ion-item>
-          <ion-label>Theme</ion-label>
-          <ion-select formControlName="theme" id="theme" multiple="false">
-              <ion-select-option value="dark">Dark</ion-select-option>
-              <ion-select-option value="light">Light</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label>Body Mass (Weight)</ion-label>
-          <ion-select formControlName="weight" id="weight" multiple="false">
-              <ion-select-option value="kg">kilograms</ion-select-option>
-              <ion-select-option value="lb">Pounds</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label>Height</ion-label>
-          <ion-select formControlName="height" id="height" multiple="false">
-              <ion-select-option value="cm">cm</ion-select-option>
-              <ion-select-option value="in">inches</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label>Food Quantity</ion-label>
-          <ion-select formControlName="food_quantity" id="food_quantity" multiple="false">
-              <ion-select-option value="g">grams</ion-select-option>
-              <ion-select-option value="lb">pounds</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label>Drink Quantity</ion-label>
-          <ion-select formControlName="drink_quantity" id="drink_quantity" multiple="false">
-            <ion-select-option value="g">grams</ion-select-option>
-            <ion-select-option value="ml">milliliters</ion-select-option>
-            <ion-select-option value="cu">cup</ion-select-option>
-            <ion-select-option value="oz">ounce</ion-select-option>
-          </ion-select>
-        </ion-item>
-      <ion-button shape="round" color="primary" expand="block" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>
-    </form>
-  </ion-list>
-  </ion-content>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title class="green-text">Unit Conversion</ion-card-title>
+        </ion-card-header>
+        <ion-item>Energy Calories: 1 Kcal = 4184 Joules</ion-item>
+        <ion-item>1 Pound = 16 Ounce = 453.5 Grams</ion-item>
+        <ion-item>1 Cup = 0.5 Pint = 8 ounce</ion-item>
+        <ion-item>1 Litre = 4.2 Cups = 33.8 ounce </ion-item>
+        <ion-item>1 Inch = 2.54 cm</ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title class="green-text">Preferences</ion-card-title>
+        </ion-card-header>
+        <form [formGroup]="editForm">
+            <ion-item *ngFor="let unit of unitData">
+                <ion-label>
+                    <h2>{{unit.type}}</h2>
+                </ion-label>
+                <ion-select [formControlName]="unit.type" name="{{unit.type}}" multiple="false">
+                    <ion-select-option *ngFor="let label of unit.labels; let i=index" value="{{unit.values[i]}}">
+                        {{label + ' (' + unit.values[i] + ')'}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </form>
+    </ion-card>
+</ion-content>
