@@ -1,3 +1,4 @@
+import { UnitService } from './../../services/unit.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +19,7 @@ export class MiniviteDetailPage implements OnInit {
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     public activatedRoute: ActivatedRoute,
+    public unit: UnitService,
     public router: Router) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
       const record = this.minivites.query({ id })[0];

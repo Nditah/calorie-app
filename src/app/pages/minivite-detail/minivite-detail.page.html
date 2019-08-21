@@ -1,14 +1,14 @@
 <ion-header>
-  <ion-toolbar class="green-dark">
-      <ion-buttons slot="start">
-        <ion-back-button color="light" defaultHref="/minivite"></ion-back-button>
-      </ion-buttons>
-      <ion-title color="light">Nutrient Details</ion-title>
-  </ion-toolbar>
+    <ion-toolbar class="green-dark">
+        <ion-buttons slot="start">
+            <ion-back-button color="light" defaultHref="/minivite"></ion-back-button>
+        </ion-buttons>
+        <ion-title color="light">Nutrient Details</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="record">
-  <div class="item-profile" text-center [style.background-image]="'url(' + record.image + ')'"></div>
+    <div class="item-profile" text-center [style.background-image]="'url(' + record.image + ')'"></div>
     <ion-card>
         <br/>
         <ion-card-header padding>
@@ -17,33 +17,33 @@
         </ion-card-header>
 
         <ion-card-content>
-          <ion-label>
-              <p padding-horizontal>Requirement</p>
-              <h2 class="gray-text" text-justify padding-horizontal>{{ record.requirement }} {{ record.unit }}</h2>
-          </ion-label>
-          <br/>
-          <ion-label>
-              <p padding-horizontal>Use</p>
-              <h2 class="gray-text" text-justify padding-horizontal>{{ record.use }}</h2>
-          </ion-label>
-          <br/>
-          <ion-label>
-              <p padding-horizontal>Source</p>
-              <h2 class="gray-text" text-justify padding-horizontal>{{ record.source }}</h2>
-          </ion-label>
-          <br/>
-          <ion-label>
-              <p padding-horizontal>Limit</p>
-              <h2 class="gray-text" text-justify padding-horizontal>{{ record.limit }} {{ record.unit }}</h2>
-          </ion-label>
-          <br/>
-          <ion-label>
-              <p padding-horizontal>Description</p>
-              <h2 class="gray-text" text-justify padding-horizontal>{{ record.description }}</h2>
-          </ion-label>
+            <ion-label>
+                <p padding-horizontal>Requirement</p>
+                <h2 class="gray-text" text-justify padding-horizontal>{{ unit.mass(record.requirement, record.unit) }}</h2>
+            </ion-label>
+            <br/>
+            <ion-label>
+                <p padding-horizontal>Use</p>
+                <h2 class="gray-text" text-justify padding-horizontal>{{ record.use }}</h2>
+            </ion-label>
+            <br/>
+            <ion-label>
+                <p padding-horizontal>Source</p>
+                <h2 class="gray-text" text-justify padding-horizontal>{{ record.source }}</h2>
+            </ion-label>
+            <br/>
+            <ion-label>
+                <p padding-horizontal>Limit</p>
+                <h2 class="gray-text" text-justify padding-horizontal>{{ unit.mass(record.limit, record.unit) }}</h2>
+            </ion-label>
+            <br/>
+            <ion-label>
+                <p padding-horizontal>Description</p>
+                <h2 class="gray-text" text-justify padding-horizontal innerHTML={{record.description}}>{{ record.description }}</h2>
+            </ion-label>
         </ion-card-content>
     </ion-card>
     <br/>
     <br/>
     <div class="bottom-shadow"></div>
-  </ion-content>
+</ion-content>

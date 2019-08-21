@@ -1,5 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 
 export enum MassUnits {
   Gram = 'g',
@@ -47,7 +48,7 @@ export class UnitService {
 
   private SETTINGS_KEY = '_unit-settings';
 
-  private _settings: {
+  private _settings = {
     Mass: {
       [MassUnits.Gram]: 1,
       [MassUnits.Kilogram]: 0.001,
@@ -80,49 +81,59 @@ export class UnitService {
     Length: LengthUnits.Centimeter,
   };
 
-  private units: UnitSettings = this._defaults;
+  private units: UnitSettings = Object.assign({}, this._defaults);
 
-  constructor(private storage: Storage) {
+  constructor(private storage: Storage, private numberPipe: DecimalPipe) {
     this.load();
   }
 
   private load = async () => {
     const value: UnitSettings = await this.storage.get(this.SETTINGS_KEY);
     if (value) {
-      this.units = Object.assign(this.units, value);
+      this.units = Object.assign({}, this.units, value);
     } else {
-      this.setAll(this.units);
+      await this.setAll(this.units);
     }
   }
 
   private setAll = async (value: UnitSettings) => {
-    await this.storage.set(this.SETTINGS_KEY, value)
-    .then((val: UnitSettings) => {
-      this.units = val;
-    });
+    const val = await this.storage.set(this.SETTINGS_KEY, value);
+    this.units = val;
   }
 
-  public async setValue(key: UnitType|any, value: MassUnits|VolumeUnits|LengthUnits|any) {
+  public setValue = async (key: UnitType|any, value: MassUnits|VolumeUnits|LengthUnits|any) => {
     this.units[key] = value;
     await this.setAll(this.units);
   }
 
-  public getValue(key: UnitType|any) {
+  public getValue = (key: UnitType|any) => {
     return this.units[key];
   }
 
-  public mass(value: number, showUnit = true) {
-    const unit = this.units.Mass;
-    return `${(this._settings.Mass[unit] * value)}${showUnit ? ' ' + this.units.Mass : ''}`;
+  public mass = (value: number, fromUnit: MassUnits|any = null, toUnit: MassUnits|any = null, showUnit = true) => {
+    const inUnit = fromUnit || this.units.Mass;
+    const outUnit = toUnit || this.units.Mass;
+    const output = this.numberPipe.transform(((value / this._settings.Mass[inUnit]) * this._settings.Mass[outUnit]), '1.1-2');
+    return `${output}${showUnit ? ' ' + outUnit : ''}`;
   }
 
-  public volume(value: number, showUnit = true) {
-    const unit = this.units.Volume;
-    return `${(this._settings.Volume[unit] * value)}${showUnit ? ' ' + this.units.Volume : ''}`;
+  public volume = (value: number, fromUnit: VolumeUnits|any = null, toUnit: MassUnits|any = null, showUnit = true) => {
+    const inUnit = fromUnit || this.units.Volume;
+    const outUnit = toUnit || this.units.Volume;
+    const output = this.numberPipe.transform(((value / this._settings.Volume[inUnit]) * this._settings.Volume[outUnit]), '1.1-2');
+    return `${output}${showUnit ? ' ' + outUnit : ''}`;
   }
 
-  public length(value: number, showUnit = true) {
-    const unit = this.units.Length;
-    return `${(this._settings.Length[unit] * value)}${showUnit ? ' ' + this.units.Length : ''}`;
+  public length = (value: number, fromUnit: LengthUnits|any = null, toUnit: MassUnits|any = null, showUnit = true) => {
+    const inUnit = fromUnit || this.units.Length;
+    const outUnit = toUnit || this.units.Length;
+    const output = this.numberPipe.transform(((value / this._settings.Length[inUnit]) * this._settings.Length[outUnit]), '1.1-2');
+    return `${output}${showUnit ? ' ' + outUnit : ''}`;
+  }
+
+  public reset = () => {
+    this.units = Object.assign({}, this._defaults);
+    this.setAll(this._defaults);
+    return this._defaults;
   }
 }

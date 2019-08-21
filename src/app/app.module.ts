@@ -28,6 +28,7 @@ import { InterceptorService } from './services/interceptor.service';
 import { ApiService } from './services';
 
 import { Settings, Exercises, Minivites, Foods, Logs, Feedbacks, User, Api } from './providers';
+import { DecimalPipe } from '@angular/common';
 
 
 // AoT requires an exported function for factories
@@ -79,6 +80,7 @@ export function provideSettings(storage: Storage) {
     StatusBar,
     SplashScreen,
     Camera,
+    DecimalPipe,
     Vibration,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },

@@ -1,0 +1,41 @@
+.card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.convert-con {
+    display: flex;
+    flex-direction: column;
+    padding: 1em 0.5em;
+    .convert-category {
+        padding-bottom: 1em;
+        ion-item {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    }
+    .convert-body {
+        display: flex;
+        flex-direction: column;
+        ion-list {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 0px;
+            margin: 0px;
+        }
+        .convert-body-left {
+            flex: 1;
+        }
+        .convert-body-center {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .convert-body-right {
+            flex: 1;
+        }
+    }
+}

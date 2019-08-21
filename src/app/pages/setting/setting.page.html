@@ -7,20 +7,60 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+    <div class="convert-con">
+        <div class="convert-category">
+            <ion-item color="light">
+                <ion-label>Converter</ion-label>
+                <ion-select multiple="false" [(ngModel)]="currentConverter" (ngModelChange)="converterChange($event)">
+                    <ion-select-option *ngFor="let unit of unitData" value="{{unit.type}}">{{unit.type}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </div>
+        <div class="convert-body">
+            <div class="convert-body-left">
+                <ion-list>
+                    <ion-item color="light" lines="full">
+                        <ion-input type="number" text-center [(ngModel)]="convertFrom.value" (ionInput)="fromValueChange($event)"></ion-input>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label>Unit</ion-label>
+                        <ion-select multiple="false" [(ngModel)]="convertFrom.unit" (ngModelChange)="fromUnitChange($event)">
+                            <ion-select-option *ngFor="let unit of converter[currentConverter].units; let i=index" value="{{unit}}">
+                                {{converter[currentConverter].labels[i]}} ({{unit}})
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="convert-body-center">
+                <h2>
+                    <ion-icon name="swap" style="transform: rotate(90deg);"></ion-icon>
+                </h2>
+            </div>
+            <div class="convert-body-right">
+                <ion-list>
+                    <ion-item color="light" lines="full">
+                        <ion-input type="number" text-center [(ngModel)]="convertTo.value" (ionInput)="toValueChange($event)"></ion-input>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label>Unit</ion-label>
+                        <ion-select multiple="false" [(ngModel)]="convertTo.unit" (ngModelChange)="toUnitChange($event)">
+                            <ion-select-option *ngFor="let unit of converter[currentConverter].units; let i=index" value="{{unit}}">
+                                {{converter[currentConverter].labels[i]}} ({{unit}})
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </div>
     <ion-card>
-        <ion-card-header>
-            <ion-card-title class="green-text">Unit Conversion</ion-card-title>
-        </ion-card-header>
-        <ion-item>Energy Calories: 1 Kcal = 4184 Joules</ion-item>
-        <ion-item>1 Pound = 16 Ounce = 453.5 Grams</ion-item>
-        <ion-item>1 Cup = 0.5 Pint = 8 ounce</ion-item>
-        <ion-item>1 Litre = 4.2 Cups = 33.8 ounce </ion-item>
-        <ion-item>1 Inch = 2.54 cm</ion-item>
-    </ion-card>
-    <ion-card>
-        <ion-card-header>
+        <ion-card-header class="card-head">
             <ion-card-title class="green-text">Preferences</ion-card-title>
+            <ion-button color="danger" fill="clear" (click)="resetUnits()">
+                <ion-label>Reset</ion-label>
+            </ion-button>
         </ion-card-header>
         <form [formGroup]="editForm">
             <ion-item *ngFor="let unit of unitData">

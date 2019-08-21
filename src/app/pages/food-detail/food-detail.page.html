@@ -1,115 +1,115 @@
 <ion-header>
     <ion-toolbar class="green-dark">
-      <ion-buttons slot="start">
-        <ion-back-button color="light" defaultHref="/food"></ion-back-button>
-      </ion-buttons>
-      <ion-title color="light">Food Details</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button color="light" defaultHref="/food"></ion-back-button>
+        </ion-buttons>
+        <ion-title color="light">Food Details</ion-title>
     </ion-toolbar>
-  </ion-header>
+</ion-header>
 
-  <ion-content *ngIf="record">
+<ion-content *ngIf="record">
     <div class="item-profile" text-center [style.background-image]="'url(' + record.image + ')'"></div>
     <ion-card>
-      <br/>
-      <ion-card-header padding>
-        <ion-card-subtitle>{{ record.type }} {{ record.category }}</ion-card-subtitle>
-        <ion-card-title>{{ record.name }}</ion-card-title>
-      </ion-card-header>
+        <br/>
+        <ion-card-header padding>
+            <ion-card-subtitle>{{ record.type }} {{ record.category }}</ion-card-subtitle>
+            <ion-card-title>{{ record.name }}</ion-card-title>
+        </ion-card-header>
 
-      <ion-card-content>
-        <ion-list>
-          <ion-item lines="none">
-            <ion-label>
-              <p>Name</p>
-              <h2>{{ record.name }}</h2>
-            </ion-label>
-          </ion-item>
-          <ion-label>
-            <p padding-horizontal>Description</p>
-            <h2 class="gray-text" text-justify padding-horizontal>{{ record.description }}</h2>
-          </ion-label>
-          <ion-item lines="none">
-            <ion-label>
-              <p>Water</p>
-              <h2>{{ record.water }} mg</h2>
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>
-              <p>Calorie</p>
-              <h2>{{ record.calories }} mg</h2>
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>
-              <p>Carbohydrate</p>
-              <h2>{{ record.carbohydrate }} mg</h2>
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>
-              <p>Protein</p>
-              <h2>{{ record.protein }} mg</h2>
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>
-              <p>Fats</p>
-              <h2>{{ record.fats }} mg</h2>
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>
-              <p>Fibre</p>
-              <h2>{{ record.fibre }} mg</h2>
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>
-              <p>Nutrients ({{ record.minivites ? record.minivites.length : 0}})</p>
-              <ion-grid *ngIf="record.minivites && record.minivites.length > 0">
-                <ion-row>
-                  <ion-col size="9">
-                    <ion-text item-start>Nutrient Name</ion-text>
-                  </ion-col>
-                  <ion-col size="3">
-                    <ion-text item-end>Volume</ion-text>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-              <h2 *ngFor="let minivite of record.minivites">
-                <ion-grid>
-                  <ion-row>
-                    <ion-col size="9">
-                      <ion-text item-start>{{ minivite.minivite_name || '---' }}</ion-text>
-                    </ion-col>
-                    <ion-col size="3">
-                      <ion-text item-end> {{ minivite.minivite_value }} mg</ion-text>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-              </h2>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
+        <ion-card-content>
+            <ion-list>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Name</p>
+                        <h2>{{ record.name }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-label>
+                    <p padding-horizontal>Description</p>
+                    <h2 class="gray-text" text-justify padding-horizontal>{{ record.description }}</h2>
+                </ion-label>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Water</p>
+                        <h2>{{ unit.mass(record.water, 'mg') }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Calorie</p>
+                        <h2>{{ unit.mass(record.calories, 'mg') }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Carbohydrate</p>
+                        <h2>{{ unit.mass(record.carbohydrate, 'mg') }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Protein</p>
+                        <h2>{{ unit.mass(record.protein, 'mg') }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Fats</p>
+                        <h2>{{ unit.mass(record.fats, 'mg') }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Fibre</p>
+                        <h2>{{ unit.mass(record.fibre, 'mg') }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Nutrients ({{ record.minivites ? record.minivites.length : 0}})</p>
+                        <ion-grid *ngIf="record.minivites && record.minivites.length > 0">
+                            <ion-row>
+                                <ion-col size="9">
+                                    <ion-text item-start>Nutrient Name</ion-text>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-text item-end>Volume</ion-text>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                        <h2 *ngFor="let minivite of record.minivites">
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col size="9">
+                                        <ion-text item-start>{{ minivite.minivite_name || '---' }}</ion-text>
+                                    </ion-col>
+                                    <ion-col size="3">
+                                        <ion-text item-end> {{ unit.mass(minivite.minivite_value, 'mg') }}</ion-text>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </h2>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
     </ion-card>
     <br/>
     <br/>
     <br/>
     <br/>
     <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-      <ion-fab-button color="success">
-        <ion-icon name="more"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-list side="top">
-        <ion-fab-button routerLink="/food-edit/{{record.id}}" color="success">
-          <ion-icon name="create"></ion-icon>
+        <ion-fab-button color="success">
+            <ion-icon name="more"></ion-icon>
         </ion-fab-button>
-        <ion-fab-button (click)="delete(record.id)" color="danger">
-          <ion-icon name="trash"></ion-icon>
-        </ion-fab-button>
-      </ion-fab-list>
+        <ion-fab-list side="top">
+            <ion-fab-button routerLink="/food-edit/{{record.id}}" color="success">
+                <ion-icon name="create"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="delete(record.id)" color="danger">
+                <ion-icon name="trash"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
     </ion-fab>
     <div class="bottom-shadow"></div>
-  </ion-content>
+</ion-content>

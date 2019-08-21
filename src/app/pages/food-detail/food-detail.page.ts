@@ -1,3 +1,4 @@
+import { UnitService } from './../../services/unit.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class FoodDetailPage implements OnInit {
     public loadingCtrl: LoadingController,
     public activatedRoute: ActivatedRoute,
     public router: Router,
+    public unit: UnitService,
   ) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
       const record = this.foods.query({ id })[0];
