@@ -1,8 +1,10 @@
+import { UnitService } from './../../services/unit.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse } from 'src/app/models';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-log-detail',
@@ -13,11 +15,15 @@ export class LogDetailPage implements OnInit {
 
   record: any = {};
 
-  constructor(public api: ApiService,
+  constructor(
+    public api: ApiService,
     private alertService: AlertService,
     public loadingCtrl: LoadingController,
     public route: ActivatedRoute,
-    public router: Router){ }
+    public router: Router,
+    public unit: UnitService,
+    private location: Location,
+    ) { }
 
   ngOnInit() {
     this.getLog();
@@ -39,18 +45,27 @@ export class LogDetailPage implements OnInit {
         this.alertService.presentToast(err.message);
       });
   }
+
   async delete(id) {
-    const loading = await this.loadingCtrl.create({message: 'Deleting'});
-    await loading.present();
-    await this.api.deleteLog(id).subscribe((res: ApiResponse) => {
-      if (res.success) {
-        this.alertService.presentToast('Operation successful');
-      }
-      loading.dismiss();
-        // this.location.back();
-      }, err => {
-        console.log(err);
-        loading.dismiss();
-      });
+      this.alertService.alert(
+        'Delete!',
+        'Press <strong>okay</strong> to delete.',
+        () => {
+          console.log('Delete Canceled!');
+        },
+        async () => {
+          const loading = await this.loadingCtrl.create({message: 'Deleting'});
+          await loading.present();
+          await this.api.deleteLog(id).subscribe((res: ApiResponse) => {
+            if (res.success) {
+              this.alertService.presentToast('Operation successful');
+            }
+            loading.dismiss();
+              this.router.navigateByUrl('/log');
+            }, err => {
+              console.log(err);
+              loading.dismiss();
+            });
+        });
   }
 }

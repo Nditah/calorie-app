@@ -1,182 +1,181 @@
 <ion-header>
     <ion-toolbar class="green-dark">
-      <ion-buttons slot="start">
-        <ion-menu-button color="light"></ion-menu-button>
-      </ion-buttons>
-      <ion-title color="light">Profile</ion-title>
-      <ion-buttons slot="end">
-          <ion-button color="light" (click)="editProfile()" class="editSaveToggleBtn">{{caption_name}}</ion-button>
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <ion-title color="light">Profile</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="light" (click)="editProfile()" class="editSaveToggleBtn">{{caption_name}}</ion-button>
         </ion-buttons>
     </ion-toolbar>
-  </ion-header>
-  
-  <ion-content class="green-dark">
+</ion-header>
+
+<ion-content class="green-dark">
     <div class="fixed-content">
-      <div class="upperDiv green-dark">
-        <br/>
-      </div>
-      <ion-card style="background-color: white;" class="profile-image-wrapper">
-        <ion-card-header>
-          <div class="profile-image" *ngIf="user">
-              <img *ngIf="user.gender==='FEMALE'" src="../../../assets/images/female-avatar.png">
-              <img *ngIf="user.gender==='MALE'" src="../../../assets/images/male-avatar.png">
-          </div>
-          <div class="profile-name">
-            <ion-card-title *ngIf="user">{{ user.username | uppercase }}</ion-card-title>
-            <ion-card-subtitle *ngIf="user">{{ user.lifestyle }}</ion-card-subtitle>
-          </div>
-        </ion-card-header>
-      </ion-card>
-
-      <ion-card style="background-color: white;">
-      <ion-card-content>
-        <div *ngIf="user && isDisabled">
-          <ion-list class="my-list">
-            <ion-item class="my-item" lines="none">
-              <ion-icon name="person" slot="start"></ion-icon>
-              <ion-label class="label_here">
-                <p>User Name</p>
-                <h3>{{user.username | uppercase}}</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item class="my-item" lines="none">
-              <ion-icon name="mail" slot="start"></ion-icon>
-              <ion-label class="label_here">
-                <p>E-mail Address</p>
-                <h3>{{user.email}}</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item class="my-item" lines="none">
-              <ion-icon name="person" slot="start"></ion-icon>
-              <ion-label class="label_here">
-                <p>Date of Birth</p>
-                <h3>{{user.birth_date}}</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item class="my-item" lines="none">
-              <ion-icon name="call" slot="start"></ion-icon>
-              <ion-label class="label_here">
-                <p>Phone Number</p>
-                <h3>{{user.phone}}</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item class="my-item" lines="none">
-              <ion-icon name="resize" slot="start"></ion-icon>
-              <ion-label class="label_here">
-                <p>Height(cm)</p>
-                <h3>{{user.height}}</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item class="my-item" lines="none">
-              <ion-icon name="fitness" slot="start"></ion-icon>
-              <ion-label class="label_here">
-                <p>Desired Mass(kg)</p>
-                <h3>{{user.desired_mass}}</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item class="my-item" lines="none">
-              <ion-icon name="transgender" slot="start"></ion-icon>
-              <ion-label class="label_here">
-                <p>Gender</p>
-                <h3>{{user.gender}}</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item class="my-item" lines="none">
-              <ion-icon name="walk" slot="start"></ion-icon>
-              <ion-label class="label_here">
-                <p>Lifestyle</p>
-                <h3>{{user.lifestyle}}</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item class="my-item" lines="none">
-              <ion-icon name="flag" slot="start"></ion-icon>
-              <ion-label class="label_here">
-                <p>Country</p>
-                <h3>{{user.country_iso2}}</h3>
-              </ion-label>
-            </ion-item>
-          </ion-list>
+        <div class="upperDiv green-dark">
+            <br/>
         </div>
+        <ion-card style="background: white;" class="profile-image-wrapper">
+            <ion-card-header>
+                <div class="profile-image" *ngIf="user">
+                    <img *ngIf="user.gender==='FEMALE'" src="../../../assets/images/female-avatar.png">
+                    <img *ngIf="user.gender==='MALE'" src="../../../assets/images/male-avatar.png">
+                </div>
+                <div class="profile-name">
+                    <ion-card-title *ngIf="user">{{ user.username | uppercase }}</ion-card-title>
+                    <ion-card-subtitle *ngIf="user">{{ user.lifestyle }}</ion-card-subtitle>
+                </div>
+            </ion-card-header>
+        </ion-card>
 
-        <form *ngIf="editForm && !isDisabled" [formGroup]="editForm" (ngSubmit)="saveProfile()">
-          <ion-list class="my-list">
-            <ion-item class="my-item">
-              <ion-icon name="person" slot="start"></ion-icon>
-              <ion-input type="text" placeholder="User Name" formControlName="username" (keyup)="changedSmtng()"></ion-input>
-            </ion-item>
-    
-            <ion-item>
-              <ion-icon name="mail" slot="start"></ion-icon>
-              <ion-input placeholder="Email Address" type="text" formControlName="email" (keyup)="changedSmtng()"></ion-input>
-            </ion-item>
-    
-            <ion-item>
-              <ion-icon name="key" slot="start"></ion-icon>
-              <ion-input placeholder="Password" type="password" formControlName="password" (keyup)="changedSmtng()"></ion-input>
-            </ion-item>
-    
-            <ion-item style="border-bottom: 0.55px solid #fff !important;">
-              <ion-icon name="person" slot="start"></ion-icon>
-              <ion-datetime mode="ios" placeholder="Date of Birth" displayFormat="MM/DD/YYYY" formControlName="birth_date" (keyup)="changedSmtng()"></ion-datetime>
-            </ion-item>
-    
-            <ion-item style="border-bottom: 0.55px solid #fff !important;">
-                <ion-icon name="call" slot="start"></ion-icon>
-                <ion-input placeholder="Phone Number" type="tel" formControlName="phone" (keyup)="changedSmtng()"></ion-input>
-            </ion-item>
+        <ion-card style="background: white;">
+            <ion-card-content>
+                <div *ngIf="user && isDisabled">
+                    <ion-list class="my-list">
+                        <ion-item class="my-item" lines="none">
+                            <ion-icon name="person" slot="start"></ion-icon>
+                            <ion-label class="label_here">
+                                <p>User Name</p>
+                                <h3>{{user.username | uppercase}}</h3>
+                            </ion-label>
+                        </ion-item>
 
-            <ion-item style="border-bottom: 0.55px solid #fff !important;">
-              <ion-icon name="resize" slot="start"></ion-icon>
-              <ion-input placeholder="Height(cm)" type="number" formControlName="height" (keyup)="changedSmtng()"></ion-input>
-            </ion-item>
+                        <ion-item class="my-item" lines="none">
+                            <ion-icon name="mail" slot="start"></ion-icon>
+                            <ion-label class="label_here">
+                                <p>E-mail Address</p>
+                                <h3>{{user.email}}</h3>
+                            </ion-label>
+                        </ion-item>
 
-            <ion-item style="border-bottom: 0.55px solid #fff !important;">
-              <ion-icon name="fitness" slot="start"></ion-icon>
-              <ion-input placeholder="Desired Mass(kg)" type="number" formControlName="desired_mass" (keyup)="changedSmtng()"></ion-input>
-            </ion-item>
+                        <ion-item class="my-item" lines="none">
+                            <ion-icon name="person" slot="start"></ion-icon>
+                            <ion-label class="label_here">
+                                <p>Date of Birth</p>
+                                <h3>{{user.birth_date}}</h3>
+                            </ion-label>
+                        </ion-item>
 
-            <ion-item style="border-bottom: 0.55px solid #fff !important;">
-              <ion-icon name="transgender" slot="start"></ion-icon>
-              <ion-label>Gender</ion-label>
-              <ion-select formControlName="gender" (keyup)="changedSmtng()">
-                <ion-select-option value="FEMALE">Female</ion-select-option>
-                <ion-select-option value="MALE">Male</ion-select-option>
-              </ion-select>
-            </ion-item>
+                        <ion-item class="my-item" lines="none">
+                            <ion-icon name="call" slot="start"></ion-icon>
+                            <ion-label class="label_here">
+                                <p>Phone Number</p>
+                                <h3>{{user.phone}}</h3>
+                            </ion-label>
+                        </ion-item>
 
-            <ion-item style="border-bottom: 0.55px solid #fff !important;">
-              <ion-icon name="walk" slot="start"></ion-icon>
-              <ion-label>Lifestyle</ion-label>
-              <ion-select class="inputFields" formControlName="lifestyle" (keyup)="changedSmtng()">
-                <ion-select-option value="Active">Active</ion-select-option>
-                <ion-select-option value="Very">Very Active</ion-select-option>
-                <ion-select-option value="Inactive">Inactive</ion-select-option>
-              </ion-select>
-            </ion-item>
+                        <ion-item class="my-item" lines="none">
+                            <ion-icon name="resize" slot="start"></ion-icon>
+                            <ion-label class="label_here">
+                                <p>Height(cm)</p>
+                                <h3>{{user.height}}</h3>
+                            </ion-label>
+                        </ion-item>
 
-            <ion-item style="border-bottom: 0.55px solid #fff !important;" lines="none">
-              <ion-icon name="flag" slot="start"></ion-icon>
-              <ion-label>Country</ion-label>
-              <ion-select class="inputFields" type="text" formControlName="country_iso2" (keyup)="changedSmtng()">
-                <ion-select-option value="NG">Nigeria</ion-select-option>
-                <ion-select-option value="O">Others</ion-select-option>
-              </ion-select>
-            </ion-item>
+                        <ion-item class="my-item" lines="none">
+                            <ion-icon name="fitness" slot="start"></ion-icon>
+                            <ion-label class="label_here">
+                                <p>Desired Mass(kg)</p>
+                                <h3>{{user.desired_mass}}</h3>
+                            </ion-label>
+                        </ion-item>
 
-          </ion-list>
-        </form>
-      </ion-card-content>
-      </ion-card>
-      <br/>
-      <br/>
+                        <ion-item class="my-item" lines="none">
+                            <ion-icon name="transgender" slot="start"></ion-icon>
+                            <ion-label class="label_here">
+                                <p>Gender</p>
+                                <h3>{{user.gender}}</h3>
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item class="my-item" lines="none">
+                            <ion-icon name="walk" slot="start"></ion-icon>
+                            <ion-label class="label_here">
+                                <p>Lifestyle</p>
+                                <h3>{{user.lifestyle}}</h3>
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item class="my-item" lines="none">
+                            <ion-icon name="flag" slot="start"></ion-icon>
+                            <ion-label class="label_here">
+                                <p>Country</p>
+                                <h3>{{user.country_iso2}}</h3>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                </div>
+
+                <form *ngIf="editForm && !isDisabled" [formGroup]="editForm" (ngSubmit)="saveProfile()">
+                    <ion-list class="my-list">
+                        <ion-item class="my-item">
+                            <ion-icon name="person" slot="start"></ion-icon>
+                            <ion-input type="text" placeholder="User Name" formControlName="username" (keyup)="changedSmtng()"></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-icon name="mail" slot="start"></ion-icon>
+                            <ion-input placeholder="Email Address" type="text" formControlName="email" (keyup)="changedSmtng()"></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-icon name="key" slot="start"></ion-icon>
+                            <ion-input placeholder="Password" type="password" formControlName="password" (keyup)="changedSmtng()"></ion-input>
+                        </ion-item>
+
+                        <ion-item style="border-bottom: 0.55px solid #fff !important;">
+                            <ion-icon name="person" slot="start"></ion-icon>
+                            <ion-datetime mode="ios" placeholder="Date of Birth" displayFormat="MM/DD/YYYY" formControlName="birth_date" (keyup)="changedSmtng()"></ion-datetime>
+                        </ion-item>
+
+                        <ion-item style="border-bottom: 0.55px solid #fff !important;">
+                            <ion-icon name="call" slot="start"></ion-icon>
+                            <ion-input placeholder="Phone Number" type="tel" formControlName="phone" (keyup)="changedSmtng()"></ion-input>
+                        </ion-item>
+
+                        <ion-item style="border-bottom: 0.55px solid #fff !important;">
+                            <ion-icon name="resize" slot="start"></ion-icon>
+                            <ion-input placeholder="Height(cm)" type="number" formControlName="height" (keyup)="changedSmtng()"></ion-input>
+                        </ion-item>
+
+                        <ion-item style="border-bottom: 0.55px solid #fff !important;">
+                            <ion-icon name="fitness" slot="start"></ion-icon>
+                            <ion-input placeholder="Desired Mass(kg)" type="number" formControlName="desired_mass" (keyup)="changedSmtng()"></ion-input>
+                        </ion-item>
+
+                        <ion-item style="border-bottom: 0.55px solid #fff !important;">
+                            <ion-icon name="transgender" slot="start"></ion-icon>
+                            <ion-label>Gender</ion-label>
+                            <ion-select formControlName="gender" (keyup)="changedSmtng()">
+                                <ion-select-option value="FEMALE">Female</ion-select-option>
+                                <ion-select-option value="MALE">Male</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+
+                        <ion-item style="border-bottom: 0.55px solid #fff !important;">
+                            <ion-icon name="walk" slot="start"></ion-icon>
+                            <ion-label>Lifestyle</ion-label>
+                            <ion-select class="inputFields" formControlName="lifestyle" (keyup)="changedSmtng()">
+                                <ion-select-option value="Active">Active</ion-select-option>
+                                <ion-select-option value="Very">Very Active</ion-select-option>
+                                <ion-select-option value="Inactive">Inactive</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+
+                        <ion-item style="border-bottom: 0.55px solid #fff !important;" lines="none">
+                            <ion-icon name="flag" slot="start"></ion-icon>
+                            <ion-label>Country</ion-label>
+                            <ion-select class="inputFields" type="text" formControlName="country_iso2" (keyup)="changedSmtng()">
+                                <ion-select-option value="NG">Nigeria</ion-select-option>
+                                <ion-select-option value="O">Others</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+
+                    </ion-list>
+                </form>
+            </ion-card-content>
+        </ion-card>
+        <br/>
+        <br/>
     </div>
-  </ion-content>
-    
+</ion-content>

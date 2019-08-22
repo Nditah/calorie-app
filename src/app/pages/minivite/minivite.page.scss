@@ -1,24 +1,24 @@
 ion-avatar {
-  width: 60px;
-  height: 60px;
-  background-color: #eee;
-  overflow: hidden;
+    width: 60px;
+    height: 60px;
+    --background: #eee;
+    overflow: hidden;
 }
 
 .item-profile {
-  width: 100%;
-  min-height: 30vh;
-  display: flex;
-  margin-bottom: -40px;
-  overflow: hidden;
-  ion-label {
-    padding-bottom: 50px;
-  }
+    width: 100%;
+    min-height: 30vh;
+    display: flex;
+    margin-bottom: -40px;
+    overflow: hidden;
+    ion-label {
+        padding-bottom: 50px;
+    }
 }
 
 .body-card {
-  background-color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  min-height: 50vh;
+    background: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    min-height: 50vh;
 }

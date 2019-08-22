@@ -57,11 +57,11 @@
 .sideMenuIoncContent .scroll-content,
 .headerMAin,
 .buttonSIdeBAr {
-    background: black !important;
+    --background: black !important;
 }
 
 content-ios.scroll-content {
-    background: black !important;
+    --background: black !important;
 }
 
 .buttonSIdeBAr {
@@ -77,10 +77,10 @@ content-ios.scroll-content {
 }
 
 .activeHIghlight {
-    //background-color: map_get($colors,light);
-    //background-color: #222 !important;
-    //background-color: #f4443e !important;
-    background-color: var(--ion-color-success-theme) !important;
+    //--background: map_get($colors,light);
+    //--background: #222 !important;
+    //--background: #f4443e !important;
+    --background: var(--ion-color-success-theme) !important;
 }
 
 //.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
@@ -92,16 +92,16 @@ content-ios.scroll-content {
 //  border-top: 0.55px solid #444;
 //}
 //.toolbar-background toolbar-background-ios {
-//  background: #000;
+//  --background: #000;
 //}
 //.list-ios .item-block .item-inner {
 //  border-bottom: 0.55px solid #000000 !important;
 //}
 //.toolbar-ios-primary .toolbar-background-ios {
-//  background: #F44336;
+//  --background: #F44336;
 //}
 .toolbar-background {
-    background-color: black !important;
+    --background: black !important;
 }
 
 
@@ -113,7 +113,7 @@ content-ios.scroll-content {
 
 
   .toolbar-ios-primary .toolbar-background-ios {
-    background: #F44336;
+    --background: #F44336;
   }*/
 
 .menu-inner {
@@ -135,7 +135,7 @@ content-ios.scroll-content {
 .spinner {
     width: 40px;
     height: 40px;
-    background-color: #101820;
+    --background: #101820;
     margin: 100px auto;
     -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
     animation: sk-rotateplane 1.2s infinite ease-in-out;

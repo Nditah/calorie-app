@@ -11,7 +11,7 @@ ion-icon {
     padding-top: 40px;
     padding-bottom: 40px;
     &:hover {
-        background-color: #2BAE66FF;
+        --background: #2BAE66FF;
         ion-icon {
             color: white;
         }

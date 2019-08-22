@@ -21,7 +21,7 @@ export class LogPage implements OnInit {
     }
 
   ngOnInit() {
-    // this.getLogs();
+    this.getLogs();
   }
 
   async getLogs() {

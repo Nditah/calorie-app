@@ -1,0 +1,23 @@
+.header {
+    height: 20vh;
+    margin-bottom: -35px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('../../../assets/images/running.jpg');
+    background-size: cover;
+    filter: opacity(0.3);
+    -webkit-filter: opacity(0.3);
+}
+
+.card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+ion-card {
+    --background: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    min-height: 80vh;
+}

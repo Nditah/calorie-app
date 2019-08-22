@@ -32,20 +32,22 @@
 
 //// Background colors
 .dark-bg {
-    background-color: #110A3B;
+    --background: #110A3B;
+    background: #110A3B;
     .scroll {
-        background-color: #110A3B;
+        --background: #110A3B;
+        background: #110A3B;
     }
 }
 
 .green-light {
-    background-color: #2AE07CFF;
     --background: #2AE07CFF;
+    background: #2AE07CFF;
 }
 
 .green-dark {
-    background-color: #2BAE66FF;
     --background: #2BAE66FF;
+    background: #2BAE66FF;
 }
 
 .green-text {
@@ -53,13 +55,13 @@
 }
 
 .gray-light {
-    background-color: #5b907e;
     --background: #5b907e;
+    background: #5b907e;
 }
 
 .gray-dark {
-    background-color: #101820;
     --background: #101820;
+    background: #101820;
 }
 
 .gray-text {

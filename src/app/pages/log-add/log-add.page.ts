@@ -20,24 +20,25 @@ export class LogAddPage implements OnInit {
   exercises: SelectOption;
   selectedFood: '';
   selectedExercise: '';
-  yesterday = '2019-05-12';
-  today = '2019-05-11';
+  yesterday = new Date(Date.now() - 86400000).toJSON();
+  today = new Date().toJSON();
   isReadyToSave = false;
-  
+
   constructor(public api: ApiService,
     private alertService: AlertService,
     public loadingController: LoadingController,
     private location: Location,
     public router: Router,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+  ) {
 
-    this.getExercises().then(() => {
-      this.getFoods().then(() => this.createForm());
-    });
+      this.getExercises().then(() => {
+        this.getFoods().then(() => this.createForm());
+      });
     }
 
   ngOnInit() {
-    // this.createForm();
+    this.createForm();
   }
 
   foodChange(event: {
@@ -62,6 +63,7 @@ export class LogAddPage implements OnInit {
       food_quantity: [null, Validators.required],
       exercise: [null, Validators.required],
       exercise_duration: [null, Validators.required],
+      current_mass: [null, Validators.required],
       remark: [null, Validators.required],
     });
   }
@@ -72,7 +74,7 @@ export class LogAddPage implements OnInit {
     payload.exercise = payload.exercise.id;
     await this.api.postLog(payload).subscribe((res: ApiResponse) => {
       if (res.success) {
-        const id = res['id'];
+        const id = res.payload['id'];
         this.router.navigate(['/log-detail/' + id]);
       } else {
         this.alertService.presentToast(res.message);

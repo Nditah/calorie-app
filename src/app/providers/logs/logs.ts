@@ -1,5 +1,7 @@
+import { ApiResponse } from 'src/app/models';
 import { Injectable } from '@angular/core';
 import { Log, Food } from '../../models';
+import { ApiService } from 'src/app/services';
 
 @Injectable()
 export class Logs {
@@ -37,12 +39,14 @@ export class Logs {
     remark: 'Making progress',
   };
 
-  constructor() {
+  constructor(public api: ApiService) {
     const logs = [];
 
     for (const log of logs) {
       this.logs.push(new Log(log));
     }
+
+    this.getLogs();
   }
 
   query(params?: any) {
@@ -64,5 +68,22 @@ export class Logs {
 
   delete(log: Log) {
     this.logs.splice(this.logs.indexOf(log), 1);
+  }
+
+  async getLogs() {
+    await this.api.getLog('').subscribe((res: ApiResponse) => {
+      if (res.success && res.payload.length > 0) {
+          const logs = res.payload.map((record, index) => {
+            const obj = Object.assign({}, record);
+            obj.image = this.api.getImageUrl(record.image);
+            return obj;
+          });
+          for (const log of logs) {
+            this.logs.push(new Log(log));
+          }
+        }
+      }, err => {
+        console.log(err);
+      });
   }
 }

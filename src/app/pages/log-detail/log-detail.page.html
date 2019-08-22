@@ -1,36 +1,69 @@
 <ion-header>
-    <ion-toolbar color="success">
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/log"></ion-back-button>
-      </ion-buttons>
-      <ion-title>Activity Details</ion-title>
+    <ion-toolbar class="green-dark">
+        <ion-buttons slot="start">
+            <ion-back-button color="light" defaultHref="/log"></ion-back-button>
+        </ion-buttons>
+        <ion-title color="light">Activity Details</ion-title>
     </ion-toolbar>
-  </ion-header>
-  
-  <ion-content *ngIf="record">
+</ion-header>
 
-      <div class="item-profile" text-center #profilePic *ngIf="record.food"
-      [style.background-image]="'url(' + record.food.image + ')'">
-      </div>
+<ion-content *ngIf="record && record.food">
+    <!--<div class="item-profile" *ngIf="record.food" text-center [style.background-image]="'url(' + record.food.image + ')'"></div>-->
+    <div class="item-profile" text-center [style.background-image]="'url(../../../assets/images/running.jpg)'"></div>
+    <ion-card>
+        <br/>
+        <ion-card-header padding>
+            <ion-card-subtitle>{{ record.day | date: 'mediumDate' }}</ion-card-subtitle>
+            <ion-card-title>Activity Details</ion-card-title>
+        </ion-card-header>
 
-  <ion-list>
-      <ion-list-header padding>
-        <ion-label><h2>{{ record.day | date }} </h2></ion-label>
-        <ion-badge >{{ record.current_mass | number }} Kg</ion-badge>
-      </ion-list-header>
-      <ion-item *ngIf="record.food">
-        <ion-label text-wrap>Food: {{ record.food.name }} {{ record.food_quantity }} gram | Litre</ion-label>
-      </ion-item>
-      <ion-item *ngIf="record.exercise">
-        <ion-label text-wrap>Exercise: {{ record.exercise.name }} {{ record.exercise_duration }} minutes</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label text-wrap>Remark: {{ record.remark }} </ion-label>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-button color="danger" (click)="deleteRecord(record)">
-        <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+        <ion-card-content>
+            <ion-list>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Current Mass (Weight)</p>
+                        <h2>{{ unit.mass(record.current_mass || 0, 'g') }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Food</p>
+                        <h2>{{ record.food.name }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Food Quantity</p>
+                        <h2>{{ unit.mass(record.food_quantity, 'g') }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Exercise</p>
+                        <h2>{{ record.exercise.name }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Exercise Duration</p>
+                        <h2>{{ record.exercise_duration }} minutes</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-label>
+                    <p padding-horizontal>Remark</p>
+                    <h2 class="gray-text" text-justify padding-horizontal>{{ record.remark }}</h2>
+                </ion-label>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="danger" (click)="delete(record.id)">
+            <ion-icon name="trash"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <div class="bottom-shadow"></div>
+</ion-content>

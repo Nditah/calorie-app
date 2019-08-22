@@ -1,33 +1,32 @@
 <ion-app>
 
-  <div *ngIf="showSplash" class="splash">
-    <div class="spinner"></div>
-  </div>
+    <div *ngIf="showSplash" class="splash">
+        <div class="spinner"></div>
+    </div>
 
-  <ion-split-pane>
-    <ion-menu>
-      <ion-header>
-        <ion-toolbar class="green-dark">
-          <ion-title color="light">Menu</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content color="dark">
-          <ion-list style="background-color: transparent;">
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item lines="full" class="dark-list" color="dark" [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                  <h2 ion-text color="light">{{p.title}}</h2>
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-item lines="full" class="dark-list" color="dark" (click)="logout()" href="#">
-            <ion-icon slot="start" name="log-out"></ion-icon>
-            <ion-label>Logout</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
-  </ion-split-pane>
+    <ion-split-pane>
+        <ion-menu>
+            <ion-header>
+                <ion-toolbar class="green-dark">
+                    <ion-title color="light">Menu</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content color="dark">
+                <br/>
+                <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+                    <ion-item lines="full" class="dark-list" color="dark" [routerDirection]="'root'" [routerLink]="[p.url]">
+                        <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                        <ion-label>
+                            <h2 ion-text color="light">{{p.title}}</h2>
+                        </ion-label>
+                    </ion-item>
+                </ion-menu-toggle>
+                <ion-item lines="full" class="dark-list" color="dark" (click)="logout()" href="#">
+                    <ion-icon slot="start" name="log-out"></ion-icon>
+                    <ion-label>Logout</ion-label>
+                </ion-item>
+            </ion-content>
+        </ion-menu>
+        <ion-router-outlet main></ion-router-outlet>
+    </ion-split-pane>
 </ion-app>

@@ -1,37 +1,33 @@
 <ion-header>
     <ion-toolbar class="green-dark">
         <ion-buttons slot="start">
-          <ion-menu-button color="light"></ion-menu-button>
+            <ion-menu-button color="light"></ion-menu-button>
         </ion-buttons>
-        <ion-title color="light">Activity Log</ion-title>
-      </ion-toolbar>
-  </ion-header>
+        <ion-title color="light">Activity</ion-title>
+    </ion-toolbar>
+</ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let record of records" routerLink="/log-detail/{{record.id}}">
-      <ion-icon name="desktop" slot="start"></ion-icon>
-      <p *ngIf="record.food">{{ record.food.name }}</p>
-      <p> &nbsp; | &nbsp; </p>
-      <p *ngIf="record.exercise">{{ record.exercise.name }}</p>
-      <div class="item-note" slot="end">
-        {{ record.day | date }}
-      </div>
-    </ion-item>
-  </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/log-add" color="success">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <div class="bottom-shadow"></div>
+    <ion-list lines="none">
+        <ion-item *ngFor="let record of records" routerLink="/log-detail/{{record.id}}" routerDirection="forward">
+            <ion-avatar item-start slot="start">
+                <img src="../../../assets/images/running.jpg" alt=" " />
+            </ion-avatar>
+            <ion-label>
+                <h2 *ngIf="record.food">{{ record.exercise.name }}</h2>
+                <p *ngIf="record.exercise" style="float: left;">{{ record.food.name }}</p>
+                <p style="float: right;">{{ record.day | date: 'mediumDate' }}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button routerLink="/log-add" color="success">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <div class="bottom-shadow"></div>
 </ion-content>

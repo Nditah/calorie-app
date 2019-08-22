@@ -21,8 +21,8 @@ export class AppComponent {
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'Dashboard', url: '/dashboard', icon: 'pulse' },
-    { title: 'Log', url: '/log', icon: 'list' },
-    { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
+    { title: 'Activity', url: '/log', icon: 'list' },
+    // { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
     { title: 'Food', url: '/food', icon: 'ice-cream' },
     { title: 'Exercise', url: '/exercise', icon: 'bicycle' },
     { title: 'Nutrition', url: '/minivite', icon: 'image' },

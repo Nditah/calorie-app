@@ -84,13 +84,13 @@ export class SettingPage implements OnInit {
   fromUnitChange($value: any) {
     switch (this.currentConverter) {
       case UnitType.Mass:
-        this.convertTo.value = this.replaceAll(this.unit.mass(this.convertFrom.value, $value, this.convertTo.unit, false));
+        this.convertFrom.value = this.replaceAll(this.unit.mass(this.convertTo.value, this.convertTo.unit, $value, false));
         break;
       case UnitType.Length:
-        this.convertTo.value = this.replaceAll(this.unit.length(this.convertFrom.value, $value, this.convertTo.unit, false));
+        this.convertFrom.value = this.replaceAll(this.unit.length(this.convertTo.value, this.convertTo.unit, $value, false));
         break;
       case UnitType.Volume:
-        this.convertTo.value = this.replaceAll(this.unit.volume(this.convertFrom.value, $value, this.convertTo.unit, false));
+        this.convertFrom.value = this.replaceAll(this.unit.volume(this.convertTo.value, this.convertTo.unit, $value, false));
         break;
     }
   }
@@ -98,13 +98,13 @@ export class SettingPage implements OnInit {
   toUnitChange($value: any) {
     switch (this.currentConverter) {
       case UnitType.Mass:
-        this.convertFrom.value = this.replaceAll(this.unit.mass(this.convertTo.value, $value, this.convertFrom.unit, false));
+        this.convertTo.value = this.replaceAll(this.unit.mass(this.convertFrom.value, this.convertFrom.unit, $value, false));
         break;
       case UnitType.Length:
-        this.convertFrom.value = this.replaceAll(this.unit.length(this.convertTo.value, $value, this.convertFrom.unit, false));
+        this.convertTo.value = this.replaceAll(this.unit.length(this.convertFrom.value, this.convertFrom.unit, $value, false));
         break;
       case UnitType.Volume:
-        this.convertFrom.value = this.replaceAll(this.unit.volume(this.convertTo.value, $value, this.convertFrom.unit, false));
+        this.convertTo.value = this.replaceAll(this.unit.volume(this.convertFrom.value, this.convertFrom.unit, $value, false));
         break;
     }
   }

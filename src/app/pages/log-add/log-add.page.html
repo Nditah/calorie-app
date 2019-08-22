@@ -1,68 +1,63 @@
 <ion-header>
-    <ion-toolbar color="success">
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-      <ion-title> Activity Log </ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="cancel()">
-          <span color="primary" showWhen="ios">Cancel</span>
-          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-        </ion-button>
-        <ion-button (click)="submitRecord()" [disabled]="!isReadyToSave" strong>
-          <span color="primary" showWhen="ios">Done</span>
-          <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+    <ion-toolbar class="green-dark">
+        <ion-buttons slot="start">
+            <ion-back-button color="light"></ion-back-button>
+        </ion-buttons>
+        <ion-title color="light">New Activity</ion-title>
     </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <form [formGroup]="addForm">
-      <ion-item>
-          <ion-label>Log Day</ion-label>
-          <ion-select formControlName="day" id="day" placeholder="Select day">
-            <ion-select-option [value]="today" selected>Today {{ today | date }}</ion-select-option>
-            <ion-select-option [value]="yesterday">Yesterday {{ yesterday | date }}</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label>Food</ion-label>
-          <ionic-selectable formControlName="food" placeholder="Select food or drink"
-            [items]="foods"
-            itemValueField="id"
-            itemTextField="name"
-            [canSearch]="true"
-            (onChange)="foodChange($event)">
-          </ionic-selectable>
-        </ion-item>
-        <ion-item>
-          <ion-label>Food Quantity</ion-label>
-          <ion-input type="number" formControlName="food_quantity" id="food_quantity" placeholder="Grams | Litres"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Exercise</ion-label>
-          <ionic-selectable formControlName="exercise" placeholder="Select exercise"
-            [items]="exercises"
-            itemValueField="id"
-            itemTextField="name"
-            [canSearch]="true"
-            (onChange)="exerciseChange($event)">
-          </ionic-selectable>
-        </ion-item>
-        <ion-item>
-          <ion-label>Exercise Duration</ion-label>
-          <ion-input type="number" formControlName="exercise_duration" id="exercise_duration" placeholder="Minutes"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Current Mass(Kg)</ion-label>
-          <ion-input type="number" formControlName="current_mass" id="current_mass" placeholder="Body weight in Kg"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Remark</ion-label>
-          <ion-input type="text" formControlName="remark" id="remark" placeholder="Side note"></ion-input>
-        </ion-item>
+</ion-header>
 
-      <ion-button shape="round" color="primary" expand="block" [disabled]="!addForm.valid" (click)="submitRecord()">Submit</ion-button>
+<ion-content>
+    <div class="green-dark header"></div>
+    <form [formGroup]="addForm">
+        <ion-card>
+            <ion-card-header class="card-head">
+                <ion-card-subtitle>New Activity</ion-card-subtitle>
+                <ion-button color="danger" fill="clear" (click)="cancel()">
+                    <ion-label>Cancel</ion-label>
+                </ion-button>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list lines="none">
+                    <ion-item>
+                        <ion-icon name="calendar" slot="start"></ion-icon>
+                        <ion-label>Log Day</ion-label>
+                        <ion-select formControlName="day" name="day" id="day" placeholder="Select day">
+                            <ion-select-option [value]="today" selected>Today {{ today | date: 'mediumDate' }}</ion-select-option>
+                            <ion-select-option [value]="yesterday">Yesterday {{ yesterday | date: 'mediumDate' }}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="restaurant" slot="start"></ion-icon>
+                        <ion-label>Food</ion-label>
+                        <ionic-selectable formControlName="food" name="food" placeholder="Select food or drink" [items]="foods" itemValueField="id" itemTextField="name" [canSearch]="true" (onChange)="foodChange($event)">
+                        </ionic-selectable>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="restaurant" slot="start"></ion-icon>
+                        <ion-input type="number" formControlName="food_quantity" name="food_quantity" id="food_quantity" placeholder="Food Quantity (Grams)"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="walk" slot="start"></ion-icon>
+                        <ionic-selectable formControlName="exercise" name="exercise" placeholder="Exercise" [items]="exercises" itemValueField="id" itemTextField="name" [canSearch]="true" (onChange)="exerciseChange($event)">
+                        </ionic-selectable>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="walk" slot="start"></ion-icon>
+                        <ion-input type="number" formControlName="exercise_duration" name="exercise_duration" id="exercise_duration" placeholder="Exercise Duration (Minutes)"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="fitness" slot="start"></ion-icon>
+                        <ion-input type="number" formControlName="current_mass" name="current_mass" id="current_mass" placeholder="Current Mass (Kg)"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="list" slot="start"></ion-icon>
+                        <ion-input type="text" formControlName="remark" name="remark" id="remark" placeholder="Remark"></ion-input>
+                    </ion-item>
+                </ion-list>
+                <br/>
+                <ion-button shape="round" expand="full" color="success" [disabled]="!addForm.valid" (click)="submitRecord()">Submit</ion-button>
+            </ion-card-content>
+        </ion-card>
     </form>
-  </ion-content>
+</ion-content>

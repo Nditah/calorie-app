@@ -1,20 +1,20 @@
 .item-profile {
-  width: 100%;
-  background-position: center top;
-  background-size: cover;
-  height: 45vh;
-  background-repeat: no-repeat;
-  background-color: #eee;
+    width: 100%;
+    background-position: center top;
+    background-size: cover;
+    height: 45vh;
+    background-repeat: no-repeat;
+    background: #eee;
 }
 
 .item-detail {
-  width: 100%;
-  background: white;
-  position: absolute;
+    width: 100%;
+    background: white;
+    position: absolute;
 }
 
 ion-card {
-  background-color: white;
-  margin-top: -30px;
-  border-radius: 10px;
+    --background: white;
+    margin-top: -30px;
+    border-radius: 10px;
 }
