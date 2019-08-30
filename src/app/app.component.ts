@@ -20,12 +20,12 @@ export class AppComponent {
 
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'Dashboard', url: '/dashboard', icon: 'pulse' },
-    { title: 'Activity', url: '/log', icon: 'list' },
-    // { title: 'Feedback', url: '/feedback', icon: 'checkmark-circle' },
-    { title: 'Food', url: '/food', icon: 'ice-cream' },
+    { title: 'Analytics', url: '/dashboard', icon: 'pulse' },
+    { title: 'Activity', url: '/log', icon: 'walk' },
+    { title: 'Notifications', url: '/feedback', icon: 'notifications' },
+    { title: 'Food', url: '/food', icon: 'restaurant' },
     { title: 'Exercise', url: '/exercise', icon: 'bicycle' },
-    { title: 'Nutrition', url: '/minivite', icon: 'image' },
+    { title: 'Nutrition', url: '/minivite', icon: 'nutrition' },
     { title: 'Profile', url: '/user', icon: 'person' },
     { title: 'Setting', url: '/setting', icon: 'settings' },
   ];

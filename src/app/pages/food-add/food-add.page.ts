@@ -15,9 +15,13 @@ export class FoodAddPage implements OnInit {
 
   @ViewChild('slides') slides: IonSlides;
   addForm: FormGroup;
-  minivites: FormArray;
+  nutrients: FormArray;
   isReadyToSave = false;
   currentSLide = 1;
+  categoryControl: FormControl;
+  unitControl: FormControl;
+  foodUnit: string = null;
+  foodNutrients = [];
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -31,23 +35,55 @@ export class FoodAddPage implements OnInit {
         'category': [null, Validators.required], // enum: ["FOOD", "DRINK"]
         'description': [null, Validators.required],
         'quantity': [null, Validators.required],
+        'unit': [null, Validators.required],
+        'ph': [null, [Validators.required, Validators.min(0), Validators.max(14)]],
         'water': [null, Validators.required],
         'calories': [null, Validators.required],
         'carbohydrate': [null, Validators.required],
         'protein': [null, Validators.required],
         'fats': [null, Validators.required],
         'fibre': [null, Validators.required],
-        'minivites' : this.formBuilder.array([
+        'nutrients' : this.formBuilder.array([
           this.formBuilder.group({
-            minivite_name: [null, Validators.required],
-            minivite_value: [null, Validators.required],
+            nutrient: [null, Validators.required],
+            quantity: [null, Validators.required],
           })
         ]),
+        'ingredients' : this.formBuilder.array([
+          this.formBuilder.control(null, Validators.required),
+        ]),
       });
+
+      this.categoryControl = this.addForm.get('category') as FormControl;
+      this.unitControl = this.addForm.get('unit') as FormControl;
+      this.foodUnit = this.unitControl.value;
     }
 
   ngOnInit() {
+    this.getNutrients();
+
     this.slides.lockSwipes(true);
+
+    this.unitControl.valueChanges.subscribe(value => {
+      this.foodUnit = value;
+    });
+
+    this.categoryControl.valueChanges.subscribe(value => {
+      switch (value) {
+        case 'FOOD':
+          this.unitControl.setValue('mg');
+          break;
+        case 'DRINK':
+          this.unitControl.setValue('ml');
+          break;
+      }
+    });
+  }
+
+  getNutrients() {
+    this.api.getNutrients('').subscribe((res: ApiResponse) => {
+      this.foodNutrients = res.payload.map(item => ({id: item.id, name: item.name}));
+    });
   }
 
   prev() {
@@ -71,28 +107,41 @@ export class FoodAddPage implements OnInit {
   }
 
   // * Minivites
-  createMinivite(): FormGroup {
+  createNutrient(): FormGroup {
     return this.formBuilder.group({
-      minivite_name: [null, Validators.required],
-      minivite_value: [null, Validators.required],
+      nutrient: [null, Validators.required],
+      quantity: [null, Validators.required],
     });
   }
 
-  addBlankMinivite(): void {
-    this.minivites = this.addForm.get('minivites') as FormArray;
-    this.minivites.push(this.createMinivite());
+  createIngredient(): FormControl {
+    return this.formBuilder.control(null, Validators.required);
   }
 
-  deleteMinivite(control, index) {
+  addBlankIngredient(): void {
+    (this.addForm.get('ingredients') as FormArray).push(this.createIngredient());
+  }
+
+  addBlankNutrient(): void {
+    this.nutrients = this.addForm.get('nutrients') as FormArray;
+    this.nutrients.push(this.createNutrient());
+  }
+
+  deleteIngredient(control, index): void {
+    control.removeAt(index);
+  }
+
+  deleteNutrient(control, index) {
     control.removeAt(index);
   }
 
   async submitRecord() {
     const payload = this.addForm.value;
     payload.type = 'CUSTOM';
+    console.log(payload);
     await this.api.postFood(payload).subscribe((res: ApiResponse) => {
       if (res.success) {
-        const id = res['id'];
+        const id = res.payload['id'];
         this.router.navigate(['/food-detail/' + id]);
       } else {
         this.alertService.presentToast(res.message);
@@ -101,6 +150,7 @@ export class FoodAddPage implements OnInit {
         this.alertService.presentToast(err.message);
       });
   }
+
   cancel() {
     this.location.back();
   }

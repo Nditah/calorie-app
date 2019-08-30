@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService, AlertService } from 'src/app/services';
 import { ApiResponse, Exercise } from 'src/app/models';
 import { Exercises } from 'src/app/providers';
+import {UnitService} from '../../services/unit.service';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -22,7 +23,8 @@ export class ExerciseDetailPage implements OnInit {
     public loadingCtrl: LoadingController,
     private alertService: AlertService,
     public activatedRoute: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    public unit: UnitService,
   ) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
       const record = this.exercises.query({ id })[0];
@@ -32,7 +34,7 @@ export class ExerciseDetailPage implements OnInit {
     }
 
   ngOnInit() {
-    // this.getExercise();
+    this.getExercise();
   }
 
   async getExercise() {
@@ -67,7 +69,7 @@ export class ExerciseDetailPage implements OnInit {
           this.alertService.presentToast('Operation successful');
         }
         loading.dismiss();
-        // this.location.back();
+        this.router.navigateByUrl('/exercise');
         }, err => {
           console.log(err);
           loading.dismiss();

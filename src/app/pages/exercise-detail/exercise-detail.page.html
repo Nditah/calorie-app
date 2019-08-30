@@ -12,8 +12,8 @@
     <ion-card>
         <br/>
         <ion-card-header padding>
-            <ion-card-subtitle>{{ record.type }} {{ record.category }}</ion-card-subtitle>
-            <ion-card-title>{{ record.name }} {{ record.calorie_rate }} KcPH</ion-card-title>
+            <ion-card-subtitle>{{ record.category }}</ion-card-subtitle>
+            <ion-card-title>{{ record.name }}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
@@ -22,6 +22,18 @@
                     <ion-label>
                         <p>Name</p>
                         <h2>{{ record.name }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <p>Calorie Rate</p>
+                        <h2>{{ unit.energy(record.calorie_rate, 'kcal') }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="record.tasks">
+                    <ion-label text-wrap>
+                        <p>Tasks ({{record.tasks.length}})</p>
+                        <h2 class="gray-text">{{ record.tasks.join(', ') }}</h2>
                     </ion-label>
                 </ion-item>
                 <ion-item>
@@ -52,7 +64,7 @@
             <ion-fab-button routerLink="/exercise-edit/{{record.id}}" color="success">
                 <ion-icon name="create"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button (click)="deleteRecord(record)" color="danger">
+            <ion-fab-button (click)="delete(record.id)" color="danger">
                 <ion-icon name="trash"></ion-icon>
             </ion-fab-button>
         </ion-fab-list>

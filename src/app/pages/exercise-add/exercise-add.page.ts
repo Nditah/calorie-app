@@ -20,7 +20,8 @@ export class ExerciseAddPage implements OnInit {
   isReadyToSave: boolean;
   item: any;
 
-  constructor(private camera: Camera,
+  constructor(
+    private camera: Camera,
     public api: ApiService,
     private alertService: AlertService,
     public loadingController: LoadingController,
@@ -34,6 +35,7 @@ export class ExerciseAddPage implements OnInit {
         description: [null, Validators.required],
         calorie_rate: [null, Validators.required],
         image: [null],
+        tasks: [null, Validators.required],
       });
 
       // Watch the form for changes, and
@@ -49,6 +51,7 @@ export class ExerciseAddPage implements OnInit {
     if (!this.addForm.valid) { return; }
     const payload = this.addForm.value;
     payload.type = 'CUSTOM';
+    payload.tasks = payload.tasks.split(',').map((task: string) => task.trim());
     await this.api.postExercise(payload)
     .subscribe((res: ApiResponse) => {
       if (res.success) {

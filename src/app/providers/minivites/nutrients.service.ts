@@ -3,9 +3,9 @@ import { Minivite } from '../../models';
 import table from './minivites-data';
 
 @Injectable()
-export class Minivites {
+export class Nutrients {
 
-  minivites: Minivite[] = [];
+  nutrients: Minivite[] = [];
 
   defaultRecord: Minivite = {
     'id': '1',
@@ -35,15 +35,15 @@ export class Minivites {
   constructor() {
     const minivites = table;
     for (const minivite of minivites) {
-      this.minivites.push(new Minivite(minivite));
+      this.nutrients.push(new Minivite(minivite));
     }
   }
 
   query(params?: any) {
     if (!params) {
-      return this.minivites;
+      return this.nutrients;
     }
-    return this.minivites.filter((minivite) => {
+    return this.nutrients.filter((minivite) => {
       for (const key in params) {
         const field = minivite[key];
         if (typeof field == 'string' && field.toLowerCase().indexOf(params[key].toLowerCase()) >= 0) {
@@ -56,11 +56,11 @@ export class Minivites {
     });
   }
   add(minivite: Minivite) {
-    this.minivites.push(minivite);
+    this.nutrients.push(minivite);
   }
 
   delete(minivite: Minivite) {
-    this.minivites.splice(this.minivites.indexOf(minivite), 1);
+    this.nutrients.splice(this.nutrients.indexOf(minivite), 1);
   }
 }
 

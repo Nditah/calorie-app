@@ -13,7 +13,9 @@
         <br/>
         <ion-card-header padding>
             <ion-card-subtitle>{{ record.type }} {{ record.category }}</ion-card-subtitle>
-            <ion-card-title>{{ record.name }} {{ record.symbol }}</ion-card-title>
+            <ion-card-title>
+                {{ record.name }} <small>({{ record.symbol }})</small>
+            </ion-card-title>
         </ion-card-header>
 
         <ion-card-content>

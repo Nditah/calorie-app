@@ -23,6 +23,7 @@ export class LogAddPage implements OnInit {
   yesterday = new Date(Date.now() - 86400000).toJSON();
   today = new Date().toJSON();
   isReadyToSave = false;
+  foodUnit: string = null;
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -45,6 +46,14 @@ export class LogAddPage implements OnInit {
     component: IonicSelectableComponent,
     value: any
   }) {
+    switch (event.value.category) {
+      case 'FOOD':
+        this.foodUnit = 'kg';
+        break;
+      case 'DRINK':
+        this.foodUnit = 'lt';
+        break;
+    }
     console.log('food:', event.value);
   }
 
@@ -96,7 +105,7 @@ export class LogAddPage implements OnInit {
   async getFoods() {
     await this.api.getFood('').subscribe((res: ApiResponse) => {
         if (res.success && res.payload.length > 0) {
-          this.foods = res.payload.map(item => ({ id: item.id, name: item.name }));
+          this.foods = res.payload.map(item => ({ id: item.id, name: item.name, category: item.category }));
           console.log(this.foods);
           return;
         }

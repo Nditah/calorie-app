@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Minivite } from 'src/app/models';
-import { Minivites } from 'src/app/providers';
+import { Nutrients } from 'src/app/providers';
 
 
 @Component({
@@ -14,19 +14,19 @@ export class MinivitePage implements OnInit {
   currentRecords: Array<Minivite>;
 
   constructor(
-    public minivites: Minivites,
+    public nutrients: Nutrients,
     public loadingCtrl: LoadingController) {
 
-    this.currentRecords = this.minivites.query();
+    this.currentRecords = this.nutrients.query();
   }
 
   searchRecord(ev) {
     const val = ev.target.value;
     if (!val || !val.trim()) {
-      this.currentRecords = this.minivites.query();
+      this.currentRecords = this.nutrients.query();
       return;
     }
-    this.currentRecords = this.minivites.query({
+    this.currentRecords = this.nutrients.query({
       name: val
     });
   }

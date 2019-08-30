@@ -20,39 +20,52 @@
             <ion-card-content>
                 <ion-list lines="none">
                     <ion-item>
-                        <ion-icon name="calendar" slot="start"></ion-icon>
-                        <ion-label>Log Day</ion-label>
-                        <ion-select formControlName="day" name="day" id="day" placeholder="Select day">
+                        <ion-icon padding-top name="calendar" slot="start"></ion-icon>
+                        <ion-label color="success" no-padding position="floating">Log Day</ion-label>
+                        <ion-select formControlName="day" name="day" id="day">
                             <ion-select-option [value]="today" selected>Today {{ today | date: 'mediumDate' }}</ion-select-option>
                             <ion-select-option [value]="yesterday">Yesterday {{ yesterday | date: 'mediumDate' }}</ion-select-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
-                        <ion-icon name="restaurant" slot="start"></ion-icon>
-                        <ion-label>Food</ion-label>
-                        <ionic-selectable formControlName="food" name="food" placeholder="Select food or drink" [items]="foods" itemValueField="id" itemTextField="name" [canSearch]="true" (onChange)="foodChange($event)">
+                        <ion-icon padding-top name="restaurant" slot="start"></ion-icon>
+                        <ion-label color="success" no-padding position="floating">Select Food or Drink</ion-label>
+                        <ionic-selectable formControlName="food" name="food"
+                                          [items]="foods" itemValueField="id"
+                                          itemTextField="name" [canSearch]="true"
+                                          (onChange)="foodChange($event)"
+                                          headerColor="success">
                         </ionic-selectable>
                     </ion-item>
                     <ion-item>
-                        <ion-icon name="restaurant" slot="start"></ion-icon>
-                        <ion-input type="number" formControlName="food_quantity" name="food_quantity" id="food_quantity" placeholder="Food Quantity (Grams)"></ion-input>
+                        <ion-icon padding-top name="podium" slot="start"></ion-icon>
+                        <ion-label color="success" no-padding position="floating">Food Quantity ({{foodUnit === null ? 'Kg|Lt' : foodUnit}})</ion-label>
+                        <ion-input type="number" formControlName="food_quantity" name="food_quantity" id="food_quantity"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-icon name="walk" slot="start"></ion-icon>
-                        <ionic-selectable formControlName="exercise" name="exercise" placeholder="Exercise" [items]="exercises" itemValueField="id" itemTextField="name" [canSearch]="true" (onChange)="exerciseChange($event)">
+                        <ion-icon padding-top name="walk" slot="start"></ion-icon>
+                        <ion-label color="success" no-padding position="floating">Exercise</ion-label>
+                        <ionic-selectable formControlName="exercise" name="exercise"
+                                          [items]="exercises" itemValueField="id"
+                                          itemTextField="name" [canSearch]="true"
+                                          (onChange)="exerciseChange($event)"
+                                          headerColor="success">
                         </ionic-selectable>
                     </ion-item>
                     <ion-item>
-                        <ion-icon name="walk" slot="start"></ion-icon>
-                        <ion-input type="number" formControlName="exercise_duration" name="exercise_duration" id="exercise_duration" placeholder="Exercise Duration (Minutes)"></ion-input>
+                        <ion-icon padding-top name="timer" slot="start"></ion-icon>
+                        <ion-label color="success" no-padding position="floating">Exercise Duration (Minutes)</ion-label>
+                        <ion-input type="number" formControlName="exercise_duration" name="exercise_duration" id="exercise_duration"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-icon name="fitness" slot="start"></ion-icon>
-                        <ion-input type="number" formControlName="current_mass" name="current_mass" id="current_mass" placeholder="Current Mass (Kg)"></ion-input>
+                        <ion-icon padding-top name="fitness" slot="start"></ion-icon>
+                        <ion-label color="success" no-padding position="floating">Current Mass (Kg)</ion-label>
+                        <ion-input type="number" formControlName="current_mass" name="current_mass" id="current_mass"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-icon name="list" slot="start"></ion-icon>
-                        <ion-input type="text" formControlName="remark" name="remark" id="remark" placeholder="Remark"></ion-input>
+                        <ion-icon padding-top name="list" slot="start"></ion-icon>
+                        <ion-label color="success" no-padding position="floating">Remark</ion-label>
+                        <ion-input type="text" formControlName="remark" name="remark" id="remark"></ion-input>
                     </ion-item>
                 </ion-list>
                 <br/>

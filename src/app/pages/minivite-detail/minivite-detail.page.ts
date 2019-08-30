@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Minivite } from 'src/app/models';
-import { Minivites } from 'src/app/providers';
+import { Nutrients } from 'src/app/providers';
 
 @Component({
   selector: 'app-minivite-detail',
@@ -15,15 +15,15 @@ export class MiniviteDetailPage implements OnInit {
   record: Minivite;
 
   constructor(
-    public minivites: Minivites,
+    public nutrients: Nutrients,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     public activatedRoute: ActivatedRoute,
     public unit: UnitService,
     public router: Router) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
-      const record = this.minivites.query({ id })[0];
-      this.record = record || minivites.defaultRecord;
+      const record = this.nutrients.query({ id })[0];
+      this.record = record || nutrients.defaultRecord;
       console.log(record);
     }
 

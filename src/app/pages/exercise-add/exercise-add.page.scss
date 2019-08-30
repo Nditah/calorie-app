@@ -37,6 +37,8 @@
         background-size: cover;
         filter: opacity(0.3);
         -webkit-filter: opacity(0.3);
+        position: sticky;
+        top: 0;
     }
     
     .card-head {

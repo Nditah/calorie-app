@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { ApiService, AlertService } from 'src/app/services';
-import { ApiResponse } from 'src/app/models';
+import {ApiResponse, Feedback} from 'src/app/models';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { ApiResponse } from 'src/app/models';
 })
 export class FeedbackPage implements OnInit {
 
-  page = 'Feedback';
+  page = 'Notifications';
   records: any;
 
   constructor(public api: ApiService,
@@ -32,7 +32,7 @@ export class FeedbackPage implements OnInit {
     await loading.present();
     await this.api.getFeedback('').subscribe((res: ApiResponse) => {
         console.log(res);
-        this.records = res.payload;
+        this.records = res.payload.filter((item) => item.deleted === false);
         loading.dismiss();
         this.alertService.presentToast(res.message);
       }, err => {

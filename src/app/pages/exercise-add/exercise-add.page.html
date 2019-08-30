@@ -28,24 +28,32 @@
         <ion-card-content>
           <ion-list lines="none">
             <ion-item>
-              <ion-icon name="fitness" slot="start"></ion-icon>
-              <ion-input type="text" placeholder="Exercise Name" formControlName="name" id="name"></ion-input>
+              <ion-icon padding-top name="fitness" slot="start"></ion-icon>
+              <ion-label color="success" position="floating">Exercise Name</ion-label>
+              <ion-input type="text" formControlName="name" id="name"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-icon name="apps" slot="start"></ion-icon>
-              <ion-label>Category</ion-label>
+              <ion-icon padding-top name="apps" slot="start"></ion-icon>
+              <ion-label color="success" no-padding position="floating">Category</ion-label>
               <ion-select formControlName="category" id="category">
                 <ion-select-option value="SPORT">Sport</ion-select-option>
                 <ion-select-option value="WORKOUT">Workout</ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item>
-              <ion-icon name="nutrition" slot="start"></ion-icon>
-              <ion-input type="number" placeholder="Calorie Rate" formControlName="calorie_rate" id="calorie_rate"></ion-input>
+              <ion-icon padding-top name="nutrition" slot="start"></ion-icon>
+              <ion-label color="success" position="floating">Calorie Rate (kcal)</ion-label>
+              <ion-input type="number" formControlName="calorie_rate" id="calorie_rate"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-icon name="list" slot="start"></ion-icon>
-              <ion-input type="text" placeholder="Description" formControlName="description" id="description"></ion-input>
+              <ion-icon padding-top name="done-all" slot="start"></ion-icon>
+              <ion-label color="success" position="floating">Tasks (run, jump, ...)</ion-label>
+              <ion-input type="text" formControlName="tasks" id="tasks"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-icon padding-top name="list" slot="start"></ion-icon>
+              <ion-label color="success" position="floating">Description</ion-label>
+              <ion-input type="text" formControlName="description" id="description"></ion-input>
             </ion-item>
           </ion-list>
           <br/>

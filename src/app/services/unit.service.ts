@@ -11,8 +11,16 @@ export enum MassUnits {
   Ounce = 'oz',
 }
 
+export enum EnergyUnits {
+  Kilocalorie = 'kcal',
+  Joule = 'j',
+  Gramcalorie = 'gcal',
+  Kilojoule = 'kj',
+}
+
 export enum VolumeUnits {
   Milliliter = 'ml',
+  Centiliter = 'cl',
   Liter = 'l',
   Gallon = 'gal',
   Pint = 'pt',
@@ -33,12 +41,14 @@ export enum UnitType {
   Mass = 'Mass',
   Volume = 'Volume',
   Length =  'Length',
+  Energy = 'Energy',
 }
 
 interface UnitSettings {
   Mass: MassUnits;
   Volume: VolumeUnits;
   Length: LengthUnits;
+  Energy: EnergyUnits;
 }
 
 @Injectable({
@@ -63,6 +73,7 @@ export class UnitService {
       [VolumeUnits.Gallon]: 0.0002641721,
       [VolumeUnits.Liter]: 0.001,
       [VolumeUnits.Pint]: 0.0021133764,
+      [VolumeUnits.Centiliter]: 0.1,
     },
     Length: {
       [LengthUnits.Centimeter]: 1,
@@ -73,12 +84,19 @@ export class UnitService {
       [LengthUnits.Meter]: 0.01,
       [LengthUnits.Millimeter]: 10,
     },
+    Energy: {
+      [EnergyUnits.Kilocalorie]: 1,
+      [EnergyUnits.Gramcalorie]: 1000,
+      [EnergyUnits.Joule]: 4184,
+      [EnergyUnits.Kilojoule]: 4.184,
+    },
   };
 
   private _defaults: UnitSettings = {
     Mass: MassUnits.Gram,
     Volume: VolumeUnits.Milliliter,
     Length: LengthUnits.Centimeter,
+    Energy: EnergyUnits.Kilocalorie,
   };
 
   private units: UnitSettings = Object.assign({}, this._defaults);
@@ -117,17 +135,24 @@ export class UnitService {
     return `${output}${showUnit ? ' ' + outUnit : ''}`;
   }
 
-  public volume = (value: number, fromUnit: VolumeUnits|any = null, toUnit: MassUnits|any = null, showUnit = true) => {
+  public volume = (value: number, fromUnit: VolumeUnits|any = null, toUnit: VolumeUnits|any = null, showUnit = true) => {
     const inUnit = fromUnit || this.units.Volume;
     const outUnit = toUnit || this.units.Volume;
     const output = this.numberPipe.transform(((value / this._settings.Volume[inUnit]) * this._settings.Volume[outUnit]), '1.1-2');
     return `${output}${showUnit ? ' ' + outUnit : ''}`;
   }
 
-  public length = (value: number, fromUnit: LengthUnits|any = null, toUnit: MassUnits|any = null, showUnit = true) => {
+  public length = (value: number, fromUnit: LengthUnits|any = null, toUnit: LengthUnits|any = null, showUnit = true) => {
     const inUnit = fromUnit || this.units.Length;
     const outUnit = toUnit || this.units.Length;
     const output = this.numberPipe.transform(((value / this._settings.Length[inUnit]) * this._settings.Length[outUnit]), '1.1-2');
+    return `${output}${showUnit ? ' ' + outUnit : ''}`;
+  }
+
+  public energy = (value: number, fromUnit: EnergyUnits|any = null, toUnit: EnergyUnits|any = null, showUnit = true) => {
+    const inUnit = fromUnit || this.units.Energy;
+    const outUnit = toUnit || this.units.Energy;
+    const output = this.numberPipe.transform(((value / this._settings.Energy[inUnit]) * this._settings.Energy[outUnit]), '1.1-2');
     return `${output}${showUnit ? ' ' + outUnit : ''}`;
   }
 

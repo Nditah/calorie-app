@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup} from '@angular/forms';
 import { Location } from '@angular/common';
 import { AuthService, ApiService } from 'src/app/services';
 import { User, ApiResponse } from 'src/app/models';
+import {UnitService} from '../../services/unit.service';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-user',
@@ -18,13 +20,17 @@ export class UserPage implements OnInit {
 
   user: User;
 
-  constructor(private menu: MenuController,
+  constructor(
+      private menu: MenuController,
       private authService: AuthService,
       private apiService: ApiService,
       private formBuilder: FormBuilder,
       private location: Location,
       public toastCtrl: ToastController,
-      public loadingCtrl: LoadingController) {
+      public loadingCtrl: LoadingController,
+      public unit: UnitService,
+      private storage: Storage,
+  ) {
 
     this.menu.enable(true);
 
@@ -45,13 +51,26 @@ export class UserPage implements OnInit {
 }
 
   ngOnInit() {
-    this.authService.getUser().then(user => {
-      this.user = user;
-      console.log(user);
-    });
-   }
+    this.getUser();
+  }
 
-  ionViewWillEnter() {
+  getUser() {
+    this.storage.get('user').then(user => {
+      this.user = user;
+      this.setForm();
+      console.log(user);
+    }).catch(e => null);
+  }
+
+  setUser(value: any) {
+    this.storage.set('user', value).then(user => {
+      this.user = user;
+      this.setForm();
+      console.log(user);
+    }).catch(e => null);
+  }
+
+  setForm() {
     this.editForm.get('username').setValue(this.user.username || '');
     this.editForm.get('gender').setValue(this.user.gender || '');
     this.editForm.get('email').setValue(this.user.email || '');
@@ -63,10 +82,6 @@ export class UserPage implements OnInit {
     this.editForm.get('desired_mass').setValue(this.user.desired_mass || '');
     this.editForm.get('height').setValue(this.user.height || '');
     this.editForm.get('lifestyle').setValue(this.user.lifestyle || '');
-  }
-
-  getDateString(str) {
-      return `${new Date(str).toISOString().slice(0, 22)}Z`;
   }
 
   changedSmtng() {
@@ -84,6 +99,7 @@ export class UserPage implements OnInit {
     return this.apiService.updateUser(this.user.id, payload)
     .subscribe((data: ApiResponse) => {
         if (data.success) {
+          this.setUser(data.payload);
           setTimeout(async() => {
             loading.dismiss();
             const toast = await this.toastCtrl.create({
@@ -94,7 +110,6 @@ export class UserPage implements OnInit {
             this.caption_name = 'EDIT';
             this.isDisabled = true;
             await toast.present();
-  
           }, 2000);
         } else {
           setTimeout(async() => {
@@ -107,7 +122,6 @@ export class UserPage implements OnInit {
             this.caption_name = 'EDIT';
             this.isDisabled = true;
             await toast.present();
-  
           }, 2000);
         }
       }),  err => {

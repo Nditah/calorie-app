@@ -9,12 +9,14 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let record of records" routerLink="/feedback-detail/{{record.id}}">
-      <ion-icon name="desktop" slot="start"></ion-icon>
-      {{ record.name }}
-      <div class="item-note" slot="end">
-        {{record.created_at | date}}
-      </div>
+    <ion-item *ngFor="let record of records" routerLink="/feedback-detail/{{record.id}}" routerDirection="forward">
+      <ion-icon color="{{record.type}}" *ngIf="record.status === 'unread'" name="mail-unread" slot="start" size="large"></ion-icon>
+      <ion-icon color="{{record.type}}" *ngIf="record.status === 'read'" name="mail-open" slot="start" size="large"></ion-icon>
+      <ion-label nowrap>
+        <p float-end>{{record.created_at | date: 'MMM d'}}</p>
+        <h2>{{record.title | titlecase}}</h2>
+        <p>{{(record.message ? record.message : '')}}</p>
+      </ion-label>
     </ion-item>
   </ion-list>
   <!--
@@ -22,14 +24,5 @@
       You navigated here from <b>{{selectedItem.title }}</b>
     </div>
   -->
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/feedback-add" color="success">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
   <div class="bottom-shadow"></div>
 </ion-content>

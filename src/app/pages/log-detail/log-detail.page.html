@@ -22,7 +22,7 @@
                 <ion-item lines="none">
                     <ion-label>
                         <p>Current Mass (Weight)</p>
-                        <h2>{{ unit.mass(record.current_mass || 0, 'g') }}</h2>
+                        <h2>{{ unit.mass(record.current_mass || 0, 'kg') }}</h2>
                     </ion-label>
                 </ion-item>
                 <ion-item lines="none">
@@ -34,7 +34,8 @@
                 <ion-item lines="none">
                     <ion-label>
                         <p>Food Quantity</p>
-                        <h2>{{ unit.mass(record.food_quantity, 'g') }}</h2>
+                        <h2 *ngIf="record.food.category === 'FOOD'">{{ unit.mass(record.food_quantity, 'kg') }}</h2>
+                        <h2 *ngIf="record.food.category === 'DRINK'">{{ unit.volume(record.food_quantity, 'lt') }}</h2>
                     </ion-label>
                 </ion-item>
                 <ion-item lines="none">

@@ -1,4 +1,4 @@
-import { LengthUnits } from 'src/app/services/unit.service';
+import {EnergyUnits, LengthUnits} from 'src/app/services/unit.service';
 import { UnitService, UnitType, MassUnits, VolumeUnits } from './../../services/unit.service';
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
@@ -28,6 +28,10 @@ export class SettingPage implements OnInit {
     [UnitType.Length]: {
       units: Object.values(LengthUnits),
       labels: Object.keys(LengthUnits),
+    },
+    [UnitType.Energy]: {
+      units: Object.values(EnergyUnits),
+      labels: Object.keys(EnergyUnits),
     },
   };
   currentConverter = UnitType.Mass;
@@ -78,6 +82,9 @@ export class SettingPage implements OnInit {
       case UnitType.Volume:
         this.convertTo.value = this.replaceAll(this.unit.volume($value, this.convertFrom.unit, this.convertTo.unit, false));
         break;
+      case UnitType.Energy:
+        this.convertTo.value = this.replaceAll(this.unit.energy($value, this.convertFrom.unit, this.convertTo.unit, false));
+        break;
     }
   }
 
@@ -91,6 +98,9 @@ export class SettingPage implements OnInit {
         break;
       case UnitType.Volume:
         this.convertFrom.value = this.replaceAll(this.unit.volume(this.convertTo.value, this.convertTo.unit, $value, false));
+        break;
+      case UnitType.Energy:
+        this.convertFrom.value = this.replaceAll(this.unit.energy(this.convertTo.value, this.convertTo.unit, $value, false));
         break;
     }
   }
@@ -106,6 +116,9 @@ export class SettingPage implements OnInit {
       case UnitType.Volume:
         this.convertTo.value = this.replaceAll(this.unit.volume(this.convertFrom.value, this.convertFrom.unit, $value, false));
         break;
+      case UnitType.Energy:
+        this.convertTo.value = this.replaceAll(this.unit.energy(this.convertFrom.value, this.convertFrom.unit, $value, false));
+        break;
     }
   }
 
@@ -120,6 +133,9 @@ export class SettingPage implements OnInit {
         break;
       case UnitType.Volume:
         this.convertFrom.value = this.replaceAll(this.unit.volume($value, this.convertTo.unit, this.convertFrom.unit, false));
+        break;
+      case UnitType.Energy:
+        this.convertFrom.value = this.replaceAll(this.unit.energy($value, this.convertTo.unit, this.convertFrom.unit, false));
         break;
     }
   }
@@ -148,6 +164,11 @@ export class SettingPage implements OnInit {
       type: UnitType.Volume,
       labels: Object.keys(VolumeUnits),
       values: Object.values(VolumeUnits),
+    },
+    {
+      type: UnitType.Energy,
+      labels: Object.keys(EnergyUnits),
+      values: Object.values(EnergyUnits),
     }];
   }
 
@@ -156,6 +177,7 @@ export class SettingPage implements OnInit {
       [UnitType.Mass]: [this.unit.getValue(UnitType.Mass), Validators.required],
       [UnitType.Length]: [this.unit.getValue(UnitType.Length), Validators.required],
       [UnitType.Volume]: [this.unit.getValue(UnitType.Volume), Validators.required],
+      [UnitType.Energy]: [this.unit.getValue(UnitType.Energy), Validators.required],
     });
   }
 
@@ -164,5 +186,6 @@ export class SettingPage implements OnInit {
     this.editForm.controls[UnitType.Mass].setValue(units[UnitType.Mass]);
     this.editForm.controls[UnitType.Length].setValue(units[UnitType.Length]);
     this.editForm.controls[UnitType.Volume].setValue(units[UnitType.Volume]);
+    this.editForm.controls[UnitType.Energy].setValue(units[UnitType.Energy]);
   }
 }

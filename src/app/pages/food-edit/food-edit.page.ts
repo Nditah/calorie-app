@@ -15,10 +15,14 @@ export class FoodEditPage implements OnInit {
 
   @ViewChild('slides') slides: IonSlides;
   editForm: FormGroup;
-  minivites: FormArray;
+  nutrients: FormArray;
   vitamins: FormArray;
   isReadyToSave = false;
   currentSLide = 1;
+  categoryControl: FormControl;
+  unitControl: FormControl;
+  foodUnit: string = null;
+  foodNutrients = [];
 
   constructor(public api: ApiService,
     private alertService: AlertService,
@@ -35,18 +39,48 @@ export class FoodEditPage implements OnInit {
         'category': [null, Validators.required], // enum: ["FOOD", "DRINK"]
         'description': [null, Validators.required],
         'quantity': [null, Validators.required],
+        'unit': [null, Validators.required],
+        'ph': [null, [Validators.required, Validators.min(0), Validators.max(14)]],
         'water': [null, Validators.required],
         'calories': [null, Validators.required],
         'carbohydrate': [null, Validators.required],
         'protein': [null, Validators.required],
         'fats': [null, Validators.required],
         'fibre': [null, Validators.required],
-        'minivites' : this.formBuilder.array([]),
+        'nutrients' : this.formBuilder.array([]),
+        'ingredients' : this.formBuilder.array([]),
       });
+
+      this.categoryControl = this.editForm.get('category') as FormControl;
+      this.unitControl = this.editForm.get('unit') as FormControl;
+      this.foodUnit = this.unitControl.value;
     }
 
   ngOnInit() {
+    this.getNutrients();
+
     this.slides.lockSwipes(true);
+
+    this.unitControl.valueChanges.subscribe(value => {
+      this.foodUnit = value;
+    });
+
+    this.categoryControl.valueChanges.subscribe(value => {
+      switch (value) {
+        case 'FOOD':
+          this.unitControl.setValue('mg');
+          break;
+        case 'DRINK':
+          this.unitControl.setValue('ml');
+          break;
+      }
+    });
+  }
+
+  getNutrients() {
+    this.api.getNutrients('').subscribe((res: ApiResponse) => {
+      this.foodNutrients = res.payload.map(item => ({id: item.id, name: item.name}));
+    });
   }
 
   prev() {
@@ -79,6 +113,8 @@ export class FoodEditPage implements OnInit {
         this.editForm.controls['name'].setValue(record.name);
         this.editForm.controls['category'].setValue(record.category);
         this.editForm.controls['description'].setValue(record.description);
+        this.editForm.controls['ph'].setValue(record.ph);
+        this.editForm.controls['unit'].setValue(record.unit);
         this.editForm.controls['quantity'].setValue(record.quantity);
         this.editForm.controls['water'].setValue(record.water);
         this.editForm.controls['calories'].setValue(record.calories);
@@ -87,19 +123,21 @@ export class FoodEditPage implements OnInit {
         this.editForm.controls['fats'].setValue(record.fats);
         this.editForm.controls['fibre'].setValue(record.fibre);
 
-        const controlArray = <FormArray> this.editForm.controls['minivites'];
-        if (record.minivites) {
-          record.minivites.forEach(item => {
+        const controlArray = <FormArray> this.editForm.controls['nutrients'];
+        if (record.nutrients) {
+          record.nutrients.forEach(item => {
             controlArray.push(this.formBuilder.group({
-              minivite_name: item.minivite_name,
-              minivite_value: item.minivite_value,
+              nutrient: item.nutrient.id,
+              quantity: item.quantity,
             }));
           });
+        }
 
-          // for (let i = 0; i < record.minivites.length; i++) {
-          //   controlArray.controls[i].get('minivite_name').setValue(record.minivites[i].minivite_name);
-          //   controlArray.controls[i].get('minivite_value').setValue(record.minivites[i].minivite_value);
-          // }
+        const ingredientsArray = <FormArray> this.editForm.controls['ingredients'];
+        if (record.ingredients) {
+          record.ingredients.forEach(item => {
+            ingredientsArray.push(this.formBuilder.control(item));
+          });
         }
 
         console.log(this.editForm);
@@ -126,19 +164,31 @@ export class FoodEditPage implements OnInit {
 
   }
 
-  createMinivite(): FormGroup {
+  createNutrient(): FormGroup {
     return this.formBuilder.group({
-      minivite_name: '',
-      minivite_value: '',
+      nutrient: [null, Validators.required],
+      quantity: [null, Validators.required],
     });
   }
 
-  addBlankMinivite(): void {
-    this.minivites = this.editForm.get('minivites') as FormArray;
-    this.minivites.push(this.createMinivite());
+  addBlankNutrient(): void {
+    this.nutrients = this.editForm.get('nutrients') as FormArray;
+    this.nutrients.push(this.createNutrient());
   }
 
-  deleteInput(control, index) {
+  deleteNutrient(control, index) {
+    control.removeAt(index);
+  }
+
+  createIngredient(): FormControl {
+    return this.formBuilder.control(null, Validators.required);
+  }
+
+  addBlankIngredient(): void {
+    (this.editForm.get('ingredients') as FormArray).push(this.createIngredient());
+  }
+
+  deleteIngredient(control, index): void {
     control.removeAt(index);
   }
 

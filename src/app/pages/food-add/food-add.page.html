@@ -16,7 +16,7 @@
     <br/>
     <ion-card padding>
       <ion-card-header class="card-head">
-        <ion-card-subtitle>Step: {{currentSLide}} or 4</ion-card-subtitle>
+        <ion-card-subtitle>Step: {{currentSLide}} or 5</ion-card-subtitle>
         <ion-button color="danger" fill="clear" (click)="cancel()">
           <ion-label>Cancel</ion-label>
         </ion-button>
@@ -28,20 +28,27 @@
             <ion-card-content>
               <ion-list lines="full">
                 <ion-item>
-                  <ion-icon name="ice-cream" slot="start"></ion-icon>
-                  <ion-input type="text" placeholder="Name" formControlName="name" id="name"></ion-input>
+                  <ion-icon padding-top name="ice-cream" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Name</ion-label>
+                  <ion-input type="text" formControlName="name" id="name"></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-icon name="apps" slot="start"></ion-icon>
-                  <ion-label>Category</ion-label>
+                  <ion-icon padding-top name="apps" slot="start"></ion-icon>
+                  <ion-label color="success" no-padding position="floating">Category</ion-label>
                   <ion-select formControlName="category" id="category">
                     <ion-select-option value="FOOD">FOOD</ion-select-option>
                     <ion-select-option value="DRINK">DRINK</ion-select-option>
                   </ion-select>
                 </ion-item>
                 <ion-item>
-                  <ion-icon name="list" slot="start"></ion-icon>
-                  <ion-input type="text" placeholder="Description" formControlName="description" id="description"></ion-input>
+                  <ion-icon padding-top name="list" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Description</ion-label>
+                  <ion-input type="text" formControlName="description" id="description"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon padding-top name="podium" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Food Quantity ({{foodUnit === null ? 'mg|ml' : foodUnit}})</ion-label>
+                  <ion-input type="number" formControlName="quantity" id="quantity"></ion-input>
                 </ion-item>
               </ion-list>
             </ion-card-content>
@@ -60,20 +67,24 @@
             <ion-card-content>
               <ion-list lines="full">
                 <ion-item>
-                  <ion-icon name="pie" slot="start"></ion-icon>
-                  <ion-input type="number" placeholder="Food Quantity" formControlName="quantity" id="quantity"></ion-input>
+                  <ion-icon padding-top name="flask" mode="ios" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Food PH (0-14)</ion-label>
+                  <ion-input type="number" formControlName="ph" id="ph" min="0" max="14"></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-icon name="water" slot="start"></ion-icon>
-                  <ion-input placeholder="Water Content" type="number" formControlName="water" id="water"></ion-input>
+                  <ion-icon padding-top name="water" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Water Content (cl)</ion-label>
+                  <ion-input type="number" formControlName="water" id="water"></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-icon name="nutrition" slot="start"></ion-icon>
-                  <ion-input placeholder="Calories" type="number" formControlName="calories" id="calories"></ion-input>
+                  <ion-icon padding-top name="nutrition" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Calories (Kcal)</ion-label>
+                  <ion-input type="number" formControlName="calories" id="calories"></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-icon name="nutrition" slot="start"></ion-icon>
-                  <ion-input placeholder="Carbohydrate" type="number" formControlName="carbohydrate" id="carbs"></ion-input>
+                  <ion-icon padding-top name="nutrition" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Carbohydrate (mg)</ion-label>
+                  <ion-input type="number" formControlName="carbohydrate" id="carbs"></ion-input>
                 </ion-item>
               </ion-list>
             </ion-card-content>
@@ -95,16 +106,19 @@
             <ion-card-content>
               <ion-list lines="full">
                 <ion-item>
-                  <ion-icon name="nutrition" slot="start"></ion-icon>
-                  <ion-input placeholder="Protein" type="number" formControlName="protein" id="protein"></ion-input>
+                  <ion-icon padding-top name="nutrition" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Protein (mg)</ion-label>
+                  <ion-input type="number" formControlName="protein" id="protein"></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-icon name="nutrition" slot="start"></ion-icon>
-                  <ion-input type="number" placeholder="Fats" formControlName="fats" id="fats"></ion-input>
+                  <ion-icon padding-top name="nutrition" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Fats (mg)</ion-label>
+                  <ion-input type="number" formControlName="fats" id="fats"></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-icon name="nutrition" slot="start"></ion-icon>
-                  <ion-input type="number" placeholder="Fiber" formControlName="fibre" id="fibre"></ion-input>
+                  <ion-icon padding-top name="nutrition" slot="start"></ion-icon>
+                  <ion-label color="success" position="floating">Fiber (mg)</ion-label>
+                  <ion-input type="number" formControlName="fibre" id="fibre"></ion-input>
                 </ion-item>
               </ion-list>
             </ion-card-content>
@@ -125,30 +139,75 @@
           <div style="width: 100%">
             <ion-card-header class="card-head">
               <ion-card-title>Nutrients</ion-card-title>
-              <ion-button fill="clear" color="success" (click)="addBlankMinivite()">
+              <ion-button fill="clear" color="success" (click)="addBlankNutrient()">
                 <ion-icon name="add" slot="start"></ion-icon>
                 <ion-label>Add</ion-label>
               </ion-button>
             </ion-card-header>
             <ion-card-content no-padding>
-              <div formArrayName="minivites" style="width: 100%">
+              <div formArrayName="nutrients" style="width: 100%">
                 <ion-grid>
-                  <ion-row class="nuts" *ngFor="let minivite of addForm.get('minivites')['controls']; let i=index" [formGroupName]="i">
-                    <ion-col size="1">
-                      <ion-icon name="arrow-dropright" mode="md"></ion-icon>
+                  <ion-row class="nuts" *ngFor="let nutrient of addForm.get('nutrients')['controls']; let i=index" [formGroupName]="i">
+                    <ion-col size="5">
+                      <ion-item lines="full">
+                        <ion-label color="success" position="floating">Nutrient</ion-label>
+                        <ion-select formControlName="nutrient" id="nutrient">
+                          <ion-select-option *ngFor="let nut of foodNutrients; let x=index" value="{{nut.id}}">{{nut.name}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
                     </ion-col>
                     <ion-col size="5">
                       <ion-item lines="full">
-                        <ion-input type="text" placeholder="Name" formControlName="minivite_name" item-start></ion-input>
-                      </ion-item>
-                    </ion-col>
-                    <ion-col size="4">
-                      <ion-item lines="full">
-                        <ion-input type="number" placeholder="Value" formControlName="minivite_value" item-start></ion-input>
+                        <ion-label color="success" position="floating">Value (mg)</ion-label>
+                        <ion-input type="number" formControlName="quantity"></ion-input>
                       </ion-item>
                     </ion-col>
                     <ion-col size="2">
-                      <ion-button size="small" fill="clear" color="danger" (click)="deleteMinivite(addForm.get('minivites'), i)">
+                      <ion-button size="small" fill="clear" color="danger" (click)="deleteNutrient(addForm.get('nutrients'), i)">
+                        <ion-icon name="close" mode="md"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </ion-card-content>
+            <ion-card-header class="card-head">
+              <ion-button color="success" fill="clear" shape="round" (click)="prev()">
+                <ion-icon name="arrow-back" slot="start"></ion-icon>
+                <ion-label>Prev</ion-label>
+              </ion-button>
+              <ion-button color="success" fill="clear" shape="round" (click)="next()">
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+                <ion-label>Next</ion-label>
+              </ion-button>
+            </ion-card-header>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="width: 100%">
+            <ion-card-header class="card-head">
+              <ion-card-title>Ingredients</ion-card-title>
+              <ion-button fill="clear" color="success" (click)="addBlankIngredient()">
+                <ion-icon name="add" slot="start"></ion-icon>
+                <ion-label>Add</ion-label>
+              </ion-button>
+            </ion-card-header>
+            <ion-card-content no-padding>
+              <div formArrayName="ingredients" style="width: 100%">
+                <ion-grid>
+                  <ion-row class="nuts" *ngFor="let ingredient of addForm.get('ingredients')['controls']; let i=index" [formGroupName]="i">
+                    <ion-col size="1">
+                      <ion-icon name="arrow-dropright" mode="md"></ion-icon>
+                    </ion-col>
+                    <ion-col size="9">
+                      <ion-item lines="full">
+                        <ion-label color="success" position="floating">Ingredient Name</ion-label>
+                        <ion-input type="text" [formControl]="ingredient"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="2">
+                      <ion-button size="small" fill="clear" color="danger" (click)="deleteIngredient(addForm.get('ingredients'), i)">
                         <ion-icon name="close" mode="md"></ion-icon>
                       </ion-button>
                     </ion-col>

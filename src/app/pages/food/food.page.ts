@@ -27,6 +27,7 @@ export class FoodPage implements OnInit {
   }
 
   ngOnInit() {
+    this.currentRecords = this.foods.query();
     this.reloadRecords();
   }
 

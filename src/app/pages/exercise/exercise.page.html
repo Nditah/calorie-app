@@ -14,7 +14,8 @@
   <ion-list lines="none">
     <ion-item *ngFor="let record of currentRecords" routerLink="/exercise-detail/{{record.id}}" routerDirection="forward">
       <ion-avatar item-start slot="start">
-        <img [src]="record.image" alt=" "/>
+        <img *ngIf="record.images.length === 0" [src]="record.image" alt=" "/>
+        <img *ngIf="record.images.length > 0" [src]="record.images[0]" alt=" "/>
       </ion-avatar>
       <ion-label>
         <h2>{{ record.name }}</h2>

@@ -1,41 +1,64 @@
 <ion-header>
-    <ion-toolbar color="success">
-      <ion-buttons slot="start">
-          <ion-back-button defaultHref="/exercise"></ion-back-button>
-      </ion-buttons>
-      <ion-title> {{ page }} </ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="cancel()">
-          <span color="primary" showWhen="ios">Cancel</span>
-          <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-        </ion-button>
-        <ion-button (click)="submitRecord()" [disabled]="!isReadyToSave" strong>
-          <span color="primary" showWhen="ios">Done</span>
-          <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <form [formGroup]="editForm">
-      <ion-item>
-          <ion-label position="floating">Exercise Name</ion-label>
-          <ion-input type="text" formControlName="name" id="name"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Category</ion-label>
-          <ion-input type="text" formControlName="category" id="category"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Description</ion-label>
-          <ion-input type="text" formControlName="description" id="description"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Calorie</ion-label>
-          <ion-input type="number" formControlName="calorie" id="calorie"></ion-input>
-        </ion-item>
+  <ion-toolbar class="green-dark">
+    <ion-buttons slot="start">
+      <ion-back-button color="light" defaultHref="/exercise"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Edit Exercise</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-      <ion-button shape="round" color="primary" expand="block" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>
-    </form>
-  </ion-content>
+<ion-content no-padding>
+  <div class="green-dark header"></div>
+  <form *ngIf="editForm" [formGroup]="editForm">
+    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+    <div class="profile-image-wrapper" (click)="getPicture()">
+      <div class="profile-image-placeholder green-dark" *ngIf="!this.editForm.controls.image.value">
+        <ion-icon name="camera" color="light" ios="ios-camera-outline" md="md-camera"></ion-icon>
+        <div>Choose image</div>
+      </div>
+      <div class="profile-image" [style.backgroundImage]="getImageStyle()" *ngIf="this.editForm.controls.image.value"></div>
+    </div>
+    <ion-card padding>
+      <ion-card-header class="card-head">
+        <ion-card-subtitle>New Exercise</ion-card-subtitle>
+        <ion-button color="danger" fill="clear" (click)="cancel()">
+          <ion-label>Cancel</ion-label>
+        </ion-button>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-icon padding-top name="fitness" slot="start"></ion-icon>
+            <ion-label color="success" position="floating">Exercise Name</ion-label>
+            <ion-input type="text" formControlName="name" id="name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon padding-top name="apps" slot="start"></ion-icon>
+            <ion-label color="success" no-padding position="floating">Category</ion-label>
+            <ion-select formControlName="category" id="category">
+              <ion-select-option value="SPORT">Sport</ion-select-option>
+              <ion-select-option value="WORKOUT">Workout</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-icon padding-top name="nutrition" slot="start"></ion-icon>
+            <ion-label color="success" position="floating">Calorie Rate (kcal)</ion-label>
+            <ion-input type="number" formControlName="calorie_rate" id="calorie_rate"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon padding-top name="done-all" slot="start"></ion-icon>
+            <ion-label color="success" position="floating">Tasks (run, jump, ...)</ion-label>
+            <ion-input type="text" formControlName="tasks" id="tasks"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon padding-top name="list" slot="start"></ion-icon>
+            <ion-label color="success" position="floating">Description</ion-label>
+            <ion-input type="text" formControlName="description" id="description"></ion-input>
+          </ion-item>
+        </ion-list>
+        <br/>
+        <ion-button shape="round" expand="full" color="success" [disabled]="!editForm.valid" (click)="submitRecord()">Submit</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

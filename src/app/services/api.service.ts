@@ -120,14 +120,14 @@ export class ApiService {
   // /////////////////////////////////
 
   getFeedback(path): Observable<any> {
-    const url = `${this.env.API_URL}/feedbacks${path}`;
+    const url = `${this.env.API_URL}/notifications${path}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
 
   postFeedback(data): Observable<any> {
-    const url = `${this.env.API_URL}/feedbacks`;
+    const url = `${this.env.API_URL}/notifications`;
     const payload = this.cleanObject(data);
     return this.http.post(url, payload, httpOptions).pipe(
         catchError(this.handleError)
@@ -135,7 +135,7 @@ export class ApiService {
   }
 
   updateFeedback(id: string, data): Observable<any> {
-    const url = `${this.env.API_URL}/feedbacks/${id}`;
+    const url = `${this.env.API_URL}/notifications/${id}`;
     const payload = this.cleanObject(data);
     return this.http.put(url, payload, httpOptions).pipe(
         catchError(this.handleError)
@@ -143,7 +143,7 @@ export class ApiService {
   }
 
   deleteFeedback(id: string): Observable<{}> {
-    const url = `${this.env.API_URL}/feedbacks/${id}`;
+    const url = `${this.env.API_URL}/notifications/${id}`;
     return this.http.delete(url, httpOptions).pipe(
         catchError(this.handleError)
       );
@@ -245,8 +245,8 @@ export class ApiService {
   // ----------MINIVITES-------------//
   // /////////////////////////////////
 
-  getMinivite(path): Observable<any> {
-    const url = `${this.env.API_URL}/minivites${path}`;
+  getNutrients(path): Observable<any> {
+    const url = `${this.env.API_URL}/nutrients${path}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));

@@ -24,6 +24,18 @@
                         <h2>{{ record.name }}</h2>
                     </ion-label>
                 </ion-item>
+                <ion-item lines="none" *ngIf="record.unit === 'ml'">
+                    <ion-label>
+                        <p>Quantity</p>
+                        <h2>{{ unit.volume(record.quantity, record.unit) }}</h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none" *ngIf="record.unit === 'mg'">
+                    <ion-label>
+                        <p>Quantity</p>
+                        <h2>{{ unit.mass(record.quantity, record.unit) }}</h2>
+                    </ion-label>
+                </ion-item>
                 <ion-label>
                     <p padding-horizontal>Description</p>
                     <h2 class="gray-text" text-justify padding-horizontal>{{ record.description }}</h2>
@@ -31,13 +43,13 @@
                 <ion-item lines="none">
                     <ion-label>
                         <p>Water</p>
-                        <h2>{{ unit.mass(record.water, 'mg') }}</h2>
+                        <h2>{{ unit.volume(record.water, 'cl') }}</h2>
                     </ion-label>
                 </ion-item>
                 <ion-item lines="none">
                     <ion-label>
                         <p>Calorie</p>
-                        <h2>{{ unit.mass(record.calories, 'mg') }}</h2>
+                        <h2>{{ unit.energy(record.calories, 'kcal') }}</h2>
                     </ion-label>
                 </ion-item>
                 <ion-item lines="none">
@@ -66,29 +78,35 @@
                 </ion-item>
                 <ion-item lines="none">
                     <ion-label>
-                        <p>Nutrients ({{ record.minivites ? record.minivites.length : 0}})</p>
-                        <ion-grid *ngIf="record.minivites && record.minivites.length > 0">
+                        <p>Nutrients ({{ record.nutrients ? record.nutrients.length : 0}})</p>
+                        <ion-grid *ngIf="record.nutrients && record.nutrients.length > 0">
                             <ion-row>
                                 <ion-col size="9">
                                     <ion-text item-start>Nutrient Name</ion-text>
                                 </ion-col>
                                 <ion-col size="3">
-                                    <ion-text item-end>Volume</ion-text>
+                                    <ion-text item-end>Quantity</ion-text>
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
-                        <h2 *ngFor="let minivite of record.minivites">
+                        <h2 *ngFor="let nutrient of record.nutrients">
                             <ion-grid>
                                 <ion-row>
                                     <ion-col size="9">
-                                        <ion-text item-start>{{ minivite.minivite_name || '---' }}</ion-text>
+                                        <ion-text item-start>{{ nutrient.nutrient.name || '---' }}</ion-text>
                                     </ion-col>
                                     <ion-col size="3">
-                                        <ion-text item-end> {{ unit.mass(minivite.minivite_value, 'mg') }}</ion-text>
+                                        <ion-text item-end> {{ unit.mass(nutrient.quantity, 'mg') }}</ion-text>
                                     </ion-col>
                                 </ion-row>
                             </ion-grid>
                         </h2>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label>
+                        <p>Ingredients ({{ record.ingredients ? record.ingredients.length : 0}})</p>
+                        <h2 *ngIf="record.ingredients" padding>{{record.ingredients.join(', ')}}</h2>
                     </ion-label>
                 </ion-item>
             </ion-list>

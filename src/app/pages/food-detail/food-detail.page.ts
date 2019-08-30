@@ -27,11 +27,11 @@ export class FoodDetailPage implements OnInit {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
       const record = this.foods.query({ id })[0];
       this.record = record || foods.defaultRecord;
-      console.log(record);
+      console.log(this.record);
     }
 
   ngOnInit() {
-    // this.getFood();
+    this.getFood();
   }
 
   async getFood() {
@@ -68,7 +68,7 @@ export class FoodDetailPage implements OnInit {
               this.alertService.presentToast('Operation successful');
             }
             loading.dismiss();
-            // this.location.back();
+            this.router.navigateByUrl('/food');
           }, err => {
             console.log(err);
             loading.dismiss();

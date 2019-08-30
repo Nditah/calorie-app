@@ -52,7 +52,7 @@
                             <ion-icon name="person" slot="start"></ion-icon>
                             <ion-label class="label_here">
                                 <p>Date of Birth</p>
-                                <h3>{{user.birth_date}}</h3>
+                                <h3>{{user.birth_date | date}}</h3>
                             </ion-label>
                         </ion-item>
 
@@ -67,16 +67,16 @@
                         <ion-item class="my-item" lines="none">
                             <ion-icon name="resize" slot="start"></ion-icon>
                             <ion-label class="label_here">
-                                <p>Height(cm)</p>
-                                <h3>{{user.height}}</h3>
+                                <p>Height</p>
+                                <h3>{{unit.length(user.height, 'cm')}}</h3>
                             </ion-label>
                         </ion-item>
 
                         <ion-item class="my-item" lines="none">
                             <ion-icon name="fitness" slot="start"></ion-icon>
                             <ion-label class="label_here">
-                                <p>Desired Mass(kg)</p>
-                                <h3>{{user.desired_mass}}</h3>
+                                <p>Desired Mass</p>
+                                <h3>{{unit.mass(user.desired_mass, 'kg')}}</h3>
                             </ion-label>
                         </ion-item>
 
@@ -109,43 +109,50 @@
                 <form *ngIf="editForm && !isDisabled" [formGroup]="editForm" (ngSubmit)="saveProfile()">
                     <ion-list class="my-list">
                         <ion-item class="my-item">
-                            <ion-icon name="person" slot="start"></ion-icon>
-                            <ion-input type="text" placeholder="User Name" formControlName="username" (keyup)="changedSmtng()"></ion-input>
+                            <ion-icon padding-top name="person" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">User Name</ion-label>
+                            <ion-input type="text" formControlName="username" (keyup)="changedSmtng()"></ion-input>
                         </ion-item>
 
                         <ion-item>
-                            <ion-icon name="mail" slot="start"></ion-icon>
-                            <ion-input placeholder="Email Address" type="text" formControlName="email" (keyup)="changedSmtng()"></ion-input>
+                            <ion-icon padding-top name="mail" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">Email Address</ion-label>
+                            <ion-input type="text" formControlName="email" (keyup)="changedSmtng()"></ion-input>
                         </ion-item>
 
                         <ion-item>
-                            <ion-icon name="key" slot="start"></ion-icon>
-                            <ion-input placeholder="Password" type="password" formControlName="password" (keyup)="changedSmtng()"></ion-input>
+                            <ion-icon padding-top name="key" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">Password</ion-label>
+                            <ion-input type="password" formControlName="password" (keyup)="changedSmtng()"></ion-input>
                         </ion-item>
 
                         <ion-item style="border-bottom: 0.55px solid #fff !important;">
-                            <ion-icon name="person" slot="start"></ion-icon>
-                            <ion-datetime mode="ios" placeholder="Date of Birth" displayFormat="MM/DD/YYYY" formControlName="birth_date" (keyup)="changedSmtng()"></ion-datetime>
+                            <ion-icon padding-top name="person" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">Date of Birth</ion-label>
+                            <ion-datetime mode="ios" displayFormat="MM/DD/YYYY" formControlName="birth_date" (keyup)="changedSmtng()"></ion-datetime>
                         </ion-item>
 
                         <ion-item style="border-bottom: 0.55px solid #fff !important;">
-                            <ion-icon name="call" slot="start"></ion-icon>
-                            <ion-input placeholder="Phone Number" type="tel" formControlName="phone" (keyup)="changedSmtng()"></ion-input>
+                            <ion-icon padding-top name="call" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">Phone Number</ion-label>
+                            <ion-input type="tel" formControlName="phone" (keyup)="changedSmtng()"></ion-input>
                         </ion-item>
 
                         <ion-item style="border-bottom: 0.55px solid #fff !important;">
-                            <ion-icon name="resize" slot="start"></ion-icon>
-                            <ion-input placeholder="Height(cm)" type="number" formControlName="height" (keyup)="changedSmtng()"></ion-input>
+                            <ion-icon padding-top name="resize" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">Height (cm)</ion-label>
+                            <ion-input type="number" formControlName="height" (keyup)="changedSmtng()"></ion-input>
                         </ion-item>
 
                         <ion-item style="border-bottom: 0.55px solid #fff !important;">
-                            <ion-icon name="fitness" slot="start"></ion-icon>
-                            <ion-input placeholder="Desired Mass(kg)" type="number" formControlName="desired_mass" (keyup)="changedSmtng()"></ion-input>
+                            <ion-icon padding-top name="fitness" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">Desired Mass (kg)</ion-label>
+                            <ion-input type="number" formControlName="desired_mass" (keyup)="changedSmtng()"></ion-input>
                         </ion-item>
 
                         <ion-item style="border-bottom: 0.55px solid #fff !important;">
-                            <ion-icon name="transgender" slot="start"></ion-icon>
-                            <ion-label>Gender</ion-label>
+                            <ion-icon padding-top name="transgender" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">Gender</ion-label>
                             <ion-select formControlName="gender" (keyup)="changedSmtng()">
                                 <ion-select-option value="FEMALE">Female</ion-select-option>
                                 <ion-select-option value="MALE">Male</ion-select-option>
@@ -153,8 +160,8 @@
                         </ion-item>
 
                         <ion-item style="border-bottom: 0.55px solid #fff !important;">
-                            <ion-icon name="walk" slot="start"></ion-icon>
-                            <ion-label>Lifestyle</ion-label>
+                            <ion-icon padding-top name="walk" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">Lifestyle</ion-label>
                             <ion-select class="inputFields" formControlName="lifestyle" (keyup)="changedSmtng()">
                                 <ion-select-option value="Active">Active</ion-select-option>
                                 <ion-select-option value="Very">Very Active</ion-select-option>
@@ -163,8 +170,8 @@
                         </ion-item>
 
                         <ion-item style="border-bottom: 0.55px solid #fff !important;" lines="none">
-                            <ion-icon name="flag" slot="start"></ion-icon>
-                            <ion-label>Country</ion-label>
+                            <ion-icon padding-top name="flag" slot="start"></ion-icon>
+                            <ion-label color="success" position="floating">Country</ion-label>
                             <ion-select class="inputFields" type="text" formControlName="country_iso2" (keyup)="changedSmtng()">
                                 <ion-select-option value="NG">Nigeria</ion-select-option>
                                 <ion-select-option value="O">Others</ion-select-option>
@@ -175,7 +182,6 @@
                 </form>
             </ion-card-content>
         </ion-card>
-        <br/>
         <br/>
     </div>
 </ion-content>

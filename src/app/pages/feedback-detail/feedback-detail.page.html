@@ -3,27 +3,35 @@
     <ion-buttons slot="start">
       <ion-back-button color="light" defaultHref="/feedback"></ion-back-button>
     </ion-buttons>
-    <ion-title color="light">Food Details</ion-title>
+    <ion-title color="light">Notification</ion-title>
   </ion-toolbar>
 </ion-header>
   
-<ion-content padding>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ record.status }}</ion-card-title>
+<ion-content>
+  <ion-card no-padding *ngIf="record.title">
+    <ion-card-header no-padding>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3">
+            <ion-icon class="icon" color="{{record.type}}" name="mail-open" size="large"></ion-icon>
+          </ion-col>
+          <ion-col size="9">
+            <p float-end>{{record.created_at | date: 'MMM d'}}</p>
+            <h5>{{record.title | titlecase}}</h5>
+            <p>{{ record.message }}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="9">
+            &nbsp;
+          </ion-col>
+          <ion-col size="3">
+            <ion-button expand="block" color="danger" fill="clear" (click)="delete(record.id)">
+              <ion-icon name="remove-circle"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-header>
-
-    <ion-card-content>
-      <ion-card-subtitle>Message:</ion-card-subtitle>
-      {{ record.message }}
-      <ion-buttons slot="primary">
-        <ion-button routerLink="/exercise-edit/{{record.id}}">
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-button>
-        <ion-button (click)="delete(record.id)">
-          <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-card-content>
   </ion-card>
 </ion-content>

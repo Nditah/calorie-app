@@ -19,7 +19,7 @@ export class Foods {
     protein: 2500,
     fats: 230.0,
     fibre: 3570,
-    minivites: [{ minivite_id: '5cbb581b42b32d642a7c32f5', minivite_value: 120 }],
+    nutrients: [{ nutrient: '5cbb581b42b32d642a7c32f5', quantity: 120 }],
     image: 'assets/images/junk.jpg',
   };
 
@@ -38,7 +38,7 @@ export class Foods {
           protein: 4950,
           fats: 23.0,
           fibre: 3570,
-          minivites: [{ minivite_id: '5cbb581b42b32d642a7c32f5', minivite_value: 120 }],
+          nutrients: [{ nutrient: '5cbb581b42b32d642a7c32f5', quantity: 120 }],
           image: 'assets/images/junk.jpg',
       }
     ];
