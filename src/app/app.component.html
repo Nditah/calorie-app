@@ -21,7 +21,7 @@
                         </ion-label>
                     </ion-item>
                 </ion-menu-toggle>
-                <ion-item lines="full" class="dark-list" color="dark" (click)="logout()" href="#">
+                <ion-item *ngIf="authService.isLoggedIn" lines="full" class="dark-list" color="dark" (click)="logout()" href="#">
                     <ion-icon slot="start" name="log-out"></ion-icon>
                     <ion-label>Logout</ion-label>
                 </ion-item>

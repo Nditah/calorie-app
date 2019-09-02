@@ -22,7 +22,7 @@
                     <img *ngIf="user.gender==='MALE'" src="../../../assets/images/male-avatar.png">
                 </div>
                 <div class="profile-name">
-                    <ion-card-title *ngIf="user">{{ user.username | uppercase }}</ion-card-title>
+                    <h2 *ngIf="user">{{ user.username | uppercase }}</h2>
                     <ion-card-subtitle *ngIf="user">{{ user.lifestyle }}</ion-card-subtitle>
                 </div>
             </ion-card-header>

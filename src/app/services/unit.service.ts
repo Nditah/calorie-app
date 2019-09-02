@@ -21,7 +21,7 @@ export enum EnergyUnits {
 export enum VolumeUnits {
   Milliliter = 'ml',
   Centiliter = 'cl',
-  Liter = 'l',
+  Liter = 'lt',
   Gallon = 'gal',
   Pint = 'pt',
   Cup = 'cup',

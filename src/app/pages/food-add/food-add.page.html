@@ -149,7 +149,7 @@
                 <ion-grid>
                   <ion-row class="nuts" *ngFor="let nutrient of addForm.get('nutrients')['controls']; let i=index" [formGroupName]="i">
                     <ion-col size="5">
-                      <ion-item lines="full">
+                      <ion-item lines="full" style="width: 100%;">
                         <ion-label color="success" position="floating">Nutrient</ion-label>
                         <ion-select formControlName="nutrient" id="nutrient">
                           <ion-select-option *ngFor="let nut of foodNutrients; let x=index" value="{{nut.id}}">{{nut.name}}</ion-select-option>
